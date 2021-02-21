@@ -1,0 +1,66 @@
+{
+  "Access Utilities": [
+    {
+      "key": "rolesearch",
+      "title": "Role Search",
+      "link": "access/rolesearch"
+    },
+    {
+      "key": "role",
+      "title": "Role Editor",
+      "link": "access/role"
+    },
+    {
+      "key": "group",
+      "title": "Group Editor",
+      "link": "access/group"
+    },
+    {
+      "key": "roleview",
+      "title": "Role Viewer",
+      "link": "access/roleview"
+    },
+    {
+      "key": "dlview",
+      "title": "Distribution List Viewer",
+      "link": "access/dlview"
+    },
+    {
+      "key": "orgrole",
+      "title": "Organization Role Editor",
+      "link": "access/orgrole"
+    }
+  ],
+  "IDM Tools": [
+    {
+      "key": "idmrolesearch",
+      "title": "IDM Role Search",
+      "link": "idm/idmrolesearch"
+    },
+    {
+      "key": "idmrole",
+      "title": "IDM Role Editor",
+      "link": "idm/idmrole"
+    },
+    {
+      "key": "idmtemplate",
+      "title": "IDM Template Editor",
+      "link": "idm/idmtemplate"
+    },
+    {
+      "key": "idmrolerename",
+      "title": "IDM Role Rename Tool",
+      "link": "idm/idmrolerename"
+    },
+    {
+      "key": "idmtemplate",
+      "title": "IDM Template Assignment Tool",
+      "link": "idm/idmtemplate"
+    },
+    {
+      "key": "idmgroup",
+      "title": "IDM Group Assignment Tool",
+      "link": "idm/idmgroup"
+    }
+  ]
+}

@@ -6,15 +6,15 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { LayoutModalComponent } from './layout-modal/layout-modal.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SidebarComponent, PageNotFoundComponent],
+  declarations: [HeaderComponent, FooterComponent, SidebarComponent, PageNotFoundComponent, LayoutModalComponent],
   exports: [HeaderComponent, FooterComponent, SidebarComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class LayoutModule { }

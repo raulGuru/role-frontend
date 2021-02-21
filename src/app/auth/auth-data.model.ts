@@ -1,6 +1,6 @@
 export interface AuthData {
-  email: string;
-  name?: string;
-  password: string;
-  token?: string;
+  uid: string;
+  pw: string;
+  mode: string;
+  attrs: Array<string>
 }

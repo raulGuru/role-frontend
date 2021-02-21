@@ -5,37 +5,53 @@
                 <div class="mx-auto app-login-box col-md-8">
                     <div class="app-logo-inverse mx-auto mb-3"></div>
                     <div class="modal-dialog w-100 mx-auto">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="h5 modal-title text-center">
-                                    <h4 class="mt-2">
-                                        <div>The Administrative Services are available to authorized administrators only
-                                        </div>
-                                        <span>Please sign in</span>
-                                    </h4>
-                                </div>
-                                <form class="">
+                        <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="h5 modal-title text-center">
+                                        <h4 class="mt-2">
+                                            <div>The Administrative Services are available to authorized administrators
+                                                only
+                                            </div>
+                                            <span>Please sign in</span>
+                                        </h4>
+                                    </div>
                                     <div class="form-row">
                                         <div class="col-md-12">
-                                            <div class="position-relative form-group"><input name="email"
-                                                    id="exampleEmail" placeholder="Enterprise ID" type="email"
-                                                    class="form-control"></div>
+                                            <div class="position-relative form-group"><input name="enterpriseID"
+                                                    id="enterpriseID" placeholder="Enterprise ID" type="text"
+                                                    class="form-control" ngModel #enterpriseInput="ngModel" required
+                                                    [ngClass]="{ 'is-invalid': enterpriseInput.invalid && (enterpriseInput.dirty || enterpriseInput.touched) }">
+                                                <em *ngIf="enterpriseInput.invalid && (enterpriseInput.dirty || enterpriseInput.touched)"
+                                                    class="error invalid-feedback">
+                                                    Enterprise ID is required
+                                                </em>
+                                            </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="position-relative form-group"><input name="password"
-                                                    id="examplePassword" placeholder="Password" type="password"
-                                                    class="form-control"></div>
+                                                    id="password" placeholder="Password" type="password"
+                                                    class="form-control" ngModel #passwordInput="ngModel" required
+                                                    [ngClass]="{ 'is-invalid': passwordInput.invalid && (passwordInput.dirty || passwordInput.touched) }">
+                                                <em *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+                                                    class="error invalid-feedback">
+                                                    <span *ngIf="passwordInput.errors.required">
+                                                        Password is required.
+                                                    </span>
+                                                </em>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer clearfix">
-                                <div class="float-right">
-                                    <button class="btn btn-dark btn-lg">Back</button>
-                                    <button class="btn btn-primary btn-lg">Login</button>
+                                </div>
+                                <div class="modal-footer clearfix">
+                                    <div class="float-right">
+                                        <button class="btn btn-dark btn-lg">Back</button>
+                                        <button class="btn btn-primary btn-lg"
+                                            [disabled]="!loginForm.form.valid">Login</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="text-center text-white opacity-8 mt-3">Copyright © Sears Holdings</div>
                 </div>

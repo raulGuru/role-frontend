@@ -1,0 +1,102 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+  <app-header></app-header>
+  <div class="app-main">
+    <app-sidebar></app-sidebar>
+    <div class="app-main__outer">
+      <div class="app-main__inner">
+        <div class="app-page-title">
+          <div class="card mb-3 mt-4">
+            <div class="card-header-tab card-header">
+              <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
+                </i>Role View
+              </div>
+            </div>
+            <div class="row p-4">
+              <div class="col-md-6">
+                <div class="position-relative form-group">
+                  <input type="text" class="form-control" placeholder="Type at least 3 chars to search roles"
+                    (input)="findRoles($event.target.value)" [(ngModel)]="searchText" name="searchText"
+                    autocomplete="off">
+                </div>
+                <ul class="" *ngIf="roleSearchData.length > 0" style="height:300px; overflow: auto; cursor: pointer;">
+                  <li *ngFor="let role of roleSearchData">
+                    <a (click)="getRoleDef(role)">{{ role }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row p-4" *ngIf="loadContent">
+              <div class="col-md-12">
+                <div class="alert fade show alert-success">Role Definition for <b>{{ roledef.name }}</b>
+                </div>
+              </div>
+              <!-- <table class="mb-0 table table-bordered" *ngIf="roledef">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>dn</th>
+                    <th>Created</th>
+                    <th *ngIf="roledef.type === 'filtered'">nsrolefilter</th>
+                    <th *ngIf="roledef.type === 'nested'">nesting</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>{{ roledef.name }}</th>
+                    <td>{{ roledef.type }}</td>
+                    <td>{{ roledef.description }}</td>
+                    <td>{{ roledef.dn }}</td>
+                    <td>{{ roledef.created }}</td>
+                    <td *ngIf="roledef.type === 'filtered'">{{ roledef.nsrolefilter }}</td>
+                    <td *ngIf="roledef.type === 'nested'">
+                      <ng-container *ngFor="let r of roledef.nesting">
+                        <a href="javascript:0;" (click)="getNestingRole(r)">{{ r }}</a><br>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> -->
+              <table class="mb-0 table table-bordered" *ngIf="roledef">
+                <tr>
+                  <th>Name</th>
+                  <td>{{ roledef.name }}</td>
+                </tr>
+                <tr>
+                  <th>Type</th>
+                  <td>{{ roledef.type }}</td>
+                </tr>
+                <tr>
+                  <th>Description</th>
+                  <td>{{ roledef.description }}</td>
+                </tr>
+                <tr>
+                  <th>dn</th>
+                  <td>{{ roledef.dn }}</td>
+                </tr>
+                <tr>
+                  <th>Created</th>
+                  <td>{{ roledef.created }}</td>
+                </tr>
+                <tr>
+                  <th *ngIf="roledef.type === 'filtered'">nsrolefilter</th>
+                  <td *ngIf="roledef.type === 'filtered'">{{ roledef.nsrolefilter }}</td>
+                </tr>
+                <tr>
+                  <th *ngIf="roledef.type === 'nested'">nesting</th>
+                  <td *ngIf="roledef.type === 'nested'">
+                    <ng-container *ngFor="let r of roledef.nesting">
+                      <a href="javascript:0;" (click)="getNestingRole(r)">{{ r }}</a><br>
+                    </ng-container>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
