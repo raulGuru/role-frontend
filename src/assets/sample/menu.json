@@ -21,6 +21,11 @@
       "link": "access/roleview"
     },
     {
+      "key": "roleusers",
+      "title": "Role Search",
+      "link": "access/roleusers"
+    },
+    {
       "key": "dlview",
       "title": "Distribution List Viewer",
       "link": "access/dlview"

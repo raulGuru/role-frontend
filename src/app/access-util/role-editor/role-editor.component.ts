@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 import { AccessService } from '../access.service';
 import { LayoutService } from 'src/app/layout/layout.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-role-editor',
@@ -23,10 +24,12 @@ export class RoleEditorComponent implements OnInit {
   modifyResType: string = '';
   showUserResMsg: boolean = false;
   showModifyResMsg: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private accessService: AccessService,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
@@ -36,6 +39,10 @@ export class RoleEditorComponent implements OnInit {
       try {
         this.opuid = opuid.value;
         this.clearDefaults();
+        this.toastr.info('Loading...', 'Role Data', {
+          disableTimeOut: true,
+        });
+        this.loading = true;
         let userRes = await this.accessService.getUserRoles(this.opuid);
         if (userRes.header.status == '1') {
           this.layoutService.handleResponseError();
@@ -44,17 +51,16 @@ export class RoleEditorComponent implements OnInit {
         const { status, message } = userRes.header.userroles;
         if (status === '0') {
           const userRoles = userRes.data.userroles;
-          console.log(userRoles);
           let allRes = await this.accessService.getAllRoles();
           if (allRes.header.status == '1') {
             this.layoutService.handleResponseError();
           }
+          this.toastr.clear();
           const { status, message } = allRes.header.allroles;
           if (status === '0') {
             this.userResType = 'alert-success';
             this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
             const allRoles = allRes.data.allroles;
-            console.log(allRoles);
 
             // remove common roles from allroles
 
@@ -79,8 +85,8 @@ export class RoleEditorComponent implements OnInit {
               tmp['disabled'] = allRoles.includes(el) ? false : true;
               this.userRoles.push(tmp);
             });
-            console.log(this.userRoles);
             this.loadContent = true;
+            this.loading = false;
           } else {
             if (status === '1') {
               this.userResType = 'alert-danger';
@@ -88,6 +94,8 @@ export class RoleEditorComponent implements OnInit {
             }
           }
         } else {
+          this.toastr.clear();
+          this.loading = false;
           if (status === '1') {
             this.userResType = 'alert-danger';
             this.userResMsg = message;
@@ -101,6 +109,7 @@ export class RoleEditorComponent implements OnInit {
   }
 
   async moveSelected(op: string) {
+    this.toastr.clear();
     this.showModifyResMsg = false;
     let role = [];
     if (op === 'del') {
@@ -124,6 +133,9 @@ export class RoleEditorComponent implements OnInit {
       });
       return;
     }
+    this.toastr.info('Performing...', 'Role Action', {
+      disableTimeOut: true,
+    });
     const postData = {
       opuid: this.opuid,
       op,
@@ -131,10 +143,10 @@ export class RoleEditorComponent implements OnInit {
     };
     try {
       let res = await this.accessService.modifyRole(postData);
-      console.log(res);
       if (res.header.status == '1') {
         this.layoutService.handleResponseError();
       }
+      this.toastr.clear();
       this.showModifyResMsg = true;
       const { status, message } = res.header.action;
       if (status === '0') {
@@ -188,5 +200,6 @@ export class RoleEditorComponent implements OnInit {
     this.showUserResMsg = false;
     this.userResMsg = '';
     this.userResType = '';
+    this.toastr.clear();
   }
 }

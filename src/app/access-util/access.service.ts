@@ -74,4 +74,13 @@ export class AccessService {
     };
     return this.http.post<any>(`${BACKEND_URL}/dl`, postData).toPromise();
   }
+
+  roleusers(roleusers: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      roleusers
+    };
+    return this.http.post<any>(`${BACKEND_URL}/role`, postData).toPromise();
+  }
 }

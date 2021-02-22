@@ -28,60 +28,62 @@
                         <div class="position-relative form-group">
                            <label for="enterpriseId" class="">Enterprise
                               ID:</label>
-                           <input name="opuid" type="text" class="form-control" #opuid value="nchilka">
+                           <input name="opuid" type="text" class="form-control" #opuid value="">
                         </div>
                      </div>
                      <div class="col-md-6">
                         <label for="enterpriseId" class="wrapper">&nbsp;</label>
-                        <button class="btn btn-primary btn-lg" (click)="loadRoleData(opuid)">Load</button>
+                        <button class="btn btn-primary btn-lg" (click)="loadRoleData(opuid)" [disabled]="loading">Load</button>
                      </div>
-                  </div>
-                  <div class="row p-4" *ngIf="loadContent">
                      <div class="col-md-12" *ngIf="showUserResMsg">
                         <div *ngIf="showUserResMsg" class="alert fade show" [ngClass]="userResType"><span [innerHTML]="userResMsg"></span>
                         </div>
                         <!-- <div *ngIf="showModifyResMsg" class="alert fade show" [ngClass]="modifyResType">{{ modifyResMsg }}</div> -->
                      </div>
-                     <div class="subject-info-box-1 col-md-4">
-                        <div class="">
-                           <input type="text" name="search_role" class="form-control" placeholder="Type To Filter"
-                              [(ngModel)]="searchAllRoles">
+                  </div>
+                  <div class="row p-4" *ngIf="loadContent">
+                     <ng-container >
+                        <div class="subject-info-box-1 col-md-4">
+                           <div class="">
+                              <input type="text" name="search_role" class="form-control" placeholder="Type To Filter"
+                                 [(ngModel)]="searchAllRoles">
+                           </div>
+                           <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
+                              <option *ngFor="let role of allRoles |  grdColumnFilter: { name: searchAllRoles } | keyvalue"
+                                 value="{{ role.value.name }}" (click)="toggleSelection(role.value)"
+                                 [class.item-selected]="role.selected">{{ role.value.name }}
+                              </option>
+                           </select> -->
+                           <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
+                              <li *ngFor="let role of allRoles |  grdColumnFilter: { name: searchAllRoles } | keyvalue"
+                                 (click)="toggleSelection(role.value)" [class.item-selected]="role.value.selected">{{
+                                 role.value.name
+                                 }}</li>
+                           </ul>
                         </div>
-                        <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
-                           <option *ngFor="let role of allRoles |  grdColumnFilter: { name: searchAllRoles } | keyvalue"
-                              value="{{ role.value.name }}" (click)="toggleSelection(role.value)"
-                              [class.item-selected]="role.selected">{{ role.value.name }}
-                           </option>
-                        </select> -->
-                        <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
-                           <li *ngFor="let role of allRoles |  grdColumnFilter: { name: searchAllRoles } | keyvalue"
-                              (click)="toggleSelection(role.value)" [class.item-selected]="role.value.selected">{{
-                              role.value.name
-                              }}</li>
-                        </ul>
-                     </div>
-                     <div class="subject-info-arrows text-center col-md-4">
-                        <div class="btn_wrap">
-                           <input type="button" value="Assign >>" class="btn btn-dark" (click)="moveSelected('add')"
-                              [disabled]="roleSelected"><br>
-                           <input type="button" value="<< Remove" class="btn btn-dark" (click)="moveSelected('del')"
-                              [disabled]="roleSelected"><br>
+                        <div class="subject-info-arrows text-center col-md-4">
+                           <div class="btn_wrap">
+                              <input type="button" value="Assign >>" class="btn btn-dark" (click)="moveSelected('add')"
+                                 [disabled]="roleSelected"><br>
+                              <input type="button" value="<< Remove" class="btn btn-dark" (click)="moveSelected('del')"
+                                 [disabled]="roleSelected"><br>
+                           </div>
                         </div>
-                     </div>
-                     <div class="subject-info-box-2 col-md-4 mt-5">
-                        <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
-                           <option *ngFor="let role of userRoles | keyvalue" value="{{ role.value.name }}"
-                              [disabled]="role.value.disabled" (click)="toggleSelection(role.value)"
-                              [class.item-selected]="role.selected">{{ role.value.name
-                              }}</option>
-                        </select> -->
-                        <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
-                           <li *ngFor="let role of userRoles | keyvalue" (click)="toggleSelection(role.value)"
-                              [class.item-selected]="role.value.selected" [class.item-disabled]="role.value.disabled">{{
-                              role.value.name
-                              }}</li>
-                        </ul>
-                     </div>
+                        <div class="subject-info-box-2 col-md-4 mt-5">
+                           <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
+                              <option *ngFor="let role of userRoles | keyvalue" value="{{ role.value.name }}"
+                                 [disabled]="role.value.disabled" (click)="toggleSelection(role.value)"
+                                 [class.item-selected]="role.selected">{{ role.value.name
+                                 }}</option>
+                           </select> -->
+                           <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
+                              <li *ngFor="let role of userRoles | keyvalue" (click)="toggleSelection(role.value)"
+                                 [class.item-selected]="role.value.selected" [class.item-disabled]="role.value.disabled">{{
+                                 role.value.name
+                                 }}</li>
+                           </ul>
+                        </div>
+                     </ng-container>
                   </div>
                </div>
             </div>

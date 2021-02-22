@@ -9,10 +9,11 @@ import { PipesModule } from '../pipes/pipes.module';
 import { FormsModule } from '@angular/forms';
 import { RoleViewComponent } from './role-view/role-view.component';
 import { DlViewComponent } from './dl-view/dl-view.component';
+import { RoleSearchComponent } from './role-search/role-search.component';
 
 
 @NgModule({
-  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent],
+  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent, RoleSearchComponent],
   imports: [
     CommonModule,
     FormsModule,
