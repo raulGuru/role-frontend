@@ -1,11 +1,6 @@
 {
   "Access Utilities": [
     {
-      "key": "rolesearch",
-      "title": "Role Search",
-      "link": "access/rolesearch"
-    },
-    {
       "key": "role",
       "title": "Role Editor",
       "link": "access/role"
@@ -31,9 +26,9 @@
       "link": "access/dlview"
     },
     {
-      "key": "orgrole",
-      "title": "Organization Role Editor",
-      "link": "access/orgrole"
+      "key": "dlusers",
+      "title": "Distribution List Search",
+      "link": "access/dlusers"
     }
   ],
   "IDM Tools": [

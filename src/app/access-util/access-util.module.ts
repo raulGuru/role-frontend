@@ -10,10 +10,11 @@ import { FormsModule } from '@angular/forms';
 import { RoleViewComponent } from './role-view/role-view.component';
 import { DlViewComponent } from './dl-view/dl-view.component';
 import { RoleSearchComponent } from './role-search/role-search.component';
+import { DlSearchComponent } from './dl-search/dl-search.component';
 
 
 @NgModule({
-  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent, RoleSearchComponent],
+  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent, RoleSearchComponent, DlSearchComponent],
   imports: [
     CommonModule,
     FormsModule,

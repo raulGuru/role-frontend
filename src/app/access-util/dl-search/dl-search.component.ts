@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
-import { AccessService } from '../access.service';
 import { LayoutService } from 'src/app/layout/layout.service';
+import { AccessService } from '../access.service';
 
 @Component({
-  selector: 'app-role-search',
-  templateUrl: './role-search.component.html',
-  styleUrls: ['./role-search.component.scss'],
+  selector: 'app-dl-search',
+  templateUrl: './dl-search.component.html',
+  styleUrls: ['./dl-search.component.scss'],
 })
-export class RoleSearchComponent implements OnInit {
+export class DlSearchComponent implements OnInit {
   searchText: string = '';
-  roleSearchData: any = [];
+  dlSearchData: any = [];
   loadContent: boolean = false;
-  roleUsers: any = [];
-  ogRoleUsers: any = [];
+  forceServerSearch: boolean = false;
+  pageid: number = 1;
+  dlUsers: any = [];
+  ogDlUsers: any = [];
   searchTxtDisabled: boolean = true;
   searchBtnDisabled: boolean = true;
   searchColmn: string = '';
   txtSearchTbl: string = '';
-  forceServerSearch: boolean = false;
-  pageid: number = 1;
 
   constructor(
     private accessService: AccessService,
@@ -32,30 +32,30 @@ export class RoleSearchComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async findRoles(rolesearchstr: string) {
-    this.roleSearchData = [];
-    if (rolesearchstr.length < 3) {
+  async findDls(dlsearchstr: string) {
+    this.dlSearchData = [];
+    if (dlsearchstr.length < 3) {
       return false;
     }
     this.toastr.clear();
-    this.resetRoleUsers()
-    this.toastr.info('Searching...', 'Role Search', {
+    this.resetDlUsers();
+    this.toastr.info('Searching...', 'DL Search', {
       disableTimeOut: true,
     });
-    const searchPost = { rolesearchstr };
+    const searchPost = { dlsearchstr };
     try {
-      let searchRes = await this.accessService.rolesearch(searchPost);
+      let searchRes = await this.accessService.dlsearch(searchPost);
       if (searchRes.header.status == '1') {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const { status, message } = searchRes.header.rolesearch;
+      const { status, message } = searchRes.header.dlsearch;
       if (status === '0') {
-        const resData = searchRes.data.rolesearch;
+        const resData = searchRes.data.dlsearch;
         if (resData.length > 0) {
-          this.roleSearchData = resData;
+          this.dlSearchData = resData;
         } else {
-          this.toastr.error('No result(s)!', 'Role Search', {
+          this.toastr.error('No result(s)!', 'DL Search', {
             timeOut: 2000,
           });
         }
@@ -71,41 +71,36 @@ export class RoleSearchComponent implements OnInit {
     }
   }
 
-  resetRoleUsers() {
-    this.roleSearchData = [];
+  resetDlUsers() {
+    this.dlSearchData = [];
     this.loadContent = false;
     this.forceServerSearch = false;
     this.pageid = 1;
-    this.roleUsers = [];
-    this.ogRoleUsers = [];
+    this.dlUsers = [];
+    this.ogDlUsers = [];
   }
 
-  async getRoleUsers(rolestr: string) {
+  async getDlUsers(dlstr: string) {
     this.toastr.clear();
-    this.searchText = rolestr;
-    this.resetRoleUsers()
-    this.toastr.info('Requesting...', 'Role Search', {
+    this.resetDlUsers();
+    this.searchText = dlstr;
+    this.toastr.info('Requesting...', 'DL Search', {
       disableTimeOut: true,
     });
-    const usersReq = { rolestr };
+    const usersReq = { dlstr };
     try {
-      let res = await this.accessService.roleusers(usersReq);
+      let res = await this.accessService.dlusers(usersReq);
       if (res.header.status == '1') {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const {
-        status,
-        message,
-        forceServerSearch,
-        pageid,
-      } = res.header.roleusers;
+      const { status, message, forceServerSearch, pageid } = res.header.dlusers;
       if (status === '0') {
         this.loadContent = true;
         this.forceServerSearch = forceServerSearch;
         this.pageid = pageid;
-        this.roleUsers = res.data.roleusers;
-        this.ogRoleUsers = res.data.roleusers;
+        this.dlUsers = res.data.dlusers;
+        this.ogDlUsers = res.data.dlusers;
       } else {
         Swal.fire({
           icon: 'error',
@@ -130,7 +125,7 @@ export class RoleSearchComponent implements OnInit {
     if (val) {
       this.searchBtnDisabled = false;
     } else {
-      this.roleUsers = this.ogRoleUsers;
+      this.dlUsers = this.ogDlUsers;
       this.searchBtnDisabled = true;
       return;
     }
@@ -141,20 +136,20 @@ export class RoleSearchComponent implements OnInit {
       let tablesearch = {};
       tablesearch[this.searchColmn] = val;
       const usersReq = {
-        rolestr: this.searchText,
+        dlstr: this.searchText,
         extsearch: { tablesearch },
       };
       try {
-        let res = await this.accessService.roleusers(usersReq);
+        let res = await this.accessService.dlusers(usersReq);
         if (res.header.status == '1') {
           this.layoutService.handleResponseError();
         }
         this.toastr.clear();
-        const { status, message, forceServerSearch } = res.header.roleusers;
+        const { status, message, forceServerSearch } = res.header.dlusers;
         if (status === '0') {
           // this.loadContent = true;
           // this.forceServerSearch = forceServerSearch;
-          this.roleUsers = res.data.roleusers;
+          this.dlUsers = res.data.dlusers;
         } else {
           Swal.fire({
             icon: 'error',
@@ -166,7 +161,7 @@ export class RoleSearchComponent implements OnInit {
       }
     } else {
       val = val.toLowerCase();
-      this.roleUsers = this.roleUsers.filter((el) => {
+      this.dlUsers = this.dlUsers.filter((el) => {
         return el[this.searchColmn].toLowerCase().includes(val);
       });
     }
@@ -183,24 +178,19 @@ export class RoleSearchComponent implements OnInit {
       extsearch['tablesearch'] = tablesearch;
     }
     const usersReq = {
-      rolestr: this.searchText,
+      dlstr: this.searchText,
       extsearch,
     };
     try {
-      let res = await this.accessService.roleusers(usersReq);
+      let res = await this.accessService.dlusers(usersReq);
       if (res.header.status == '1') {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const {
-        status,
-        message,
-        forceServerSearch,
-        pageid,
-      } = res.header.roleusers;
+      const { status, message, forceServerSearch, pageid } = res.header.dlusers;
       if (status === '0') {
         this.pageid = pageid;
-        this.roleUsers = res.data.roleusers;
+        this.dlUsers = res.data.dlusers;
         document.getElementById("loadContent").scrollIntoView();
       } else {
         Swal.fire({
