@@ -6,11 +6,6 @@
       "link": "access/role"
     },
     {
-      "key": "group",
-      "title": "Group Editor",
-      "link": "access/group"
-    },
-    {
       "key": "roleview",
       "title": "Role Viewer",
       "link": "access/roleview"
@@ -19,6 +14,11 @@
       "key": "roleusers",
       "title": "Role Search",
       "link": "access/roleusers"
+    },
+    {
+      "key": "group",
+      "title": "Group Editor",
+      "link": "access/group"
     },
     {
       "key": "dlview",

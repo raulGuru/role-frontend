@@ -11,10 +11,11 @@ import { RoleViewComponent } from './role-view/role-view.component';
 import { DlViewComponent } from './dl-view/dl-view.component';
 import { RoleSearchComponent } from './role-search/role-search.component';
 import { DlSearchComponent } from './dl-search/dl-search.component';
+import { GroupEditorComponent } from './group-editor/group-editor.component';
 
 
 @NgModule({
-  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent, RoleSearchComponent, DlSearchComponent],
+  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent, RoleSearchComponent, DlSearchComponent, GroupEditorComponent],
   imports: [
     CommonModule,
     FormsModule,

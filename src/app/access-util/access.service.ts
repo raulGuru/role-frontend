@@ -92,4 +92,24 @@ export class AccessService {
     };
     return this.http.post<any>(`${BACKEND_URL}/dl`, postData).toPromise();
   }
+
+  getUserGroups(opuid: string) {
+    const postData = {
+      userroles: {
+        opuid,
+      },
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+    };
+    return this.http.post<any>(`${BACKEND_URL}/role`, postData).toPromise();
+  }
+
+  getAllGroups() {
+    const postData = {
+      allroles: '1',
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+    };
+    return this.http.post<any>(`${BACKEND_URL}/role`, postData).toPromise();
+  }
 }
