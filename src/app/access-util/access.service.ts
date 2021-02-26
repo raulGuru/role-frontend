@@ -95,21 +95,30 @@ export class AccessService {
 
   getUserGroups(opuid: string) {
     const postData = {
-      userroles: {
+      usergroups: {
         opuid,
       },
-      svc_uid: 'lkarlin',
-      svc_pw: 'test@123',
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
     };
-    return this.http.post<any>(`${BACKEND_URL}/role`, postData).toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
   }
 
   getAllGroups() {
     const postData = {
-      allroles: '1',
-      svc_uid: 'lkarlin',
-      svc_pw: 'test@123',
+      allgroups: '1',
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
     };
-    return this.http.post<any>(`${BACKEND_URL}/role`, postData).toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
+  }
+
+  modifyGroup(action: any) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      action,
+    };
+    return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
   }
 }

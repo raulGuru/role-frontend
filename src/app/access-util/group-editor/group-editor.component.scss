@@ -1,0 +1,9 @@
+.item-selected {
+  background: #007bff;
+  color: white;
+}
+.item-disabled {
+  opacity: 0.5;
+  cursor: default;
+  background-color: inherit;
+}

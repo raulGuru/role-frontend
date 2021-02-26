@@ -49,21 +49,21 @@ export class GroupEditorComponent implements OnInit {
           this.layoutService.handleResponseError();
         }
         this.showUserResMsg = true;
-        const { status, message } = userRes.header.userroles;
+        const { status, message } = userRes.header.usergroups;
         if (status === '0') {
-          const userGroups = userRes.data.userroles;
+          const userGroups = userRes.data.usergroups;
           let allRes = await this.accessService.getAllGroups();
           if (allRes.header.status == '1') {
             this.layoutService.handleResponseError();
           }
           this.toastr.clear();
-          const { status, message } = allRes.header.allroles;
+          const { status, message } = allRes.header.allgroups;
           if (status === '0') {
             this.userResType = 'alert-success';
             this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-            const allGroups = allRes.data.allroles;
+            const allGroups = allRes.data.allgroups;
 
-            // remove common roles from allroles
+            // remove common groups from allgroups
 
             // this.allGroups = allGroups.filter(function (el) {
             //   return !userGroups.includes(el);
@@ -78,7 +78,7 @@ export class GroupEditorComponent implements OnInit {
               this.allGroups.push(tmp);
             });
 
-            // readonly roles not in allroles
+            // readonly groups not in allgroups
             userGroups.forEach((el) => {
               let tmp = [];
               tmp['name'] = el;
@@ -112,38 +112,38 @@ export class GroupEditorComponent implements OnInit {
   async moveSelected(op: string) {
     this.toastr.clear();
     this.showModifyResMsg = false;
-    let role = [];
+    let group = [];
     if (op === 'del') {
       this.userGroups.forEach((item) => {
         if (item.selected) {
-          role = item.name;
+          group = item.name;
         }
       });
     } else {
       this.allGroups.forEach((item) => {
         if (item.selected) {
-          role = item.name;
+          group = item.name;
         }
       });
     }
     this.groupSelected = true;
-    if (role.length === 0 || this.opuid === '') {
+    if (group.length === 0 || this.opuid === '') {
       Swal.fire({
         icon: 'warning',
-        title: role.length === 0 ? 'No role selected!' : 'Empty Enterprise ID!',
+        title: group.length === 0 ? 'No group selected!' : 'Empty Enterprise ID!',
       });
       return;
     }
-    this.toastr.info('Performing...', 'Role Action', {
+    this.toastr.info('Performing...', 'Group Action', {
       disableTimeOut: true,
     });
     const postData = {
       opuid: this.opuid,
       op,
-      role,
+      group,
     };
     try {
-      let res = await this.accessService.modifyRole(postData);
+      let res = await this.accessService.modifyGroup(postData);
       if (res.header.status == '1') {
         this.layoutService.handleResponseError();
       }
@@ -157,7 +157,7 @@ export class GroupEditorComponent implements OnInit {
         if (op === 'del') {
           this.userGroups.forEach((item) => {
             if (item.selected) {
-              role = item.name;
+              group = item.name;
               this.allGroups.push(item);
             }
           });
@@ -168,7 +168,7 @@ export class GroupEditorComponent implements OnInit {
         } else {
           this.allGroups.forEach((item) => {
             if (item.selected) {
-              role = item.name;
+              group = item.name;
               this.userGroups.push(item);
             }
           });
