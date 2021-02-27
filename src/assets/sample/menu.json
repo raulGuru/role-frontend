@@ -62,5 +62,12 @@
       "title": "IDM Group Assignment Tool",
       "link": "idm/idmgroup"
     }
+  ],
+  "IT and User Tools": [
+    {
+      "key": "lookup",
+      "title": "Lookup Active Enterprise ID",
+      "link": "ituser/lookup"
+    }
   ]
 }

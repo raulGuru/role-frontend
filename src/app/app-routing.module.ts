@@ -14,6 +14,11 @@ const routes: Routes = [
     loadChildren: () => import('./access-util/access-util.module').then(m => m.AccessUtilModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'ituser', 
+    loadChildren: () => import('./it-user-tools/it-user-tools.module').then(m => m.ItUserToolsModule),
+    canLoad: [AuthGuard]
+  },
   { path: '', pathMatch: 'full', redirectTo: 'auth' },
   { path: '**', component: PageNotFoundComponent },
 ];

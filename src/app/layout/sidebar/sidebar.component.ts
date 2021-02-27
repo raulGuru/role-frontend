@@ -46,5 +46,6 @@ export class SidebarComponent implements OnInit {
   getMenuIcons() {
     this.menuIcons['Access Utilities'] = 'pe-7s-rocket';
     this.menuIcons['IDM Tools'] = 'pe-7s-rocket';
+    this.menuIcons['IT and User Tools'] = 'pe-7s-rocket';
   }
 }
