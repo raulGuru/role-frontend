@@ -10,13 +10,11 @@ const BACKEND_URL = environment.apiUrl;
 export class ItUserService {
   constructor(private http: HttpClient) {}
 
-  getLookupUsers(data: any) {
+  getLookupUsers(extsearch: any) {
     const postData = {
       svc_uid: 'lkarlin',
       svc_pw: 'test@123',
-      lookupusers: {
-        extsearch: data,
-      },
+      lookupusers: extsearch,
     };
     return this.http
       .post<any>(`${BACKEND_URL}/lookupssn`, postData)

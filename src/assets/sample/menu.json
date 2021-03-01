@@ -68,6 +68,11 @@
       "key": "lookup",
       "title": "Lookup Active Enterprise ID",
       "link": "ituser/lookup"
+    },
+    {
+      "key": "ask",
+      "title": "Ask Tool",
+      "link": "ituser/ask"
     }
   ]
 }

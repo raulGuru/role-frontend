@@ -24,6 +24,7 @@ export class LookupComponent implements OnInit {
   txtSearchTbl: string = '';
   searchBtnDisabled: boolean = true;
   searchText: string = '';
+  tablesearch: any = {};
 
   constructor(
     private itUserService: ItUserService,
@@ -55,9 +56,10 @@ export class LookupComponent implements OnInit {
       Object.keys(tablesearch).forEach((key) =>
         tablesearch[key] === '' ? delete tablesearch[key] : {}
       );
-      const postData = {
-        tablesearch,
-      };
+      let extsearch = {};
+      extsearch['tablesearch'] = tablesearch;
+      this.tablesearch = tablesearch;
+      const postData = { extsearch };
       this.toastr.clear();
       this.toastr.info('Searching...', 'User Search', {
         disableTimeOut: true,
@@ -68,7 +70,6 @@ export class LookupComponent implements OnInit {
           this.layoutService.handleResponseError();
         }
         this.toastr.clear();
-        console.log(userRes);
         const {
           status,
           message,
@@ -100,42 +101,82 @@ export class LookupComponent implements OnInit {
   }
 
   async searchTblBtn(val: string) {
-    // if (this.forceServerSearch) {
-    //   let tablesearch = {};
-    //   tablesearch[this.searchColmn] = val;
-    //   const usersReq = {
-    //     rolestr: this.searchText,
-    //     extsearch: { tablesearch },
-    //   };
-    //   try {
-    //     let res = await this.itUserService.getLookupUsers(usersReq);
-    //     if (res.header.status == '1') {
-    //       this.layoutService.handleResponseError();
-    //     }
-    //     this.toastr.clear();
-    //     const { status, message, forceServerSearch } = res.header.roleusers;
-    //     if (status === '0') {
-    //       // this.loadContent = true;
-    //       // this.forceServerSearch = forceServerSearch;
-    //       this.roleUsers = res.data.roleusers;
-    //     } else {
-    //       Swal.fire({
-    //         icon: 'error',
-    //         title: message,
-    //       });
-    //     }
-    //   } catch (error) {
-    //     window.alert(error);
-    //   }
-    // } else {
-    //   val = val.toLowerCase();
-    //   this.roleUsers = this.roleUsers.filter((el) => {
-    //     return el[this.searchColmn].toLowerCase().includes(val);
-    //   });
-    // }
+    if (this.forceServerSearch) {
+      let tblFilter = {};
+      tblFilter[this.searchColmn] = val;
+      let tablesearch = Object.assign(this.tablesearch, tblFilter);
+      let extsearch = {};
+      extsearch['tablesearch'] = tablesearch;
+      const usersReq = { extsearch };
+      try {
+        let res = await this.itUserService.getLookupUsers(usersReq);
+        if (res.header.status == '1') {
+          this.layoutService.handleResponseError();
+        }
+        this.toastr.clear();
+        const { status, message, forceServerSearch } = res.header.lookupusers;
+        if (status === '0') {
+          // this.loadContent = true;
+          // this.forceServerSearch = forceServerSearch;
+          this.users = res.data.lookupusers;
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: message,
+          });
+        }
+      } catch (error) {
+        window.alert(error);
+      }
+    } else {
+      val = val.toLowerCase();
+      this.users = this.users.filter((el) => {
+        return el[this.searchColmn].toLowerCase().includes(val);
+      });
+    }
   }
 
-  paginateTbl(direction: string) {}
+  async paginateTbl(direction: string) {
+    const pageid = direction === 'nxt' ? this.pageid + 1 : this.pageid - 1;
+    let extsearch = {
+      pageid,
+    };
+    let tablesearch = {};
+    if (this.searchColmn && this.txtSearchTbl) {
+      let tblFilter = {};
+      tblFilter[this.searchColmn] = this.txtSearchTbl;
+      tablesearch = Object.assign(this.tablesearch, tblFilter);
+    } else {
+      tablesearch = this.tablesearch;
+    }
+    extsearch['tablesearch'] = tablesearch;
+    const usersReq = { extsearch };
+    try {
+      let res = await this.itUserService.getLookupUsers(usersReq);
+      if (res.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.toastr.clear();
+      const {
+        status,
+        message,
+        forceServerSearch,
+        pageid,
+      } = res.header.lookupusers;
+      if (status === '0') {
+        this.pageid = pageid;
+        this.users = res.data.lookupusers;
+        document.getElementById('loopuptable').scrollIntoView();
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: message,
+        });
+      }
+    } catch (error) {
+      window.alert(error);
+    }
+  }
 
   searchSelect(val: string) {
     this.searchTxtDisabled = val ? false : true;
