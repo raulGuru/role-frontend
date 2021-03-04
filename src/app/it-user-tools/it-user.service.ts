@@ -20,4 +20,30 @@ export class ItUserService {
       .post<any>(`${BACKEND_URL}/lookupssn`, postData)
       .toPromise();
   }
+
+  getldapuser(getldapuser: any) {
+    const getkmartuser = getldapuser;
+    const getsears1user = getldapuser;
+    const getsears2user = getldapuser;
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getldapuser,
+      getkmartuser,
+      getsears1user,
+      getsears2user,
+    };
+    return this.http.post<any>(`${BACKEND_URL}/ask`, postData).toPromise();
+  }
+
+  getlookupres(extsearch: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      lookupres: extsearch,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/lookupres`, postData)
+      .toPromise();
+  }
 }

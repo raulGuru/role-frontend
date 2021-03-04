@@ -73,6 +73,16 @@
       "key": "ask",
       "title": "Ask Tool",
       "link": "ituser/ask"
+    },
+    {
+      "key": "lookupres",
+      "title": "Lookup Reserve/Terminated Enterprise ID",
+      "link": "ituser/lookupres"
+    },
+    {
+      "key": "lookuppw",
+      "title": "Lookup Password/End Date Status",
+      "link": "ituser/lookuppw"
     }
   ]
 }

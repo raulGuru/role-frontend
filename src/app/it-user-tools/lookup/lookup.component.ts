@@ -54,7 +54,9 @@ export class LookupComponent implements OnInit {
     if (this.lookupForm.valid && this.lookupForm.value) {
       let tablesearch = this.lookupForm.value;
       Object.keys(tablesearch).forEach((key) =>
-        tablesearch[key] === '' ? delete tablesearch[key] : {}
+        tablesearch[key] === '' || tablesearch[key] === null
+          ? delete tablesearch[key]
+          : {}
       );
       let extsearch = {};
       extsearch['tablesearch'] = tablesearch;

@@ -5,18 +5,25 @@ import { ItUserToolsRoutingModule } from './it-user-tools-routing.module';
 import { LayoutModule } from '../layout/layout.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { LookupComponent } from './lookup/lookup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AskComponent } from './ask/ask.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LookupresComponent } from './lookupres/lookupres.component';
+import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
 
 
 @NgModule({
-  declarations: [LookupComponent, AskComponent],
+  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent],
   imports: [
     CommonModule,
     ItUserToolsRoutingModule,
     LayoutModule,
     PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutocompleteLibModule,
+    FormsModule,
+    NgbModule
   ]
 })
 export class ItUserToolsModule { }

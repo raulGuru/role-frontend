@@ -34,6 +34,10 @@ export class LayoutService {
     return JSON.parse(localStorage.getItem(key));
   }
 
+  setLocalStorage(key: string, data: any): void {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
   handleResponseError() {
     // this.errorModalRef = this.modalService.open(LayoutModalComponent, {
     //   size: 'sm',

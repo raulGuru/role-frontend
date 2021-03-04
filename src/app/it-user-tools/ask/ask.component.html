@@ -7,169 +7,299 @@
                 <div class="app-page-title">
                     <div class="card mb-3 mt-4">
                         <div class="card p-4">
-                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
-                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"></i>Ask Tool</div>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <div class="position-relative form-group"><label for="exampleEmail"
-                                            class="">Enterprize ID</label><input name="firstname" id="exampleEmail"
-                                            type="email" class="form-control"></div>
-                                </div>
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"></i>Ask Tool
                             </div>
                             <div class="divider row"></div>
-                            <div class="d-flex align-items-center col-md-6">
-                                <div class="ml-auto">
-                                    <button class="btn btn-primary btn-lg">Search</button>
+                            <form (ngSubmit)="onAskSubmit(askForm)" #askForm="ngForm">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <!-- <label for="exampleEmail" class="">Enterprise ID</label> -->
+                                            <input name="opuid" type="text" class="form-control"
+                                                placeholder="Type Enterprise ID here" #opuid ngModel required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center col-md-6">
+                                    <div class="ml-auto">
+                                        <button class="btn btn-primary btn-lg" [disabled]="!askForm.valid">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <ng-container *ngIf="loadContent">
+                            <div *ngIf="searchHistory.length > 0" class="alert alert-info alert-dismissible fade show">
+                                <button type="button" class="close" (click)="clearHistory()"><span>×</span></button>
+                                History: <span *ngFor="let search of searchHistory"><a href="javascript:0;" (click)="renderLdapUser(search)">{{ search }}</a> >> </span>
+                            </div>
+                            <div class="card-header-tab card-header">
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
+                                    </i>Search Result
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-header-tab card-header">
-                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
-                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Search Result
-                            </div>
-                        </div>
-                        <div class="card-body row" id="accordion">
+                            <div class="card-body row">
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Enterprise ID</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.uid
+                                        }}</label>
+                                </div>
 
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Enterprise ID</b></label><label
-                                    class="col-md-8 common_divider">nchilka</label>
-                            </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Email Systems</b></label><label
+                                        class="col-md-8 common_divider">{{ ldapuser.emailtype }}</label>
+                                </div>
 
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Email Systems</b></label><label
-                                    class="col-md-8 common_divider">office365</label>
-                            </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Name</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.cn
+                                        }}</label>
+                                </div>
 
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Name</b></label><label
-                                    class="col-md-8 common_divider">Naveenkumar gangadhar Chilke</label>
-                            </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Clock Status</b></label><label
+                                        class="col-md-8 common_divider">@@@@</label>
+                                </div>
 
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Clock Status</b></label><label
-                                    class="col-md-8 common_divider">No FLSA data assuming clocked in.</label>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Manager</b></label><label
-                                    class="col-md-8 common_divider">Suresh Kasle-senior architect</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>LDAP Roles</b></label><label
-                                    class="col-md-8 common_divider">Click To View</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Subordinates</b></label><label
-                                    class="col-md-8 common_divider">
-                                    <a href="#data_co1" data-toggle="collapse" class="collapsed custom_coll">Click To
-                                        View</a></label>
-
-                                <div data-parent="#accordion" id="data_co1" class="collapse card p-2">
-                                    <a href="#data_co1" data-toggle="collapse" class="collapsed close_set"><i class="pe-7s-close-circle
-
-"></i></a>
-                                    <ul class="col-md-8 ml-auto">
-                                        <li>SN4 LDAP Generic id</li>
-                                        <li>SN4 LDAP Generic id</li>
-                                        <li>SN4 LDAP Generic id</li>
-                                        <li>SN4 LDAP Generic id</li>
-                                        <li>View detail for all sub</li>
-                                    </ul>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Manager</b></label>
+                                    <label class="col-md-8 common_divider"
+                                        *ngFor="let manager of ldapuser.manager "><span><a href="javascript:0;" (click)="getManagerDetails(manager.uid)">{{ manager.name }}</a> : {{
+                                            manager.title }}&nbsp;</span></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>LDAP Roles</b></label>
+                                    <label class="col-md-8 common_divider">
+                                        <a href="javascript:0;" (click)="collapseRoles.toggle()"
+                                            class="collapsed custom_coll">Click To View</a>
+                                    </label>
+                                    <div #collapseRoles="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
+                                        <ul *ngIf="ldapuser.nsrole.length > 0" class="col-md-8 ml-auto">
+                                            <li *ngFor="let role of ldapuser.nsrole">{{ role }}</li>
+                                        </ul>
+                                        <ul *ngIf="ldapuser.nsrole.length === 0" class="col-md-8 ml-auto">
+                                            <li>No Data!!</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Subordinates</b></label>
+                                    <label class="col-md-8 common_divider">
+                                        <a href="javascript:0;" (click)="collapseSubs.toggle()"
+                                            class="collapsed custom_coll">Click To View</a>
+                                    </label>
+                                    <div #collapseSubs="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
+                                        <ul *ngIf="ldapuser.subordinates.length > 0" class="col-md-8 ml-auto">
+                                            <li *ngFor="let sub of ldapuser.subordinates ">{{ sub.name
+                                                }} : {{ sub.title }}</li>
+                                        </ul>
+                                        <ul *ngIf="ldapuser.subordinates.length === 0" class="col-md-8 ml-auto">
+                                            <li>No Data!!</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>LDAP Groups</b></label>
+                                    <label class="col-md-8 common_divider">
+                                        <a href="javascript:0;" (click)="collapseGroups.toggle()"
+                                            class="collapsed custom_coll">Click To View</a>
+                                    </label>
+                                    <div #collapseGroups="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
+                                        <ul *ngIf="ldapuser.groups.length > 0" class="col-md-8 ml-auto">
+                                            <li *ngFor="let gp of ldapuser.groups">{{ gp }}</li>
+                                        </ul>
+                                        <ul *ngIf="ldapuser.groups.length === 0" class="col-md-8 ml-auto">
+                                            <li>No Data!!</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Org Chart</b></label>
+                                    <label class="col-md-8 common_divider">
+                                        <a href="javascript:0;" (click)="collapseOrgs.toggle()"
+                                            class="collapsed custom_coll">Click To View</a>
+                                    </label>
+                                    <div #collapseOrgs="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
+                                        <ul *ngIf="ldapuser.orgchart.length > 0" class="col-md-8 ml-auto">
+                                            <li *ngFor="let org of ldapuser.orgchart">{{ org.name }} :
+                                                {{ org.title }}</li>
+                                        </ul>
+                                        <ul *ngIf="ldapuser.orgchart.length === 0" class="col-md-8 ml-auto">
+                                            <li>No Data!!</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Mail Action Date</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.mailactiondate
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Display Name(LDAP)</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.shcdisplayname
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Department</b></label><label
+                                        class="col-md-8 common_divider">{{ ldapuser.shclocnumber }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Department Name</b></label><label
+                                        class="col-md-8 common_divider">{{ ldapuser.shcdepartmentname }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Kmart Account Info</b></label>
+                                    <label class="col-md-8 common_divider" *ngIf="ldapuser.kmart;else elseKmart">
+                                        <a href="javascript:0;" (click)="collapseKmart.toggle()" class="collapsed custom_coll">Click To View</a>
+                                    </label>
+                                    <div #collapseKmart="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
+                                        <ul class="col-md-8 ml-auto">
+                                            <li>Bad password count : {{ kmartuser.badpasswordcount }}</li>
+                                            <li>Expiry : {{ kmartuser.expiry }}</li>
+                                            <li>Last bad password : {{ kmartuser.lastbadpassword }}</li>
+                                            <li>Last login : {{ kmartuser.lastlogin }}</li>
+                                            <li>Last password change : {{ kmartuser.lastpasswordchange }}</li>
+                                            <li>Logon count : {{ kmartuser.logoncount }}</li>
+                                            <li>Objects id : {{ kmartuser.objectsid }}</li>
+                                            <li>Status : {{ kmartuser.status }}</li>
+                                        </ul>
+                                    </div>
+                                    <ng-template #elseKmart>
+                                        <label class="col-md-8 common_divider">No Kmart Account</label>
+                                    </ng-template>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Email Address</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.mail
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Sears1 Account info</b></label>
+                                    <label class="col-md-8 common_divider" *ngIf="ldapuser.sears1;else elsesears1">
+                                        <a href="javascript:0;" (click)="collapsesears1.toggle()" class="collapsed custom_coll">Click To View</a>
+                                    </label>
+                                    <div #collapsesears1="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
+                                        <ul class="col-md-8 ml-auto">
+                                            <li>Bad password count : {{ sears1user.badpasswordcount }}</li>
+                                            <li>Expiry : {{ sears1user.expiry }}</li>
+                                            <li>Last bad password : {{ sears1user.lastbadpassword }}</li>
+                                            <li>Last login : {{ sears1user.lastlogin }}</li>
+                                            <li>Last password change : {{ sears1user.lastpasswordchange }}</li>
+                                            <li>Logon count : {{ sears1user.logoncount }}</li>
+                                            <li>Objects id : {{ sears1user.objectsid }}</li>
+                                            <li>Status : {{ sears1user.status }}</li>
+                                        </ul>
+                                    </div>
+                                    <ng-template #elsesears1>
+                                        <label class="col-md-8 common_divider">No Sears1 Account</label>
+                                    </ng-template>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Title</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.title
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Sears2 Account info</b></label>
+                                    <label class="col-md-8 common_divider" *ngIf="ldapuser.sears2;else elsessears2">
+                                        <a href="javascript:0;" (click)="collapsesears2.toggle()" class="collapsed custom_coll">Click To View</a>
+                                    </label>
+                                    <div #collapsesears2="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
+                                        <ul class="col-md-8 ml-auto">
+                                            <li>Bad password count : {{ sears2user.badpasswordcount }}</li>
+                                            <li>Expiry : {{ sears2user.expiry }}</li>
+                                            <li>Last bad password : {{ sears2user.lastbadpassword }}</li>
+                                            <li>Last login : {{ sears2user.lastlogin }}</li>
+                                            <li>Last password change : {{ sears2user.lastpasswordchange }}</li>
+                                            <li>Logon count : {{ sears2user.logoncount }}</li>
+                                            <li>Objects id : {{ sears2user.objectsid }}</li>
+                                            <li>Status : {{ sears2user.status }}</li>
+                                        </ul>
+                                    </div>
+                                    <ng-template #elsessears2>
+                                        <label class="col-md-8 common_divider">No Sears2 Account</label>
+                                    </ng-template>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Employee ID</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.emplid
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Job Code</b></label><label
+                                        class="col-md-8 common_divider">{{ ldapuser.searsorgjobcode }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Job Date</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.jobdate
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Chargeback #</b></label><label
+                                        class="col-md-8 common_divider">{{ ldapuser.searshracctcd }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Phone #</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.telephonenumber
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Employee Type</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.searshremployeetype
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Location ID</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.shchrlocid
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Location</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.shchrlocdesc
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Businees Unit</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.shchrbusunit
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Service Date</b></label><label
+                                        class="col-md-8 common_divider">{{
+                                        ldapuser.servicedate
+                                        }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Account is locked?</b></label><label
+                                        class="col-md-8 common_divider">{{ (ldapuser.locked) ? 'Yes' : 'No' }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Password expires at</b></label><label
+                                        class="col-md-8 common_divider">{{ ldapuser.passwordexpirationtime }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 common_divider"><b>Account last modified</b></label><label
+                                        class="col-md-8 common_divider">{{ ldapuser.modifytimestamp }}</label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>LDAP Groups</b></label><label
-                                    class="col-md-8 common_divider">Click To View</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Org Chart</b></label><label
-                                    class="col-md-8 common_divider">Click To View</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Mail Action Date</b></label><label
-                                    class="col-md-8 common_divider">20220021</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Display Name(LDAP)</b></label><label
-                                    class="col-md-8 common_divider">Chilake Navvenkumar (SH)</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Department</b></label><label
-                                    class="col-md-8 common_divider">58495</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Department Name</b></label><label
-                                    class="col-md-8 common_divider">SHI Manual add</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Kmart Account Info</b></label><label
-                                    class="col-md-8 common_divider">Click To View</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Email Address</b></label><label
-                                    class="col-md-8 common_divider"> navven@gmail.com</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Sears1 Account info</b></label><label
-                                    class="col-md-8 common_divider">Empty!</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Title</b></label><label
-                                    class="col-md-8 common_divider">Technilogies</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Sears2 Account info</b></label><label
-                                    class="col-md-8 common_divider">Empty!</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Employee ID</b></label><label
-                                    class="col-md-8 common_divider">SHI00027876</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Job Code</b></label><label
-                                    class="col-md-8 common_divider">TWSP000!</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Job Date</b></label><label
-                                    class="col-md-8 common_divider">20161003</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Chargeback #</b></label><label
-                                    class="col-md-8 common_divider">35028</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Department</b></label><label
-                                    class="col-md-8 common_divider">58495</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Phone #</b></label><label
-                                    class="col-md-8 common_divider">+91 4455885544</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Employee Type</b></label><label
-                                    class="col-md-8 common_divider">Sallery</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Location ID</b></label><label
-                                    class="col-md-8 common_divider">584914</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Location</b></label><label
-                                    class="col-md-8 common_divider">Sears Holding Management Corp</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Businees Unit</b></label><label
-                                    class="col-md-8 common_divider">l&TG</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Businees Unit</b></label><label
-                                    class="col-md-8 common_divider">l&TG</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 common_divider"><b>Service Date</b></label><label
-                                    class="col-md-8 common_divider">201655</label>
-                            </div>
-                        </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>
