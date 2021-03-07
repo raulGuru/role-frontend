@@ -88,18 +88,20 @@ export class RoleEditorComponent implements OnInit {
             this.loadContent = true;
             this.loading = false;
           } else {
-            if (status === '1') {
+            //if (status === '1') {
               this.userResType = 'alert-danger';
               this.userResMsg = message;
-            }
+            //}
           }
         } else {
           this.toastr.clear();
           this.loading = false;
-          if (status === '1') {
-            this.userResType = 'alert-danger';
+          this.userResType = 'alert-danger';
             this.userResMsg = message;
-          }
+          // if (status === '1') {
+          //   this.userResType = 'alert-danger';
+          //   this.userResMsg = message;
+          // }
         }
       } catch (error) {}
     } else {

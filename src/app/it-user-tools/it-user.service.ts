@@ -46,4 +46,59 @@ export class ItUserService {
       .post<any>(`${BACKEND_URL}/lookupres`, postData)
       .toPromise();
   }
+
+  getldappasswordinfo(getldappasswordinfo: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getldappasswordinfo,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/lookuppw`, postData)
+      .toPromise();
+  }
+
+  getsears1passwordinfo(getsears1passwordinfo: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getsears1passwordinfo,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/lookuppw`, postData)
+      .toPromise();
+  }
+
+  getsears2passwordinfo(getsears2passwordinfo: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getsears2passwordinfo,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/lookuppw`, postData)
+      .toPromise();
+  }
+
+  getkmartpasswordinfo(getkmartpasswordinfo: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getkmartpasswordinfo,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/lookuppw`, postData)
+      .toPromise();
+  }
+
+  gettampasswordinfo(gettampasswordinfo: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      gettampasswordinfo,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/lookuppw`, postData)
+      .toPromise();
+  }
 }
