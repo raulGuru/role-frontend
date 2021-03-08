@@ -6,12 +6,15 @@ import { AskComponent } from './ask/ask.component';
 import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
 import { LookupComponent } from './lookup/lookup.component';
 import { LookupresComponent } from './lookupres/lookupres.component';
+import { ReserveComponent } from './reserve/reserve.component';
 
 const routes: Routes = [
   { path: 'lookup', component: LookupComponent },
   { path: 'ask', component: AskComponent },
   { path: 'lookupres', component: LookupresComponent },
   { path: 'lookuppw', component: LookupPasswordComponent },
+  { path: 'addreserve', component: ReserveComponent },
+  { path: 'addreserve/:id', component: ReserveComponent },
   { path: '', pathMatch: 'full', redirectTo: 'lookup' },
   { path: '**', component: PageNotFoundComponent },
 ];

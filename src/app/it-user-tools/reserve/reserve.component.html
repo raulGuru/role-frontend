@@ -1,0 +1,111 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+        <app-sidebar></app-sidebar>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="app-page-title">
+                    <div class="card mb-3 mt-4">
+                        <div class="card p-4">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Lookup Reserved
+                                Terminated Associate Entires</div>
+                            <div class="divider row"></div>
+                            <form [formGroup]="reserveForm" (ngSubmit)="onReserveSubmit()">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="givenname" class="">First
+                                                Name<em class="text-danger">*</em></label><input name="givenname"
+                                                formControlName="givenname" type="text" class="form-control"
+                                                (blur)="generateUid()" required
+                                                [ngClass]="{ 'is-invalid': c.givenname.invalid && (c.givenname.dirty || c.givenname.touched) }">
+                                            <em *ngIf="c.givenname.invalid && (c.givenname.dirty || c.givenname.touched)"
+                                                class="error invalid-feedback">
+                                                First Name field is required
+                                            </em>
+                                        </div>
+                                        <div class="position-relative form-group"><label for="sn" class="">Last Name<em
+                                                    class="text-danger">*</em></label><input name="sn"
+                                                formControlName="sn" type="text" class="form-control"
+                                                (blur)="generateUid()" required
+                                                [ngClass]="{ 'is-invalid': c.sn.invalid && (c.sn.dirty || c.sn.touched) }">
+                                            <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
+                                                class="error invalid-feedback">
+                                                Last Name field is required
+                                            </em>
+                                        </div>
+                                        <div class="position-relative form-group"><label for="uid" class="">Enterprise
+                                                ID<em class="text-danger">*</em></label><input name="uid"
+                                                formControlName="uid" type="text" class="form-control"
+                                                [readOnly]="uidReadOnly" required
+                                                [ngClass]="{ 'is-invalid': c.uid.invalid && (c.uid.dirty || c.uid.touched) }">
+                                            <em *ngIf="c.uid.invalid && (c.uid.dirty || c.uid.touched)"
+                                                class="error invalid-feedback">
+                                                Enterprise ID field is required
+                                            </em>
+                                        </div>
+                                        <div class="position-relative form-group"><label for="emplid"
+                                                class="">PeopleSoft Employee ID<em
+                                                    class="text-danger">*</em></label><input name="emplid"
+                                                formControlName="emplid" type="text" class="form-control" required
+                                                [ngClass]="{ 'is-invalid': c.emplid.invalid && (c.emplid.dirty || c.emplid.touched) }">
+                                            <em *ngIf="c.emplid.invalid && (c.emplid.dirty || c.emplid.touched)"
+                                                class="error invalid-feedback">
+                                                PeopleSoft Employee ID field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail" class="wrapper">Approvals:</label>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="sears2" id="sears2" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="sears2" class="form-check-label">Sears2 Domain</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="kmart" id="kmart" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="kmart" class="form-check-label">Kmart Domain</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3">
+                                                <input formControlName="k1" id="k1" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="k1" class="form-check-label">K1</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3">
+                                                <input formControlName="e1" id="e1" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="e1" class="form-check-label">E1</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3">
+                                                <input formControlName="e3" id="e3" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="e3" class="form-check-label">E3</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3">
+                                                <input formControlName="e5" id="e5" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="e5" class="form-check-label">E5</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-danger mb-2">* indicates a required field</div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center col-md-6">
+                                    <div class="ml-auto">
+                                        <button type="submit" class="btn btn-dark btn-lg mr-2"
+                                            [disabled]="!reserveForm.valid">Reserve</button>
+                                        <button class="btn btn-primary btn-lg" type="submit"
+                                            [disabled]="!reserveForm.valid">Restore</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -65,7 +65,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let user of users">
-                                                        <td>{{ user.uid }}</td>
+                                                        <td><a [routerLink]="['/ituser/addreserve', user.uid]">{{ user.uid }}</a></td>
                                                         <td>{{ user.cn }}</td>
                                                         <td>{{ user.emplid }}</td>
                                                         <td>{{ user.employeenumber }}</td>

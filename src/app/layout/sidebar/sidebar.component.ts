@@ -29,7 +29,8 @@ export class SidebarComponent implements OnInit {
                 this.leftSidebar[key] = [];
               }
               this.leftSidebar[key].push(response[key][k]);
-              if (`/${response[key][k]['link']}` == this.router.url) {
+              //if (`/${response[key][k]['link']}` == this.router.url) {
+                if (this.router.url.indexOf(response[key][k]['link']) > -1) {
                 this.activeCat = key;
                 this.activeSub = response[key][k]['link'];
               }

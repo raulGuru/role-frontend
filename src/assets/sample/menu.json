@@ -83,6 +83,11 @@
       "key": "lookuppw",
       "title": "Lookup Password/End Date Status",
       "link": "ituser/lookuppw"
+    },
+    {
+      "key": "addreserve",
+      "title": "Reserve/Restore Associate Enterprise ID",
+      "link": "ituser/addreserve"
     }
   ]
 }

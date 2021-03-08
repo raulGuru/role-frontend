@@ -11,10 +11,11 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LookupresComponent } from './lookupres/lookupres.component';
 import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
+import { ReserveComponent } from './reserve/reserve.component';
 
 
 @NgModule({
-  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent],
+  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent],
   imports: [
     CommonModule,
     ItUserToolsRoutingModule,
