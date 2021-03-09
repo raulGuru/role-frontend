@@ -65,7 +65,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let user of users">
-                                                        <td><a [routerLink]="['/ituser/addreserve', user.uid]">{{ user.uid }}</a></td>
+                                                        <td><a [routerLink]="['/ituser/addreserve', user.uid]" placement="right" ngbTooltip="Click to Reserve/Restore">{{ user.uid }}</a></td>
                                                         <td>{{ user.cn }}</td>
                                                         <td>{{ user.emplid }}</td>
                                                         <td>{{ user.employeenumber }}</td>

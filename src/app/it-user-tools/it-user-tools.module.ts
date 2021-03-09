@@ -12,10 +12,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LookupresComponent } from './lookupres/lookupres.component';
 import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
 import { ReserveComponent } from './reserve/reserve.component';
+import { ChangeUidComponent } from './change-uid/change-uid.component';
 
 
 @NgModule({
-  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent],
+  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent],
   imports: [
     CommonModule,
     ItUserToolsRoutingModule,

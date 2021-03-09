@@ -1,0 +1,48 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+        <app-sidebar></app-sidebar>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="app-page-title">
+                    <div class="card mb-3 mt-4">
+                        <div class="card p-4">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Add/Remove alternate ID for an Enterprise ID</div>
+                            <div class="divider row"></div>
+                            <form [formGroup]="chgaltForm">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="opuid" class="">Enterprise ID<em class="text-danger">*</em></label><input name="opuid"
+                                                formControlName="opuid" type="text" class="form-control" required
+                                                [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }">
+                                            <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)"
+                                                class="error invalid-feedback">
+                                                Enterprise ID field is required
+                                            </em>
+                                        </div>
+                                        <div class="position-relative form-group"><label for="alternateuid" class="">Alternate ID<em
+                                                    class="text-danger">*</em></label><input name="alternateuid"
+                                                formControlName="alternateuid" type="text" class="form-control" required
+                                                [ngClass]="{ 'is-invalid': c.alternateuid.invalid && (c.alternateuid.dirty || c.alternateuid.touched) }">
+                                            <em *ngIf="c.alternateuid.invalid && (c.alternateuid.dirty || c.alternateuid.touched)"
+                                                class="error invalid-feedback">
+                                                Alternate ID field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center col-md-6">
+                                    <div class="ml-auto">
+                                        <button type="button" class="btn btn-dark btn-lg mr-2" [disabled]="!chgaltForm.valid" (click)="onAddClk()">&nbsp;Add&nbsp;</button>
+                                        <button class="btn btn-primary btn-lg" type="submit"
+                                            [disabled]="!chgaltForm.valid" (click)="onRemove()">Remove</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -118,4 +118,26 @@ export class ItUserService {
       .post<any>(`${BACKEND_URL}/reserveuser`, postData)
       .toPromise();
   }
+
+  reserveuser(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      reserveuser: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/reserveuser`, postData)
+      .toPromise();
+  }
+
+  altuid(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      altuid: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/altuid`, postData)
+      .toPromise();
+  }
 }

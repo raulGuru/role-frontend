@@ -68,25 +68,10 @@
                                                     class="form-check-input">
                                                 <label for="kmart" class="form-check-label">Kmart Domain</label>
                                             </div>
-                                            <div class="position-relative form-check col-md-3">
-                                                <input formControlName="k1" id="k1" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="k1" class="form-check-label">K1</label>
-                                            </div>
-                                            <div class="position-relative form-check col-md-3">
-                                                <input formControlName="e1" id="e1" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="e1" class="form-check-label">E1</label>
-                                            </div>
-                                            <div class="position-relative form-check col-md-3">
-                                                <input formControlName="e3" id="e3" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="e3" class="form-check-label">E3</label>
-                                            </div>
-                                            <div class="position-relative form-check col-md-3">
-                                                <input formControlName="e5" id="e5" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="e5" class="form-check-label">E5</label>
+                                            <div *ngFor="let i of chkbxs" class="position-relative form-check col-md-3">
+                                                <input id="{{ i.value }}" type="checkbox"
+                                                    class="form-check-input" (click)="disableOther(i)" [disabled]="i.disabled" [checked]="i.checked">
+                                                <label for="{{ i.value }}" class="form-check-label">{{ i.label }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -95,8 +80,7 @@
                                 <div class="divider row"></div>
                                 <div class="d-flex align-items-center col-md-6">
                                     <div class="ml-auto">
-                                        <button type="submit" class="btn btn-dark btn-lg mr-2"
-                                            [disabled]="!reserveForm.valid">Reserve</button>
+                                        <button type="submit" class="btn btn-dark btn-lg mr-2" [disabled]="!reserveForm.valid">{{ this.lookupUid ? 'Modify' : 'Reserve'}}</button>
                                         <button class="btn btn-primary btn-lg" type="submit"
                                             [disabled]="!reserveForm.valid">Restore</button>
                                     </div>

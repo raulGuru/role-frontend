@@ -15,10 +15,11 @@ import { ItUserService } from '../it-user.service';
 })
 export class ReserveComponent implements OnInit {
   reserveForm: FormGroup;
-  uid: string;
+  lookupUid: string;
   uidReadOnly: boolean;
   givennameStr: string = null;
   snStr: string = null;
+  chkbxs: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,13 @@ export class ReserveComponent implements OnInit {
     private layoutService: LayoutService,
     private toastr: ToastrService
   ) {
+    this.chkbxs = [
+      { label: 'K1', value: 'k1', disabled: false, checked: false },
+      { label: 'E1', value: 'e1', disabled: false, checked: false },
+      { label: 'E3', value: 'e3', disabled: false, checked: false },
+      { label: 'E5', value: 'e5', disabled: false, checked: false },
+    ];
+
     this.reserveForm = new FormGroup({
       uid: new FormControl('', Validators.required),
       emplid: new FormControl('', Validators.required),
@@ -33,23 +41,19 @@ export class ReserveComponent implements OnInit {
       sn: new FormControl('', Validators.required),
       sears2: new FormControl(),
       kmart: new FormControl(),
-      k1: new FormControl(),
-      e1: new FormControl(),
-      e3: new FormControl(),
-      e5: new FormControl(),
     });
     this.uidReadOnly = false;
   }
 
   async ngOnInit(): Promise<void> {
-    this.uid = this.route.snapshot.paramMap.get('id');
-    if (this.uid) {
+    this.lookupUid = this.route.snapshot.paramMap.get('id');
+    if (this.lookupUid) {
       try {
         this.toastr.clear();
         this.toastr.info('Searching...', 'Enterprise ID Search', {
           disableTimeOut: true,
         });
-        let resuserRes = await this.itUserService.getresuser(this.uid);
+        let resuserRes = await this.itUserService.getresuser(this.lookupUid);
         if (resuserRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
@@ -74,7 +78,12 @@ export class ReserveComponent implements OnInit {
             givenname,
             sn,
             kmart,
+            sears2,
           });
+          if (k1 === false && e1 === false && e3 === false && e5 === false) {
+          } else {
+            this.chkBxPatch(resuserRes.data.getresuser);
+          }
           this.uidReadOnly = true;
         } else {
           Swal.fire({
@@ -89,7 +98,19 @@ export class ReserveComponent implements OnInit {
     }
   }
 
+  chkBxPatch(items) {
+    for (let [key, value] of Object.entries(items)) {
+      this.chkbxs.forEach((el) => {
+        if (el.value === key) {
+          el.disabled = !value;
+          el.checked = value;
+        }
+      });
+    }
+  }
+
   async generateUid() {
+    if (this.lookupUid) return true;
     const { givenname, sn } = this.reserveForm.value;
     if (givenname && sn) {
       try {
@@ -120,15 +141,68 @@ export class ReserveComponent implements OnInit {
     }
   }
 
-  onReserveSubmit() {
-    console.log(this.reserveForm.value)
+  async onReserveSubmit() {
+    const {
+      uid,
+      givenname,
+      sn,
+      emplid,
+      kmart,
+      sears2,
+    } = this.reserveForm.value;
+    const params = {
+      operation: this.lookupUid ? 'modify' : 'add',
+      uid,
+      emplid,
+      givenname,
+      sn,
+      kmart: kmart || false,
+      sears2: sears2 || false,
+      k1: this.chkbxs[0].checked,
+      e1: this.chkbxs[1].checked,
+      e3: this.chkbxs[2].checked,
+      e5: this.chkbxs[3].checked,
+    };
+    try {
+      this.toastr.clear();
+      this.toastr.info('Performing action...', 'Lookup Reserved', {
+        disableTimeOut: true,
+      });
+      let resSubRes = await this.itUserService.reserveuser(params);
+      if (resSubRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.toastr.clear();
+      const { status, message } = resSubRes.header.reserveuser;
+      if (status === '0') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Action performed successfully',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: message,
+        });
+      }
+    } catch (error) {
+      this.toastr.clear();
+      window.alert(error);
+    }
   }
 
   get c() {
     return this.reserveForm.controls;
   }
 
-  clearForm() {
-    this.reserveForm.reset();
+  disableOther(chk) {
+    this.chkbxs.forEach((x) => {
+      if (x.value !== chk.value) {
+        x.disabled = !x.disabled;
+      }
+      if (x.value === chk.value) {
+        x.checked = !x.checked;
+      }
+    });
   }
 }

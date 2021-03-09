@@ -88,6 +88,11 @@
       "key": "addreserve",
       "title": "Reserve/Restore Associate Enterprise ID",
       "link": "ituser/addreserve"
+    },
+    {
+      "key": "chgaltuid",
+      "title": "Change Enterprise ID",
+      "link": "ituser/chgaltuid"
     }
   ]
 }
