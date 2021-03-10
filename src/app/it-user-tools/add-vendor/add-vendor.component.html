@@ -1,0 +1,273 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+        <app-sidebar></app-sidebar>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="app-page-title">
+                    <div class="card mb-3 mt-4">
+                        <div class="card p-4">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
+                                </i>Add Non Associate Account
+                            </div>
+                            <div class="divider row"></div>
+                            <form class="p-4" [formGroup]="vendorForm" (ngSubmit)="onAccountSubmit()">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="givenname" class="">First Name<em
+                                                    class="text-danger">*</em></label><input formControlName="givenname"
+                                                id="givenname" type="text" class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.givenname.invalid &&
+                            (c.givenname.dirty || c.givenname.touched)
+                        }" />
+                                            <em *ngIf="
+                          c.givenname.invalid &&
+                          (c.givenname.dirty || c.givenname.touched)
+                        " class="error invalid-feedback">
+                                                First Name field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="sn" class="">Last Name<em
+                                                    class="text-danger">*</em></label><input formControlName="sn"
+                                                id="sn" type="text" class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.sn.invalid && (c.sn.dirty || c.sn.touched)
+                        }" />
+                                            <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
+                                                class="error invalid-feedback">
+                                                Last Name field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="uid" class="">Enterprise ID<em
+                                                    class="text-danger">*</em></label><input formControlName="uid"
+                                                id="uid" type="text" class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.uid.invalid && (c.uid.dirty || c.uid.touched)
+                        }" />
+                                            <em *ngIf="c.uid.invalid && (c.uid.dirty || c.uid.touched)"
+                                                class="error invalid-feedback">
+                                                Enterprise ID field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="o" class="">Organization/Company<em
+                                                    class="text-danger">*</em></label>
+                                            <ng-select [items]="orgs" bindLabel="name" bindValue="id"
+                                                formControlName="o" [ngClass]="{
+                                                            'is-invalid':
+                                                              c.o.invalid && (c.o.dirty || c.o.touched)
+                                                          }">
+                                            </ng-select>
+                                            <em *ngIf="c.o.invalid && (c.o.dirty || c.o.touched)"
+                                                class="error invalid-feedback">
+                                                Organization/Company field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group row col-md-12">
+                                            <label for="exampleEmail" class="wrapper">Account Flags</label>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="genericIdChbx" id="genericIdChbx" type="checkbox"
+                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'genericIdChbx')" />
+                                                <label for="genericIdChbx" class="form-check-label">Generic ID for</label>
+                                                <div style="width: 70%; float: right; margin-top: -6px">
+                                                    <ng-select [items]="genericIDs" bindLabel="name" bindValue="id"
+                                                        formControlName="genericIDs">
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="vendorAccount" id="vendorAccount" type="checkbox"
+                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'vendorAccount')"/>
+                                                <label for="vendorAccount" class="form-check-label">Vendor
+                                                    Account</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="Password" id="Password" type="checkbox"
+                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'Password')"/>
+                                                <label for="Password" class="form-check-label">Non-Expiring
+                                                    Password</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="Testing" id="Testing" type="checkbox"
+                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'Testing')" />
+                                                <label for="Testing" class="form-check-label">Testing Account</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group row col-md-12">
+                                            <label for="Approvals" class="wrapper">Approvals</label>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="Procurement" id="Procurement" type="checkbox"
+                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'Procurement')"/>
+                                                <label for="Procurement" class="form-check-label">Procurement</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="kmart" id="kmart" type="checkbox"
+                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'kmart')"/>
+                                                <label for="kmart" class="form-check-label">Kmart Domain</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="sears2" id="sears2" type="checkbox"
+                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'sears2')"/>
+                                                <label for="sears2" class="form-check-label">Sears2 Domain</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="vpn" id="vpn" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'vpn')"/>
+                                                <label for="vpn" class="form-check-label">VPN Access</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="k1" id="k1" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'k1')"/>
+                                                <label for="k1" class="form-check-label">K1 Office 365</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="e1" id="e1" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'e1')"/>
+                                                <label for="e1" class="form-check-label">E1 Office 365</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="e3" id="e3" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'e3')"/>
+                                                <label for="e3" class="form-check-label">E3 Office 365</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-3 mb-2">
+                                                <input formControlName="e5" id="e5" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'e5')"/>
+                                                <label for="e5" class="form-check-label">E5 Office 365</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="shclocnumber" class="">Department<em
+                                                    class="text-danger">*</em></label><input
+                                                formControlName="shclocnumber" id="shclocnumber" type="text"
+                                                class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.shclocnumber.invalid &&
+                            (c.shclocnumber.dirty || c.shclocnumber.touched)
+                        }" />
+                                            <em *ngIf="
+                          c.shclocnumber.invalid &&
+                          (c.shclocnumber.dirty || c.shclocnumber.touched)
+                        " class="error invalid-feedback">
+                                                Department field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="Challenge" class="">SSN/PW Reset Challenge Word<em
+                                                    class="text-danger">*</em></label><input formControlName="Challenge"
+                                                id="Challenge" type="text" class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.Challenge.invalid &&
+                            (c.Challenge.dirty || c.Challenge.touched)
+                        }" />
+                                            <em *ngIf="
+                          c.Challenge.invalid &&
+                          (c.Challenge.dirty || c.Challenge.touched)
+                        " class="error invalid-feedback">
+                                                SSN/PW Reset Challenge Word field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="title" class="">Title<em
+                                                    class="text-danger">*</em></label><input formControlName="title"
+                                                id="title" type="text" class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.title.invalid &&
+                            (c.title.dirty || c.title.touched)
+                        }" />
+                                            <em *ngIf="
+                          c.title.invalid && (c.title.dirty || c.title.touched)
+                        " class="error invalid-feedback">
+                                                Title field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="emplid" class="">PeopleSoft Employee ID</label><input
+                                                formControlName="emplid" id="emplid" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="procid" class="">Procurement ID</label><input
+                                                formControlName="procid" id="procid" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="Expiration" class="">Contract Expiration Date</label>
+                                            <input type="text" class="form-control" placeholder="YYYYMMDD"
+                                                formControlName="Expiration" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="manager" class="">Manager Enterprise ID</label><input
+                                                formControlName="manager" id="manager" type="text"
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="Office" class="">Office Location <em> eg.
+                                                    B2-237A</em></label><input formControlName="Office" id="Office"
+                                                type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="businessUnit" class="">Business Unit</label>
+                                            <ng-select class="" formControlName="businessUnit">
+                                                <ng-option *ngFor="let unit of businessUnits | keyvalue"
+                                                    [value]="unit.key">{{ unit.value }}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="businesscategory" class="">Business Category</label>
+                                            <ng-select class="" formControlName="businesscategory">
+                                                <ng-option *ngFor="let cat of businessCats | keyvalue"
+                                                    [value]="cat.key">{{ cat.value }}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-danger mb-2">
+                                        * Please Enter Account Information above.<br />Fileds marked
+                                        with an asterisk indicate required fields.
+                                    </div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center">
+                                    <div class="ml-auto">
+                                        <button class="btn btn-primary btn-lg" type="submit"
+                                            [disabled]="!vendorForm.valid">
+                                            Add Account
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -53,7 +53,7 @@
                     <td *ngIf="roledef.type === 'filtered'">{{ roledef.nsrolefilter }}</td>
                     <td *ngIf="roledef.type === 'nested'">
                       <ng-container *ngFor="let r of roledef.nesting">
-                        <a href="javascript:0;" (click)="getNestingRole(r)">{{ r }}</a><br>
+                        <a href="javascript:void(0);" (click)="getNestingRole(r)">{{ r }}</a><br>
                       </ng-container>
                     </td>
                   </tr>
@@ -88,7 +88,7 @@
                   <th *ngIf="roledef.type === 'nested'">nesting</th>
                   <td *ngIf="roledef.type === 'nested'">
                     <ng-container *ngFor="let r of roledef.nesting">
-                      <a href="javascript:0;" (click)="getNestingRole(r)">{{ r }}</a><br>
+                      <a href="javascript:void(0);" (click)="getNestingRole(r)">{{ r }}</a><br>
                     </ng-container>
                   </td>
                 </tr>

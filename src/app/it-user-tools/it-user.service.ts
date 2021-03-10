@@ -140,4 +140,14 @@ export class ItUserService {
       .post<any>(`${BACKEND_URL}/altuid`, postData)
       .toPromise();
   }
+
+  getBusinessCategories() {
+    return this.http
+      .get<any>("./assets/sample/business-categories.json").toPromise()
+  }
+
+  getBusinessUnits() {
+    return this.http
+      .get<any>("./assets/sample/business-units.json").toPromise()
+  }
 }

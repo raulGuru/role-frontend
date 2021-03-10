@@ -4,19 +4,22 @@ import { CommonModule } from '@angular/common';
 import { ItUserToolsRoutingModule } from './it-user-tools-routing.module';
 import { LayoutModule } from '../layout/layout.module';
 import { PipesModule } from '../pipes/pipes.module';
-import { LookupComponent } from './lookup/lookup.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AskComponent } from './ask/ask.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { LookupComponent } from './lookup/lookup.component';
+import { AskComponent } from './ask/ask.component';
 import { LookupresComponent } from './lookupres/lookupres.component';
 import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
 import { ReserveComponent } from './reserve/reserve.component';
 import { ChangeUidComponent } from './change-uid/change-uid.component';
+import { AddVendorComponent } from './add-vendor/add-vendor.component';
 
 
 @NgModule({
-  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent],
+  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent, AddVendorComponent],
   imports: [
     CommonModule,
     ItUserToolsRoutingModule,
@@ -25,7 +28,8 @@ import { ChangeUidComponent } from './change-uid/change-uid.component';
     ReactiveFormsModule,
     AutocompleteLibModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgSelectModule,
   ]
 })
 export class ItUserToolsModule { }

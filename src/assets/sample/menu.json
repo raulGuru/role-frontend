@@ -93,6 +93,11 @@
       "key": "chgaltuid",
       "title": "Change Enterprise ID",
       "link": "ituser/chgaltuid"
+    },
+    {
+      "key": "addvendor",
+      "title": "Add Vendor",
+      "link": "ituser/addvendor"
     }
   ]
 }

@@ -34,7 +34,7 @@
                         <ng-container *ngIf="loadContent">
                             <div *ngIf="searchHistory.length > 0" class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" (click)="clearHistory()"><span>×</span></button>
-                                History: <span *ngFor="let search of searchHistory"><a href="javascript:0;" (click)="renderLdapUser(search)">{{ search }}</a> >> </span>
+                                History: <span *ngFor="let search of searchHistory"><a href="javascript:void(0);" (click)="renderLdapUser(search)">{{ search }}</a> >> </span>
                             </div>
                             <div class="card-header-tab card-header">
                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
@@ -70,13 +70,13 @@
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>Manager</b></label>
                                     <label class="col-md-8 common_divider"
-                                        *ngFor="let manager of ldapuser.manager "><span><a href="javascript:0;" (click)="getManagerDetails(manager.uid)">{{ manager.name }}</a> : {{
+                                        *ngFor="let manager of ldapuser.manager "><span><a href="javascript:void(0);" (click)="getManagerDetails(manager.uid)">{{ manager.name }}</a> : {{
                                             manager.title }}&nbsp;</span></label>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>LDAP Roles</b></label>
                                     <label class="col-md-8 common_divider">
-                                        <a href="javascript:0;" (click)="collapseRoles.toggle()"
+                                        <a href="javascript:void(0);" (click)="collapseRoles.toggle()"
                                             class="collapsed custom_coll">Click To View</a>
                                     </label>
                                     <div #collapseRoles="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
@@ -91,7 +91,7 @@
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>Subordinates</b></label>
                                     <label class="col-md-8 common_divider">
-                                        <a href="javascript:0;" (click)="collapseSubs.toggle()"
+                                        <a href="javascript:void(0);" (click)="collapseSubs.toggle()"
                                             class="collapsed custom_coll">Click To View</a>
                                     </label>
                                     <div #collapseSubs="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
@@ -107,7 +107,7 @@
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>LDAP Groups</b></label>
                                     <label class="col-md-8 common_divider">
-                                        <a href="javascript:0;" (click)="collapseGroups.toggle()"
+                                        <a href="javascript:void(0);" (click)="collapseGroups.toggle()"
                                             class="collapsed custom_coll">Click To View</a>
                                     </label>
                                     <div #collapseGroups="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
@@ -122,7 +122,7 @@
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>Org Chart</b></label>
                                     <label class="col-md-8 common_divider">
-                                        <a href="javascript:0;" (click)="collapseOrgs.toggle()"
+                                        <a href="javascript:void(0);" (click)="collapseOrgs.toggle()"
                                             class="collapsed custom_coll">Click To View</a>
                                     </label>
                                     <div #collapseOrgs="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
@@ -158,7 +158,7 @@
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>Kmart Account Info</b></label>
                                     <label class="col-md-8 common_divider" *ngIf="ldapuser.kmart;else elseKmart">
-                                        <a href="javascript:0;" (click)="collapseKmart.toggle()" class="collapsed custom_coll">Click To View</a>
+                                        <a href="javascript:void(0);" (click)="collapseKmart.toggle()" class="collapsed custom_coll">Click To View</a>
                                     </label>
                                     <div #collapseKmart="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
                                         <ul class="col-md-8 ml-auto">
@@ -185,7 +185,7 @@
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>Sears1 Account info</b></label>
                                     <label class="col-md-8 common_divider" *ngIf="ldapuser.sears1;else elsesears1">
-                                        <a href="javascript:0;" (click)="collapsesears1.toggle()" class="collapsed custom_coll">Click To View</a>
+                                        <a href="javascript:void(0);" (click)="collapsesears1.toggle()" class="collapsed custom_coll">Click To View</a>
                                     </label>
                                     <div #collapsesears1="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
                                         <ul class="col-md-8 ml-auto">
@@ -212,7 +212,7 @@
                                 <div class="col-md-6">
                                     <label class="col-md-4 common_divider"><b>Sears2 Account info</b></label>
                                     <label class="col-md-8 common_divider" *ngIf="ldapuser.sears2;else elsessears2">
-                                        <a href="javascript:0;" (click)="collapsesears2.toggle()" class="collapsed custom_coll">Click To View</a>
+                                        <a href="javascript:void(0);" (click)="collapsesears2.toggle()" class="collapsed custom_coll">Click To View</a>
                                     </label>
                                     <div #collapsesears2="ngbCollapse" [ngbCollapse]="true" class="collapse card p-2">
                                         <ul class="col-md-8 ml-auto">
