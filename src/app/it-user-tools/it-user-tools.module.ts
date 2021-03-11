@@ -15,11 +15,11 @@ import { LookupresComponent } from './lookupres/lookupres.component';
 import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
 import { ReserveComponent } from './reserve/reserve.component';
 import { ChangeUidComponent } from './change-uid/change-uid.component';
-import { AddVendorComponent } from './add-vendor/add-vendor.component';
+import { AddContractorComponent } from './add-contractor/add-contractor.component';
 
 
 @NgModule({
-  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent, AddVendorComponent],
+  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent, AddContractorComponent],
   imports: [
     CommonModule,
     ItUserToolsRoutingModule,

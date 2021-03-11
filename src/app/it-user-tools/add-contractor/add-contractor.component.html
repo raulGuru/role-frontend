@@ -12,13 +12,14 @@
                                 </i>Add Non Associate Account
                             </div>
                             <div class="divider row"></div>
-                            <form class="p-4" [formGroup]="vendorForm" (ngSubmit)="onAccountSubmit()">
+                            <form class="p-4" [formGroup]="contractorForm" (ngSubmit)="onAccountSubmit()">
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="givenname" class="">First Name<em
                                                     class="text-danger">*</em></label><input formControlName="givenname"
-                                                id="givenname" type="text" class="form-control" required [ngClass]="{
+                                                id="givenname" type="text" class="form-control" (blur)="generateUid()"
+                                                required [ngClass]="{
                           'is-invalid':
                             c.givenname.invalid &&
                             (c.givenname.dirty || c.givenname.touched)
@@ -35,7 +36,8 @@
                                         <div class="position-relative form-group">
                                             <label for="sn" class="">Last Name<em
                                                     class="text-danger">*</em></label><input formControlName="sn"
-                                                id="sn" type="text" class="form-control" required [ngClass]="{
+                                                (blur)="generateUid()" id="sn" type="text" class="form-control" required
+                                                [ngClass]="{
                           'is-invalid':
                             c.sn.invalid && (c.sn.dirty || c.sn.touched)
                         }" />
@@ -49,7 +51,8 @@
                                         <div class="position-relative form-group">
                                             <label for="uid" class="">Enterprise ID<em
                                                     class="text-danger">*</em></label><input formControlName="uid"
-                                                id="uid" type="text" class="form-control" required [ngClass]="{
+                                                id="uid" type="text" class="form-control" required
+                                                [readOnly]="uidReadOnly" [ngClass]="{
                           'is-invalid':
                             c.uid.invalid && (c.uid.dirty || c.uid.touched)
                         }" />
@@ -63,11 +66,8 @@
                                         <div class="position-relative form-group">
                                             <label for="o" class="">Organization/Company<em
                                                     class="text-danger">*</em></label>
-                                            <ng-select [items]="orgs" bindLabel="name" bindValue="id"
-                                                formControlName="o" [ngClass]="{
-                                                            'is-invalid':
-                                                              c.o.invalid && (c.o.dirty || c.o.touched)
-                                                          }">
+                                            <ng-select [items]="orgs" placeholder="Type atleast 3 chars to search" formControlName="o"
+                                                (search)="getOrgs($event)" >
                                             </ng-select>
                                             <em *ngIf="c.o.invalid && (c.o.dirty || c.o.touched)"
                                                 class="error invalid-feedback">
@@ -79,31 +79,35 @@
                                         <div class="position-relative form-group row col-md-12">
                                             <label for="exampleEmail" class="wrapper">Account Flags</label>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="genericIdChbx" id="genericIdChbx" type="checkbox"
-                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'genericIdChbx')" />
-                                                <label for="genericIdChbx" class="form-check-label">Generic ID for</label>
+                                                <input formControlName="generic" id="generic" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'generic')" />
+                                                <label for="generic" class="form-check-label">Generic ID for</label>
                                                 <div style="width: 70%; float: right; margin-top: -6px">
-                                                    <ng-select [items]="genericIDs" bindLabel="name" bindValue="id"
-                                                        formControlName="genericIDs">
+                                                    <ng-select [items]="gentype" bindLabel="name" bindValue="id"
+                                                        formControlName="gentype" placeholder="Select item">
                                                     </ng-select>
                                                 </div>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="vendorAccount" id="vendorAccount" type="checkbox"
-                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'vendorAccount')"/>
-                                                <label for="vendorAccount" class="form-check-label">Vendor
+                                                <input formControlName="vendor" id="vendor" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'vendor')" />
+                                                <label for="vendor" class="form-check-label">Vendor
                                                     Account</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="Password" id="Password" type="checkbox"
-                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'Password')"/>
-                                                <label for="Password" class="form-check-label">Non-Expiring
+                                                <input formControlName="nonexpiry" id="nonexpiry" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'nonexpiry')" />
+                                                <label for="nonexpiry" class="form-check-label">Non-Expiring
                                                     Password</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="Testing" id="Testing" type="checkbox"
-                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'Testing')" />
-                                                <label for="Testing" class="form-check-label">Testing Account</label>
+                                                <input formControlName="testing" id="testing" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'testing')" />
+                                                <label for="testing" class="form-check-label">Testing Account</label>
                                             </div>
                                         </div>
                                     </div>
@@ -111,55 +115,67 @@
                                         <div class="position-relative form-group row col-md-12">
                                             <label for="Approvals" class="wrapper">Approvals</label>
                                             <div class="position-relative form-check col-md-3 mb-2">
-                                                <input formControlName="Procurement" id="Procurement" type="checkbox"
-                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'Procurement')"/>
-                                                <label for="Procurement" class="form-check-label">Procurement</label>
+                                                <input formControlName="procurement" id="procurement" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'procurement')" />
+                                                <label for="procurement" class="form-check-label">Procurement</label>
                                             </div>
                                             <div class="position-relative form-check col-md-3 mb-2">
                                                 <input formControlName="kmart" id="kmart" type="checkbox"
-                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'kmart')"/>
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'kmart')" />
                                                 <label for="kmart" class="form-check-label">Kmart Domain</label>
                                             </div>
                                             <div class="position-relative form-check col-md-3 mb-2">
                                                 <input formControlName="sears2" id="sears2" type="checkbox"
-                                                    class="form-check-input" (change)="handleControl($event.target.checked, 'sears2')"/>
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'sears2')" />
                                                 <label for="sears2" class="form-check-label">Sears2 Domain</label>
                                             </div>
                                             <div class="position-relative form-check col-md-3 mb-2">
-                                                <input formControlName="vpn" id="vpn" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'vpn')"/>
+                                                <input formControlName="vpn" id="vpn" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'vpn')" />
                                                 <label for="vpn" class="form-check-label">VPN Access</label>
                                             </div>
                                             <div class="position-relative form-check col-md-3 mb-2">
-                                                <input formControlName="k1" id="k1" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'k1')"/>
+                                                <input formControlName="k1" id="k1" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'k1')" />
                                                 <label for="k1" class="form-check-label">K1 Office 365</label>
                                             </div>
                                             <div class="position-relative form-check col-md-3 mb-2">
-                                                <input formControlName="e1" id="e1" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'e1')"/>
+                                                <input formControlName="e1" id="e1" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'e1')" />
                                                 <label for="e1" class="form-check-label">E1 Office 365</label>
                                             </div>
                                             <div class="position-relative form-check col-md-3 mb-2">
-                                                <input formControlName="e3" id="e3" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'e3')"/>
+                                                <input formControlName="e3" id="e3" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'e3')" />
                                                 <label for="e3" class="form-check-label">E3 Office 365</label>
                                             </div>
                                             <div class="position-relative form-check col-md-3 mb-2">
-                                                <input formControlName="e5" id="e5" type="checkbox" class="form-check-input" (change)="handleControl($event.target.checked, 'e5')"/>
+                                                <input formControlName="e5" id="e5" type="checkbox"
+                                                    class="form-check-input"
+                                                    (change)="handleControl($event.target.checked, 'e5')" />
                                                 <label for="e5" class="form-check-label">E5 Office 365</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="shclocnumber" class="">Department<em
-                                                    class="text-danger">*</em></label><input
-                                                formControlName="shclocnumber" id="shclocnumber" type="text"
-                                                class="form-control" required [ngClass]="{
+                                            <label for="dept" class="">Department<em
+                                                    class="text-danger">*</em></label><input formControlName="dept"
+                                                id="dept" type="text" class="form-control" required [ngClass]="{
                           'is-invalid':
-                            c.shclocnumber.invalid &&
-                            (c.shclocnumber.dirty || c.shclocnumber.touched)
+                            c.dept.invalid &&
+                            (c.dept.dirty || c.dept.touched)
                         }" />
                                             <em *ngIf="
-                          c.shclocnumber.invalid &&
-                          (c.shclocnumber.dirty || c.shclocnumber.touched)
+                          c.dept.invalid &&
+                          (c.dept.dirty || c.dept.touched)
                         " class="error invalid-feedback">
                                                 Department field is required
                                             </em>
@@ -167,16 +183,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="Challenge" class="">SSN/PW Reset Challenge Word<em
-                                                    class="text-danger">*</em></label><input formControlName="Challenge"
-                                                id="Challenge" type="text" class="form-control" required [ngClass]="{
+                                            <label for="ssn" class="">SSN/PW Reset Challenge Word<em
+                                                    class="text-danger">*</em></label><input formControlName="ssn"
+                                                id="ssn" type="text" class="form-control" required [ngClass]="{
                           'is-invalid':
-                            c.Challenge.invalid &&
-                            (c.Challenge.dirty || c.Challenge.touched)
+                            c.ssn.invalid &&
+                            (c.ssn.dirty || c.ssn.touched)
                         }" />
                                             <em *ngIf="
-                          c.Challenge.invalid &&
-                          (c.Challenge.dirty || c.Challenge.touched)
+                          c.ssn.invalid &&
+                          (c.ssn.dirty || c.ssn.touched)
                         " class="error invalid-feedback">
                                                 SSN/PW Reset Challenge Word field is required
                                             </em>
@@ -212,9 +228,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="Expiration" class="">Contract Expiration Date</label>
+                                            <label for="expire" class="">Contract Expiration Date</label>
                                             <input type="text" class="form-control" placeholder="YYYYMMDD"
-                                                formControlName="Expiration" />
+                                                formControlName="expire" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -226,27 +242,23 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="Office" class="">Office Location <em> eg.
-                                                    B2-237A</em></label><input formControlName="Office" id="Office"
+                                            <label for="room" class="">Office Location <em> eg.
+                                                    B2-237A</em></label><input formControlName="room" id="room"
                                                 type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="businessUnit" class="">Business Unit</label>
-                                            <ng-select class="" formControlName="businessUnit">
-                                                <ng-option *ngFor="let unit of businessUnits | keyvalue"
-                                                    [value]="unit.key">{{ unit.value }}</ng-option>
-                                            </ng-select>
+                                            <label for="shcloc" class="">Business Unit</label>
+                                            <ng-select [items]="businessUnits" bindLabel="name" bindValue="id"
+                                                formControlName="shcloc" placeholder="Select item"></ng-select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="businesscategory" class="">Business Category</label>
-                                            <ng-select class="" formControlName="businesscategory">
-                                                <ng-option *ngFor="let cat of businessCats | keyvalue"
-                                                    [value]="cat.key">{{ cat.value }}</ng-option>
-                                            </ng-select>
+                                            <label for="buscat" class="">Business Category</label>
+                                            <ng-select [items]="businessCats" bindLabel="name" bindValue="id"
+                                                formControlName="buscat" placeholder="Select item"></ng-select>
                                         </div>
                                     </div>
                                     <div class="col-md-12 text-danger mb-2">
@@ -258,7 +270,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="ml-auto">
                                         <button class="btn btn-primary btn-lg" type="submit"
-                                            [disabled]="!vendorForm.valid">
+                                            [disabled]="!contractorForm.valid">
                                             Add Account
                                         </button>
                                     </div>

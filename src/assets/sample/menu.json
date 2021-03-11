@@ -95,9 +95,9 @@
       "link": "ituser/chgaltuid"
     },
     {
-      "key": "addvendor",
-      "title": "Add Vendor",
-      "link": "ituser/addvendor"
+      "key": "addcontractor",
+      "title": "Add Contractor",
+      "link": "ituser/addcontractor"
     }
   ]
 }

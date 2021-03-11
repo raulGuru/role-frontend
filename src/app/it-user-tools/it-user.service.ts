@@ -141,6 +141,28 @@ export class ItUserService {
       .toPromise();
   }
 
+  getorgs(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getorgs: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/nonassociate`, postData)
+      .toPromise();
+  }
+
+  getnonassociate(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getnonassociate: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/nonassociate`, postData)
+      .toPromise();
+  }
+
   getBusinessCategories() {
     return this.http
       .get<any>("./assets/sample/business-categories.json").toPromise()

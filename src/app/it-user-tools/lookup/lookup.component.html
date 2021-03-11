@@ -140,7 +140,10 @@
                                                     <tr *ngFor="let user of users">
                                                         <td>{{ user.uid }}</td>
                                                         <td>{{ user.cn }}</td>
-                                                        <td>{{ user.type }}</td>
+                                                        <td *ngIf="user.type === 'Contractor'; else elseBlock" >
+                                                            <a [routerLink]="['/ituser/addcontractor', user.uid]" placement="right" ngbTooltip="Click to Edit">{{ user.type }}</a>
+                                                        </td>
+                                                        <ng-template #elseBlock><td>{{ user.type }}</td></ng-template>
                                                         <td>{{ user.status }}</td>
                                                         <td>{{ user.emplid }}</td>
                                                         <td>{{ user.o }}</td>
