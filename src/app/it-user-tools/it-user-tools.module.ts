@@ -16,10 +16,11 @@ import { LookupPasswordComponent } from './lookup-password/lookup-password.compo
 import { ReserveComponent } from './reserve/reserve.component';
 import { ChangeUidComponent } from './change-uid/change-uid.component';
 import { AddContractorComponent } from './add-contractor/add-contractor.component';
+import { ChangeSsnComponent } from './change-ssn/change-ssn.component';
 
 
 @NgModule({
-  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent, AddContractorComponent],
+  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent, AddContractorComponent, ChangeSsnComponent],
   imports: [
     CommonModule,
     ItUserToolsRoutingModule,

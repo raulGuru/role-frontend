@@ -98,6 +98,11 @@
       "key": "addcontractor",
       "title": "Add Contractor",
       "link": "ituser/addcontractor"
+    },
+    {
+      "key": "chgssn",
+      "title": "Change Contractor SSN",
+      "link": "ituser/chgssn"
     }
   ]
 }

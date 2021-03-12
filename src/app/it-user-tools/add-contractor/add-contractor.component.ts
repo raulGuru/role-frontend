@@ -103,7 +103,7 @@ export class AddContractorComponent implements OnInit {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const { status, message } = getContractorRes.header.getnonassociate;
+      const { status, message, info } = getContractorRes.header.getnonassociate;
       if (status === '0') {
         this.patchContractorValues(getContractorRes.data.getnonassociate);
         this.patchChkBxs(getContractorRes.data.getnonassociate);
@@ -111,7 +111,7 @@ export class AddContractorComponent implements OnInit {
       } else {
         Swal.fire({
           icon: 'error',
-          title: message,
+          title: `${message}</br>${info || ''}`,
         });
       }
     } catch (error) {
@@ -201,13 +201,13 @@ export class AddContractorComponent implements OnInit {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const { status, message } = orgsRes.header.getorgs;
+      const { status, message, info } = orgsRes.header.getorgs;
       if (status === '0') {
         this.orgs = orgsRes.data.getorgs;
       } else {
         Swal.fire({
           icon: 'error',
-          title: message,
+          title: `${message}</br>${info || ''}`,
         });
       }
     } catch (error) {
@@ -229,7 +229,7 @@ export class AddContractorComponent implements OnInit {
           this.layoutService.handleResponseError();
         }
         this.toastr.clear();
-        const { status, message } = generateRes.header.generateuid;
+        const { status, message, info } = generateRes.header.generateuid;
         if (status === '0') {
           const { uid } = generateRes.data.generateuid;
           this.contractorForm.patchValue({ uid });
@@ -237,7 +237,7 @@ export class AddContractorComponent implements OnInit {
         } else {
           Swal.fire({
             icon: 'error',
-            title: message,
+            title: `${message}</br>${info || ''}`,
           });
         }
       } catch (error) {
@@ -247,9 +247,103 @@ export class AddContractorComponent implements OnInit {
     }
   }
 
-  onAccountSubmit() {
+  async onAccountSubmit() {
     if (this.contractorForm.valid) {
-      console.log(this.contractorForm.value);
+      let params = {};
+      /*
+      const formVals = this.contractorForm.value;
+      for (const key in formVals) {
+        const element = formVals[key];
+        if (key === 'buscat' || key === 'shcloc') {
+          params[key] = !element ? '' : element;
+        } else {
+          params[key] = element === null ? false : element;
+        }
+      }
+      */
+      const {
+        givenname,
+        sn,
+        uid,
+        o,
+        dept,
+        ssn,
+        title,
+        emplid,
+        procid,
+        expire,
+        manager,
+        room,
+        shcloc,
+        buscat,
+        gentype,
+        generic,
+        vendor,
+        nonexpiry,
+        testing,
+        procurement,
+        kmart,
+        sears2,
+        vpn,
+        k1,
+        e1,
+        e3,
+        e5,
+      } = this.contractorForm.value;
+      params['givenname'] = givenname;
+      params['sn'] = sn;
+      params['uid'] = uid;
+      params['o'] = o;
+      params['dept'] = dept;
+      params['ssn'] = ssn;
+      params['title'] = title;
+      params['emplid'] = emplid;
+      params['procid'] = procid;
+      params['expire'] = expire;
+      params['manager'] = manager;
+      params['room'] = room;
+      params['shcloc'] = !shcloc ? '' : shcloc;
+      params['buscat'] = !buscat ? '' : buscat;
+      params['gentype'] = !gentype ? '' : gentype;
+      params['generic'] = !generic ? false : generic;
+      params['vendor'] = !vendor ? false : vendor;
+      params['nonexpiry'] = !nonexpiry ? false : nonexpiry;
+      params['testing'] = !testing ? false : testing;
+      params['procurement'] = !procurement ? false : procurement;
+      params['kmart'] = !kmart ? false : kmart;
+      params['sears2'] = !sears2 ? false : sears2;
+      params['vpn'] = !vpn ? false : vpn;
+      params['k1'] = !k1 ? false : k1;
+      params['e1'] = !e1 ? false : e1;
+      params['e3'] = !e3 ? false : e3;
+      params['e5'] = !e5 ? false : e5;
+      params['operation'] = this.opuid ? 'modify' : 'add';
+      try {
+        this.toastr.clear();
+        this.toastr.info('Performing action...', 'On Contractor', {
+          disableTimeOut: true,
+        });
+        let actionRes = await this.itUserService.nonassociate(params);
+        if (actionRes.header.status == '1') {
+          this.layoutService.handleResponseError();
+        }
+        this.toastr.clear();
+        const { status, message, info } = actionRes.header.nonassociate;
+        if (status === '0') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Action performed successfully',
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: `${message}</br>${info || ''}`,
+          });
+        }
+      } catch (error) {
+        this.toastr.clear();
+        window.alert(error);
+      }
     }
   }
 
@@ -355,8 +449,8 @@ export class AddContractorComponent implements OnInit {
     const action = condition ? 'disable' : 'enable';
     this.contractorForm.controls[control][action]();
     this.contractorForm.patchValue({
-      control: false
-    })
+      control: false,
+    });
   }
 
   get c() {

@@ -163,6 +163,28 @@ export class ItUserService {
       .toPromise();
   }
 
+  nonassociate(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      nonassociate: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/nonassociate`, postData)
+      .toPromise();
+  }
+
+  changessn(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      changessn: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/changessn`, postData)
+      .toPromise();
+  }
+
   getBusinessCategories() {
     return this.http
       .get<any>("./assets/sample/business-categories.json").toPromise()

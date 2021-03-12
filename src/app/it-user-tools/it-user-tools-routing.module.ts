@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '../layout/page-not-found/page-not-found.component';
 import { AddContractorComponent } from './add-contractor/add-contractor.component';
 import { AskComponent } from './ask/ask.component';
+import { ChangeSsnComponent } from './change-ssn/change-ssn.component';
 import { ChangeUidComponent } from './change-uid/change-uid.component';
 import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
 import { LookupComponent } from './lookup/lookup.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'addreserve', component: ReserveComponent },
   { path: 'addreserve/:id', component: ReserveComponent },
   { path: 'chgaltuid', component: ChangeUidComponent },
+  { path: 'chgssn', component: ChangeSsnComponent },
   { path: 'addcontractor', component: AddContractorComponent },
   { path: 'addcontractor/:id', component: AddContractorComponent },
   { path: '', pathMatch: 'full', redirectTo: 'lookup' },
