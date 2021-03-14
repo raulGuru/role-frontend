@@ -1,0 +1,52 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+  <app-header></app-header>
+  <div class="app-main">
+    <app-sidebar></app-sidebar>
+    <div class="app-main__outer">
+      <div class="app-main__inner">
+        <div class="app-page-title">
+          <div class="card mb-3 mt-4">
+            <div class="card p-4">
+              <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                  class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Convert Contractor To Associate
+                Status</div>
+              <div class="divider row"></div>
+              <div class="form-row text-danger mt-3">This tool will take two IDs that belong to the same person, a
+                contractor and associate ID, and convert the contractor ID to associate status. The tool works by first
+                saving certain data as well as group and role information from the contractor account, removing the
+                contractor account,renaming the associate ID to the contractor ID, then restoring the saved information
+                back to original ID.</div>
+              <form class="p-4 row" [formGroup]="chgc2aForm" (ngSubmit)="onChngSub()">
+                <div class="col-md-6">
+                  <div class="position-relative form-group"><label for="opuid" class="">Contractor ID<em
+                        class="text-danger">*</em></label><input name="opuid" formControlName="opuid" type="text"
+                      class="form-control" required
+                      [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }">
+                    <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)" class="error invalid-feedback">
+                      Contractor ID field is required
+                    </em>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="position-relative form-group"><label for="ssn" class="">Associate ID<em
+                        class="text-danger">*</em></label><input name="ssn" formControlName="ssn" type="text"
+                      class="form-control" required
+                      [ngClass]="{ 'is-invalid': c.ssn.invalid && (c.ssn.dirty || c.ssn.touched) }">
+                    <em *ngIf="c.ssn.invalid && (c.ssn.dirty || c.ssn.touched)" class="error invalid-feedback">
+                      Associate ID field is required
+                    </em>
+                  </div>
+                </div>
+                <div class="divider row"></div>
+                <div class="wrapper text-right align-items-center">
+                  <div class="ml-auto">
+                    <button class="btn btn-primary btn-lg" type="submit" [disabled]="!chgc2aForm.valid">Convert</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

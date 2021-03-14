@@ -103,6 +103,11 @@
       "key": "chgssn",
       "title": "Change Contractor SSN",
       "link": "ituser/chgssn"
+    },
+    {
+      "key": "chgc2a",
+      "title": "Change Contractor ID to Associate",
+      "link": "ituser/chgc2a"
     }
   ]
 }

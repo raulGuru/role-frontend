@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '../layout/page-not-found/page-not-found.component';
 import { AddContractorComponent } from './add-contractor/add-contractor.component';
 import { AskComponent } from './ask/ask.component';
+import { ChangeCToAComponent } from './change-c-to-a/change-c-to-a.component';
 import { ChangeSsnComponent } from './change-ssn/change-ssn.component';
 import { ChangeUidComponent } from './change-uid/change-uid.component';
 import { LookupPasswordComponent } from './lookup-password/lookup-password.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'chgssn', component: ChangeSsnComponent },
   { path: 'addcontractor', component: AddContractorComponent },
   { path: 'addcontractor/:id', component: AddContractorComponent },
+  { path: 'chgc2a', component: ChangeCToAComponent },
   { path: '', pathMatch: 'full', redirectTo: 'lookup' },
   { path: '**', component: PageNotFoundComponent },
 ];
