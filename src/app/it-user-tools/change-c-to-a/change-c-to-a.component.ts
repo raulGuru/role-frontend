@@ -14,6 +14,8 @@ import { ItUserService } from '../it-user.service';
 })
 export class ChangeCToAComponent implements OnInit {
   chgc2aForm: FormGroup;
+  contractors: [];
+  associates: [];
 
   constructor(
     private itUserService: ItUserService,
@@ -21,36 +23,83 @@ export class ChangeCToAComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.chgc2aForm = new FormGroup({
-      opuid: new FormControl('', Validators.required),
-      ssn: new FormControl('', Validators.required),
+      opuid: new FormControl(null, Validators.required),
+      assoc: new FormControl(null, Validators.required),
     });
   }
 
   ngOnInit(): void {}
 
+  async getSelectList(event: any, type: string) {
+    if (event.term.length < 3) return;
+    const post = { opuid: event.term };
+    try {
+      this.toastr.clear();
+      this.toastr.info('Searching...', 'Fetching List', {
+        disableTimeOut: true,
+      });
+      let contractsRes: any;
+      if (type === 'contr') {
+        contractsRes = await this.itUserService.getContractors(post);
+      } else {
+        contractsRes = await this.itUserService.getAssociates(post);
+      }
+      if (contractsRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.toastr.clear();
+      const { status, message, info } =
+        type === 'contr'
+          ? contractsRes.header.getnonassociate
+          : contractsRes.header.getassociate;
+      if (status === '0') {
+        if (type === 'contr') {
+          this.contractors = contractsRes.data.getnonassociate;
+        } else {
+          this.associates = contractsRes.data.getassociate;
+        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: `${message}</br>${info || ''}`,
+        });
+      }
+    } catch (error) {
+      this.toastr.clear();
+      window.alert(error);
+    }
+  }
+
   async onChngSub() {
     if (this.chgc2aForm.valid) {
-      const { opuid, ssn } = this.chgc2aForm.value;
+      const { opuid, assoc } = this.chgc2aForm.value;
       const params = {
-        opuid,
-        ssn,
-        operation: 'modify',
+        cuid: opuid,
+        auid: assoc,
       };
       try {
         this.toastr.clear();
-        this.toastr.info('Performing action...', 'Contractor ID', {
+        this.toastr.info('Performing action...', 'Converting', {
           disableTimeOut: true,
         });
-        let chgc2aRes = await this.itUserService.changessn(params);
+        let chgc2aRes = await this.itUserService.convertcontractor(params);
         if (chgc2aRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
         this.toastr.clear();
-        const { status, message, info } = chgc2aRes.header.changessn;
+        const { status, message, info } = chgc2aRes.header.convertcontractor;
         if (status === '0') {
+          let sicon: any = 'success';
+          let smsg: string = 'Action performed successfully';
+          if(message !== 'OK') {
+            sicon = 'warning'
+            smsg = message.split('|').join('\n');
+            smsg = `Conversion success with below warnings: </br>${smsg}`
+          }
           Swal.fire({
-            icon: 'success',
-            title: 'Action performed successfully',
+            width: 1000,
+            icon: sicon,
+            title: smsg,
           });
         } else {
           Swal.fire({

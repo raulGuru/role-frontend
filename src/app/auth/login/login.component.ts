@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import Swal from 'sweetalert2';
+
 import { AuthService } from '../auth.service';
 // import { ToastrService } from 'ngx-toastr';
 
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
           password_expires: response.data.password_expires || 0,
         };
         this.authService.setLocalStorage('user', user);
+        this.passwordExpiryCheck(user);
         this.router.navigate(['/access/role']);
       } else if (response.header.status === 1) {
 
@@ -45,5 +48,16 @@ export class LoginComponent implements OnInit {
         // });
       }
     } catch (error) {}
+  }
+
+  passwordExpiryCheck(user: any) {
+    const expiresIn = user.password_expires;
+    if (expiresIn < 11) {
+      Swal.fire({
+        icon: 'warning',
+        title: `Your password expires soon. 
+        Please change your password`,
+      });
+    }
   }
 }

@@ -194,4 +194,37 @@ export class ItUserService {
     return this.http
       .get<any>("./assets/sample/business-units.json").toPromise()
   }
+
+  getContractors(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getnonassociate: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/convertcontractor`, postData)
+      .toPromise();
+  }
+
+  getAssociates(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getassociate: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/convertcontractor`, postData)
+      .toPromise();
+  }
+
+  convertcontractor(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      convertcontractor: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/convertcontractor`, postData)
+      .toPromise();
+  }
 }

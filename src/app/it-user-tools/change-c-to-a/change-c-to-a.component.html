@@ -19,20 +19,24 @@
               <form class="p-4 row" [formGroup]="chgc2aForm" (ngSubmit)="onChngSub()">
                 <div class="col-md-6">
                   <div class="position-relative form-group"><label for="opuid" class="">Contractor ID<em
-                        class="text-danger">*</em></label><input name="opuid" formControlName="opuid" type="text"
-                      class="form-control" required
-                      [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }">
+                        class="text-danger">*</em></label>
+                    <ng-select [items]="contractors" placeholder="Type atleast 3 chars to search"
+                      formControlName="opuid" (search)="getSelectList($event, 'contr')"
+                      [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }" required>
+                    </ng-select>
                     <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)" class="error invalid-feedback">
                       Contractor ID field is required
                     </em>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="position-relative form-group"><label for="ssn" class="">Associate ID<em
-                        class="text-danger">*</em></label><input name="ssn" formControlName="ssn" type="text"
-                      class="form-control" required
-                      [ngClass]="{ 'is-invalid': c.ssn.invalid && (c.ssn.dirty || c.ssn.touched) }">
-                    <em *ngIf="c.ssn.invalid && (c.ssn.dirty || c.ssn.touched)" class="error invalid-feedback">
+                  <div class="position-relative form-group"><label for="assoc" class="">Associate ID<em
+                        class="text-danger">*</em></label>
+                    <ng-select [items]="associates" placeholder="Type atleast 3 chars to search" formControlName="assoc"
+                      (search)="getSelectList($event, 'assoc')"
+                      [ngClass]="{ 'is-invalid': c.assoc.invalid && (c.assoc.dirty || c.assoc.touched) }" required>
+                    </ng-select>
+                    <em *ngIf="c.assoc.invalid && (c.assoc.dirty || c.assoc.touched)" class="error invalid-feedback">
                       Associate ID field is required
                     </em>
                   </div>
