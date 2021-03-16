@@ -108,6 +108,16 @@
       "key": "chgc2a",
       "title": "Change Contractor ID to Associate",
       "link": "ituser/chgc2a"
+    },
+    {
+      "key": "renameid",
+      "title": "Rename Associate/Contractor Enterprise ID",
+      "link": "ituser/renameid"
+    },
+    {
+      "key": "addvendor",
+      "title": "Add Vendor",
+      "link": "ituser/addvendor"
     }
   ]
 }

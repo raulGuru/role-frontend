@@ -1,0 +1,311 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+        <app-sidebar></app-sidebar>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="app-page-title">
+                    <div class="card mb-3 mt-4">
+                        <div class="card p-4">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Add Vendor
+                                Account</div>
+                            <div class="divider row"></div>
+                            <form class="p-4" [formGroup]="vendorForm">
+                                <div class="form-row">
+                                    <div class="col-md-12 text-danger mb-2">Please enter account information below.
+                                        <br>Fields marked with an asterisk indicate required fields.
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="givenname" class="">First
+                                                Name<em class="text-danger">*</em></label><input
+                                                formControlName="givenname" id="givenname" type="text"
+                                                class="form-control" (blur)="generateUid()" required [ngClass]="{
+                          'is-invalid':
+                            c.givenname.invalid &&
+                            (c.givenname.dirty || c.givenname.touched)
+                        }">
+                                            <em *ngIf="
+                          c.givenname.invalid &&
+                          (c.givenname.dirty || c.givenname.touched)
+                        " class="error invalid-feedback">
+                                                First Name field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="sn" class="">Last Name<em
+                                                    class="text-danger">*</em></label>
+                                            <input formControlName="sn" (blur)="generateUid()" id="sn" type="text"
+                                                class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.sn.invalid && (c.sn.dirty || c.sn.touched)
+                        }" />
+                                            <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
+                                                class="error invalid-feedback">
+                                                Last Name field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="uid" class="">Enterprise
+                                                ID<em class="text-danger">*</em></label>
+                                            <input formControlName="uid" id="uid" type="text" class="form-control"
+                                                required [readOnly]="uidReadOnly" [ngClass]="{
+                          'is-invalid':
+                            c.uid.invalid && (c.uid.dirty || c.uid.touched)
+                        }" />
+                                            <em *ngIf="c.uid.invalid && (c.uid.dirty || c.uid.touched)"
+                                                class="error invalid-feedback">
+                                                Enterprise ID field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="o" class="">Company<em
+                                                    class="text-danger">*</em></label>
+                                            <ng-select [items]="orgs" placeholder="Type atleast 3 chars to search"
+                                                formControlName="o" (search)="getOrgs($event)">
+                                            </ng-select>
+                                            <em *ngIf="c.o.invalid && (c.o.dirty || c.o.touched)"
+                                                class="error invalid-feedback">
+                                                Organization/Company field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group row col-md-12"><label for="access"
+                                                class="wrapper">Access</label>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="kl" id="kl" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="kl" class="form-check-label">Klink</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="sbp" id="sbp" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="sbp" class="form-check-label">Standard Business
+                                                    Process (Workbench)</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="fullw" id="fullw" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="fullw" class="form-check-label">Full
+                                                    Workbench</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="dt" id="dt" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="dt" class="form-check-label">Capability to
+                                                    download large files (Workbench)</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="ap" id="ap" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="ap" class="form-check-label">Accounts
+                                                    Payable</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="ap0" id="ap0" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="ap0" class="form-check-label">Accounts Payable
+                                                    (Workbench)</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="cc" id="cc" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="cc" class="form-check-label">Category Captain
+                                                    (Workbench)</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="lbusiness" id="lbusiness" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="lbusiness" class="form-check-label">Licensed
+                                                    Business</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="mk" id="mk" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="mk" class="form-check-label">Marketing
+                                                    Vendor</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="pri" id="pri" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="pri" class="form-check-label">Price
+                                                    Management</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="rc" id="rc" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="rc" class="form-check-label">Report Card</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="ark" id="ark" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="ark" class="form-check-label">Alex Reporting
+                                                    Kmart</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group row col-md-12"><label
+                                                for="flags" class="wrapper">User Flags</label>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="ima" id="ima" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="ima" class="form-check-label">Item Maintenance
+                                                    Application</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="rep" id="rep" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="rep"
+                                                    class="form-check-label">Representative</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="ins" id="ins" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="ins" class="form-check-label">Installer</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="pcont" id="pcont" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="pcont" class="form-check-label">Primary
+                                                    Contact</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="adm" id="adm" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="adm"
+                                                    class="form-check-label">Administrator</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="cn" id="cn" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="cn" class="form-check-label">Compliance
+                                                    Notification</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="importv" id="importv" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="importv" class="form-check-label">Import
+                                                    Vendor</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="plm" id="plm" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="plm" class="form-check-label">Product Lifecycle
+                                                    Management (PLM)</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="iin" id="iin" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="iin" class="form-check-label">Invoice
+                                                    Inquiry</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="trp" id="trp" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="trp"
+                                                    class="form-check-label">Transporation</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="alex" id="alex" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="alex" class="form-check-label">Alex Reporting
+                                                    Sears</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="osnd" id="osnd" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="osnd" class="form-check-label">Receipt Exceptions
+                                                    (OSND)</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="vxnet" id="vxnet" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="vxnet" class="form-check-label">Visual XNet</label>
+                                            </div>
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="macdb" id="macdb" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="macdb" class="form-check-label">MAC DB Damage
+                                                    Recovery</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group"><label for="exampleEmail"
+                                                class="">Phone Number<em class="text-danger">*</em></label>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <select
+                                                        class="multiselect-dropdown form-control select2-hidden-accessible"
+                                                        data-select2-id="4" tabindex="-1" aria-hidden="true">
+                                                        <option data-select2-id="6">US Canda</option>
+                                                        <option>58491-hoffman Estate, NYC (Support Center)</option>
+                                                        <option>58491-JFK Street, UK (Support Center)</option>
+                                                    </select><span
+                                                        class="select2 select2-container select2-container--bootstrap4"
+                                                        dir="ltr" data-select2-id="5" style="width: 456.328px;"><span
+                                                            class="selection"><span
+                                                                class="select2-selection select2-selection--single"
+                                                                role="combobox" aria-haspopup="true"
+                                                                aria-expanded="false" tabindex="0"
+                                                                aria-labelledby="select2-ohtn-container"><span
+                                                                    class="select2-selection__rendered"
+                                                                    id="select2-ohtn-container" role="textbox"
+                                                                    aria-readonly="true" title="US Canda">US
+                                                                    Canda</span><span class="select2-selection__arrow"
+                                                                    role="presentation"><b
+                                                                        role="presentation"></b></span></span></span><span
+                                                            class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input name="firstname" id="exampleEmail" type="text"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input name="firstname" placeholder="Ext" id="exampleEmail"
+                                                        type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="exampleEmail"
+                                                class="">Royalty Code<em class="text-danger">*</em></label>
+                                            <select class="multiselect-dropdown form-control select2-hidden-accessible"
+                                                data-select2-id="7" tabindex="-1" aria-hidden="true">
+                                                <option data-select2-id="9">None</option>
+                                                <option>58491-hoffman Estate, NYC (Support Center)</option>
+                                                <option>58491-JFK Street, UK (Support Center)</option>
+                                            </select><span
+                                                class="select2 select2-container select2-container--bootstrap4"
+                                                dir="ltr" data-select2-id="8" style="width: 709.5px;"><span
+                                                    class="selection"><span
+                                                        class="select2-selection select2-selection--single"
+                                                        role="combobox" aria-haspopup="true" aria-expanded="false"
+                                                        tabindex="0" aria-labelledby="select2-a22x-container"><span
+                                                            class="select2-selection__rendered"
+                                                            id="select2-a22x-container" role="textbox"
+                                                            aria-readonly="true" title="None">None</span><span
+                                                            class="select2-selection__arrow" role="presentation"><b
+                                                                role="presentation"></b></span></span></span><span
+                                                    class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center">
+                                    <div class="ml-auto">
+                                        <button class="btn btn-primary btn-lg" type="submit"
+                                            [disabled]="!vendorForm.valid">{{ opuid ? 'Modify' : 'Add'}}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>

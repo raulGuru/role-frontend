@@ -227,4 +227,26 @@ export class ItUserService {
       .post<any>(`${BACKEND_URL}/convertcontractor`, postData)
       .toPromise();
   }
+
+  searchuid(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      searchuid: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/renameid`, postData)
+      .toPromise();
+  }
+
+  renameid(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      renameid: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/renameid`, postData)
+      .toPromise();
+  }
 }

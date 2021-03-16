@@ -1,0 +1,67 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+        <app-sidebar></app-sidebar>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="app-page-title">
+                    <div class="card mb-3 mt-4">
+                        <div class="card p-4">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Rename an
+                                Associate or Contractor Enterprise LDAP ID</div>
+                            <div class="divider row"></div>
+                            <form class="p-4" [formGroup]="renameForm" (ngSubmit)="onRenameSub()">
+                                <div class="form-row">
+                                    <div class="col-md-12 text-danger mb-2">Certain business applications are severely
+                                        impacted by ID renames. If a particular rename would affect one of these
+                                        applications and the force checkbox is left unchecked the rename will fail and
+                                        an email will be sent to you and the affected support team(s) to prepare for the
+                                        intended ID rename. You should receive approval email(s) from the impacted areas
+                                        within 24 hours. Once approval is received the rename can be retried with the
+                                        force option checked.</div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="ouid" class="">Current
+                                                User ID<em class="text-danger">*</em></label>
+                                            <ng-select [items]="users" placeholder="Type atleast 3 chars to search"
+                                                formControlName="ouid" (search)="getUserList($event)"
+                                                [ngClass]="{ 'is-invalid': c.ouid.invalid && (c.ouid.dirty || c.ouid.touched) }"
+                                                required>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="nuid" class="">New
+                                                User ID<em class="text-danger">*</em></label><input
+                                                formControlName="nuid" id="nuid" type="text" class="form-control"
+                                                [ngClass]="{ 'is-invalid': c.nuid.invalid && (c.nuid.dirty || c.nuid.touched) }">
+                                            <em *ngIf="c.nuid.invalid && (c.nuid.dirty || c.nuid.touched)"
+                                                class="error invalid-feedback">
+                                                New User ID field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group row col-md-12">
+
+                                            <div class="position-relative form-check col-md-6">
+                                                <input formControlName="delnuid" id="delnuid" type="checkbox"
+                                                    class="form-check-input">
+                                                <label for="delnuid" class="form-check-label">Force Delete new
+                                                    ID</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="wrapper align-items-right text-right">
+                                    <div class="ml-auto">
+                                        <button class="btn btn-primary btn-lg" type="submit"
+                                            [disabled]="!renameForm.valid">Rename</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
