@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'chgc2a', component: ChangeCToAComponent },
   { path: 'renameid', component: RenameContractorComponent },
   { path: 'addvendor', component: AddVendorComponent },
+  { path: 'addvendor/:id', component: AddVendorComponent },
   { path: '', pathMatch: 'full', redirectTo: 'lookup' },
   { path: '**', component: PageNotFoundComponent },
 ];

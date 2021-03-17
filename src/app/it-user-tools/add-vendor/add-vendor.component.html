@@ -11,7 +11,7 @@
                                     class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Add Vendor
                                 Account</div>
                             <div class="divider row"></div>
-                            <form class="p-4" [formGroup]="vendorForm">
+                            <form class="p-4" [formGroup]="vendorForm"  (ngSubmit)="onAccountSubmit()">
                                 <div class="form-row">
                                     <div class="col-md-12 text-danger mb-2">Please enter account information below.
                                         <br>Fields marked with an asterisk indicate required fields.
@@ -73,6 +73,20 @@
                                             </em>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="mail" class="">Email
+                                                Address<em class="text-danger">*</em></label>
+                                            <input email formControlName="mail" id="mail" type="text" class="form-control"
+                                                required [ngClass]="{
+                          'is-invalid':
+                            c.mail.invalid && (c.mail.dirty || c.mail.touched)
+                        }" />
+                                            <em *ngIf="c.mail.invalid && (c.mail.dirty || c.mail.touched)"
+                                                class="error invalid-feedback">
+                                                Email Address field is required
+                                            </em>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="position-relative form-group row col-md-12"><label for="access"
                                                 class="wrapper">Access</label>
@@ -83,44 +97,44 @@
                                             </div>
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="sbp" id="sbp" type="checkbox"
-                                                    class="form-check-input">
+                                                    class="form-check-input" (change)="handleWorkbench($event)">
                                                 <label for="sbp" class="form-check-label">Standard Business
                                                     Process (Workbench)</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="fullw" id="fullw" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="fullw" class="form-check-label">Full
+                                                <input formControlName="wb" id="wb" type="checkbox"
+                                                    class="form-check-input" (change)="handleWorkbench($event)">
+                                                <label for="wb" class="form-check-label">Full
                                                     Workbench</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="dt" id="dt" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="dt" class="form-check-label">Capability to
+                                                <input formControlName="ems" id="ems" type="checkbox"
+                                                    class="form-check-input" (change)="handleWorkbench($event)">
+                                                <label for="ems" class="form-check-label">Capability to
                                                     download large files (Workbench)</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="ap" id="ap" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="ap" class="form-check-label">Accounts
+                                                <input formControlName="ap0" id="ap0" type="checkbox"
+                                                    class="form-check-input" (change)="handleWorkbench($event)">
+                                                <label for="ap0" class="form-check-label">Accounts
                                                     Payable</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="ap0" id="ap0" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="ap0" class="form-check-label">Accounts Payable
+                                                <input formControlName="ap" id="ap" type="checkbox"
+                                                    class="form-check-input" (change)="handleWorkbench($event)">
+                                                <label for="ap" class="form-check-label">Accounts Payable
                                                     (Workbench)</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="cc" id="cc" type="checkbox"
-                                                    class="form-check-input">
+                                                    class="form-check-input" (change)="handleWorkbench($event)">
                                                 <label for="cc" class="form-check-label">Category Captain
                                                     (Workbench)</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="lbusiness" id="lbusiness" type="checkbox"
-                                                    class="form-check-input">
-                                                <label for="lbusiness" class="form-check-label">Licensed
+                                                <input formControlName="lb" id="lb" type="checkbox"
+                                                    class="form-check-input" (change)="handleWorkbench($event)">
+                                                <label for="lb" class="form-check-label">Licensed
                                                     Business</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
@@ -130,9 +144,9 @@
                                                     Vendor</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="pri" id="pri" type="checkbox"
+                                                <input formControlName="pmu" id="pmu" type="checkbox"
                                                     class="form-check-input">
-                                                <label for="pri" class="form-check-label">Price
+                                                <label for="pmu" class="form-check-label">Price
                                                     Management</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
@@ -149,8 +163,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="position-relative form-group row col-md-12"><label
-                                                for="flags" class="wrapper">User Flags</label>
+                                        <div class="position-relative form-group row col-md-12"><label for="flags"
+                                                class="wrapper">User Flags</label>
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="ima" id="ima" type="checkbox"
                                                     class="form-check-input">
@@ -160,25 +174,23 @@
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="rep" id="rep" type="checkbox"
                                                     class="form-check-input">
-                                                <label for="rep"
-                                                    class="form-check-label">Representative</label>
+                                                <label for="rep" class="form-check-label">Representative</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="ins" id="ins" type="checkbox"
-                                                    class="form-check-input">
+                                                    class="form-check-input" (change)="handleInstaller($event.target.checked)">
                                                 <label for="ins" class="form-check-label">Installer</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="pcont" id="pcont" type="checkbox"
+                                                <input formControlName="pri" id="pri" type="checkbox"
                                                     class="form-check-input">
-                                                <label for="pcont" class="form-check-label">Primary
+                                                <label for="pri" class="form-check-label">Primary
                                                     Contact</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="adm" id="adm" type="checkbox"
                                                     class="form-check-input">
-                                                <label for="adm"
-                                                    class="form-check-label">Administrator</label>
+                                                <label for="adm" class="form-check-label">Administrator</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="cn" id="cn" type="checkbox"
@@ -187,9 +199,9 @@
                                                     Notification</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="importv" id="importv" type="checkbox"
+                                                <input formControlName="ip" id="ip" type="checkbox"
                                                     class="form-check-input">
-                                                <label for="importv" class="form-check-label">Import
+                                                <label for="ip" class="form-check-label">Import
                                                     Vendor</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
@@ -207,13 +219,12 @@
                                             <div class="position-relative form-check col-md-6">
                                                 <input formControlName="trp" id="trp" type="checkbox"
                                                     class="form-check-input">
-                                                <label for="trp"
-                                                    class="form-check-label">Transporation</label>
+                                                <label for="trp" class="form-check-label">Transporation</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
-                                                <input formControlName="alex" id="alex" type="checkbox"
+                                                <input formControlName="srp" id="srp" type="checkbox"
                                                     class="form-check-input">
-                                                <label for="alex" class="form-check-label">Alex Reporting
+                                                <label for="srp" class="form-check-label">Alex Reporting
                                                     Sears</label>
                                             </div>
                                             <div class="position-relative form-check col-md-6">
@@ -237,63 +248,30 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="position-relative form-group"><label for="exampleEmail"
-                                                class="">Phone Number<em class="text-danger">*</em></label>
+                                                class="">Phone Number</label>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <select
-                                                        class="multiselect-dropdown form-control select2-hidden-accessible"
-                                                        data-select2-id="4" tabindex="-1" aria-hidden="true">
-                                                        <option data-select2-id="6">US Canda</option>
-                                                        <option>58491-hoffman Estate, NYC (Support Center)</option>
-                                                        <option>58491-JFK Street, UK (Support Center)</option>
-                                                    </select><span
-                                                        class="select2 select2-container select2-container--bootstrap4"
-                                                        dir="ltr" data-select2-id="5" style="width: 456.328px;"><span
-                                                            class="selection"><span
-                                                                class="select2-selection select2-selection--single"
-                                                                role="combobox" aria-haspopup="true"
-                                                                aria-expanded="false" tabindex="0"
-                                                                aria-labelledby="select2-ohtn-container"><span
-                                                                    class="select2-selection__rendered"
-                                                                    id="select2-ohtn-container" role="textbox"
-                                                                    aria-readonly="true" title="US Canda">US
-                                                                    Canda</span><span class="select2-selection__arrow"
-                                                                    role="presentation"><b
-                                                                        role="presentation"></b></span></span></span><span
-                                                            class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                    <ng-select [items]="phonecodes" bindLabel="name" bindValue="id"
+                                                        formControlName="countrycode" placeholder="Select item">
+                                                    </ng-select>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input name="firstname" id="exampleEmail" type="text"
+                                                    <input name="telephonenumber" id="telephonenumber" type="text"
+                                                        class="form-control" placeholder="Number">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input name="ext" placeholder="Ext" id="ext" type="text"
                                                         class="form-control">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input name="firstname" placeholder="Ext" id="exampleEmail"
-                                                        type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="position-relative form-group"><label for="exampleEmail"
-                                                class="">Royalty Code<em class="text-danger">*</em></label>
-                                            <select class="multiselect-dropdown form-control select2-hidden-accessible"
-                                                data-select2-id="7" tabindex="-1" aria-hidden="true">
-                                                <option data-select2-id="9">None</option>
-                                                <option>58491-hoffman Estate, NYC (Support Center)</option>
-                                                <option>58491-JFK Street, UK (Support Center)</option>
-                                            </select><span
-                                                class="select2 select2-container select2-container--bootstrap4"
-                                                dir="ltr" data-select2-id="8" style="width: 709.5px;"><span
-                                                    class="selection"><span
-                                                        class="select2-selection select2-selection--single"
-                                                        role="combobox" aria-haspopup="true" aria-expanded="false"
-                                                        tabindex="0" aria-labelledby="select2-a22x-container"><span
-                                                            class="select2-selection__rendered"
-                                                            id="select2-a22x-container" role="textbox"
-                                                            aria-readonly="true" title="None">None</span><span
-                                                            class="select2-selection__arrow" role="presentation"><b
-                                                                role="presentation"></b></span></span></span><span
-                                                    class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                        <div class="position-relative form-group"><label for="roycode"
+                                                class="">Royalty Code</label>
+                                            <ng-select [items]="royaltyCodes" bindLabel="name" bindValue="id"
+                                                formControlName="roycode" placeholder="Select item">
+                                            </ng-select>
                                         </div>
                                     </div>
                                 </div>

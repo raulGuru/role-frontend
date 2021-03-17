@@ -10,7 +10,7 @@
                             <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
                                     class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Enterprise
                                 Directory Person Lookup</div>
-                                <div class="divider row"></div>
+                            <div class="divider row"></div>
                             <form [formGroup]="lookupForm" (ngSubmit)="onLookupSubmit()">
                                 <div class="form-row">
                                     <div class="col-md-6">
@@ -140,10 +140,17 @@
                                                     <tr *ngFor="let user of users">
                                                         <td>{{ user.uid }}</td>
                                                         <td>{{ user.cn }}</td>
-                                                        <td *ngIf="user.type === 'Contractor'; else elseBlock" >
-                                                            <a [routerLink]="['/ituser/addcontractor', user.uid]" placement="right" ngbTooltip="Click to Edit">{{ user.type }}</a>
+                                                        <td *ngIf="user.type === 'Contractor'">
+                                                            <a [routerLink]="['/ituser/addcontractor', user.uid]"
+                                                                placement="right" ngbTooltip="Click to Edit">{{
+                                                                user.type }}</a>
                                                         </td>
-                                                        <ng-template #elseBlock><td>{{ user.type }}</td></ng-template>
+                                                        <td *ngIf="user.type === 'Vendor'">
+                                                            <a [routerLink]="['/ituser/addvendor', user.uid]"
+                                                                placement="right" ngbTooltip="Click to Edit">{{
+                                                                user.type }}</a>
+                                                        </td>
+                                                        <td *ngIf="user.type === 'Associate'">{{ user.type }}</td>
                                                         <td>{{ user.status }}</td>
                                                         <td>{{ user.emplid }}</td>
                                                         <td>{{ user.o }}</td>

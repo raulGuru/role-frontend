@@ -249,4 +249,20 @@ export class ItUserService {
       .post<any>(`${BACKEND_URL}/renameid`, postData)
       .toPromise();
   }
+
+  getPhoneCodes() {
+    return this.http
+      .get<any>("./assets/sample/country-phonecodes.json").toPromise()
+  }
+
+  getvendor(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      getvendor: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/vendor`, postData)
+      .toPromise();
+  }
 }
