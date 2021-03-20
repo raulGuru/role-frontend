@@ -265,4 +265,37 @@ export class ItUserService {
       .post<any>(`${BACKEND_URL}/vendor`, postData)
       .toPromise();
   }
+
+  addModifyVendor(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      vendor: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/vendor`, postData)
+      .toPromise();
+  }
+
+  resetpwVendor(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      resetpw: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/vendor`, postData)
+      .toPromise();
+  }
+
+  deleteVendor(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      delete: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/vendor`, postData)
+      .toPromise();
+  }
 }

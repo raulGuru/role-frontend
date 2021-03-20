@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
@@ -42,7 +42,8 @@ export class AddVendorComponent implements OnInit {
     private itUserService: ItUserService,
     private layoutService: LayoutService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.vendorForm = new FormGroup({
       givenname: new FormControl('', Validators.required),
@@ -137,8 +138,8 @@ export class AddVendorComponent implements OnInit {
   }
 
   patchChkBxs(data: any) {
-    if(data.ins) {
-      this.handleInstaller(true)
+    if (data.ins) {
+      this.handleInstaller(true);
     }
   }
 
@@ -150,7 +151,100 @@ export class AddVendorComponent implements OnInit {
         const element = formVals[key];
         params[key] = element === null ? false : element;
       }
-      console.log(params);
+      params['operation'] = this.opuid ? 'modify' : 'add';
+      try {
+        this.toastr.clear();
+        this.toastr.info('Performing action...', 'On Vendor', {
+          disableTimeOut: true,
+        });
+        let actionRes = await this.itUserService.addModifyVendor(params);
+        if (actionRes.header.status == '1') {
+          this.layoutService.handleResponseError();
+        }
+        this.toastr.clear();
+        const { status, message, info } = actionRes.header.vendor;
+        if (status === '0') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Action performed successfully',
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: `${message}</br>${info || ''}`,
+          });
+        }
+      } catch (error) {
+        this.toastr.clear();
+        window.alert(error);
+      }
+    }
+  }
+
+  async onRemoveClk() {
+    try {
+      this.toastr.clear();
+      this.toastr.info('Removing...', 'On Vendor', {
+        disableTimeOut: true,
+      });
+      let actionRes = await this.itUserService.deleteVendor({
+        opuid: this.opuid,
+      });
+      if (actionRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.toastr.clear();
+      const { status, message, info } = actionRes.header.delete;
+      if (status === '0') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Action performed successfully',
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/ituser/lookup']);
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: `${message}</br>${info || ''}`,
+        });
+      }
+    } catch (error) {
+      this.toastr.clear();
+      window.alert(error);
+    }
+  }
+
+  async onResetClk() {
+    try {
+      this.toastr.clear();
+      this.toastr.info('Resetting password...', 'On Vendor', {
+        disableTimeOut: true,
+      });
+      let actionRes = await this.itUserService.resetpwVendor({
+        opuid: this.opuid,
+      });
+      if (actionRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.toastr.clear();
+      const { status, message, info } = actionRes.header.resetpw;
+      if (status === '0') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Action performed successfully',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: `${message}</br>${info || ''}`,
+        });
+      }
+    } catch (error) {
+      this.toastr.clear();
+      window.alert(error);
     }
   }
 
