@@ -20,10 +20,11 @@ import { ChangeSsnComponent } from './change-ssn/change-ssn.component';
 import { ChangeCToAComponent } from './change-c-to-a/change-c-to-a.component';
 import { RenameContractorComponent } from './rename-contractor/rename-contractor.component';
 import { AddVendorComponent } from './add-vendor/add-vendor.component';
+import { AddSaraVendorComponent } from './add-sara-vendor/add-sara-vendor.component';
 
 
 @NgModule({
-  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent, AddContractorComponent, ChangeSsnComponent, ChangeCToAComponent, RenameContractorComponent, AddVendorComponent],
+  declarations: [LookupComponent, AskComponent, LookupresComponent, LookupPasswordComponent, ReserveComponent, ChangeUidComponent, AddContractorComponent, ChangeSsnComponent, ChangeCToAComponent, RenameContractorComponent, AddVendorComponent, AddSaraVendorComponent],
   imports: [
     CommonModule,
     ItUserToolsRoutingModule,

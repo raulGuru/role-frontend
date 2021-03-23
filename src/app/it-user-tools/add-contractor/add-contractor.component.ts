@@ -218,7 +218,7 @@ export class AddContractorComponent implements OnInit {
 
   async generateUid() {
     const { givenname, sn } = this.contractorForm.value;
-    if (givenname && sn) {
+    if (givenname && sn && !this.opuid) {
       try {
         this.toastr.clear();
         this.toastr.info('Generating...', 'Generating Enterprise ID', {

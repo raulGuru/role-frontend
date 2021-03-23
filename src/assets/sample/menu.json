@@ -118,6 +118,11 @@
       "key": "addvendor",
       "title": "Add Vendor",
       "link": "ituser/addvendor"
+    },
+    {
+      "key": "addvendorsara",
+      "title": "Add Sara Vendor",
+      "link": "ituser/addvendorsara"
     }
   ]
 }

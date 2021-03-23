@@ -150,6 +150,11 @@
                                                                 placement="right" ngbTooltip="Click to Edit">{{
                                                                 user.type }}</a>
                                                         </td>
+                                                        <td *ngIf="user.type === 'Sara'">
+                                                            <a [routerLink]="['/ituser/addvendorsara', user.uid]"
+                                                                placement="right" ngbTooltip="Click to Edit">{{
+                                                                user.type }}</a>
+                                                        </td>
                                                         <td *ngIf="user.type === 'Associate'">{{ user.type }}</td>
                                                         <td>{{ user.status }}</td>
                                                         <td>{{ user.emplid }}</td>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from '../layout/page-not-found/page-not-found.component';
 import { AddContractorComponent } from './add-contractor/add-contractor.component';
+import { AddSaraVendorComponent } from './add-sara-vendor/add-sara-vendor.component';
 import { AddVendorComponent } from './add-vendor/add-vendor.component';
 import { AskComponent } from './ask/ask.component';
 import { ChangeCToAComponent } from './change-c-to-a/change-c-to-a.component';
@@ -29,6 +30,8 @@ const routes: Routes = [
   { path: 'renameid', component: RenameContractorComponent },
   { path: 'addvendor', component: AddVendorComponent },
   { path: 'addvendor/:id', component: AddVendorComponent },
+  { path: 'addvendorsara', component: AddSaraVendorComponent },
+  { path: 'addvendorsara/:id', component: AddSaraVendorComponent },
   { path: '', pathMatch: 'full', redirectTo: 'lookup' },
   { path: '**', component: PageNotFoundComponent },
 ];

@@ -136,9 +136,7 @@ export class ItUserService {
       svc_pw: 'test@123',
       altuid: post,
     };
-    return this.http
-      .post<any>(`${BACKEND_URL}/altuid`, postData)
-      .toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/altuid`, postData).toPromise();
   }
 
   getorgs(post) {
@@ -187,12 +185,14 @@ export class ItUserService {
 
   getBusinessCategories() {
     return this.http
-      .get<any>("./assets/sample/business-categories.json").toPromise()
+      .get<any>('./assets/sample/business-categories.json')
+      .toPromise();
   }
 
   getBusinessUnits() {
     return this.http
-      .get<any>("./assets/sample/business-units.json").toPromise()
+      .get<any>('./assets/sample/business-units.json')
+      .toPromise();
   }
 
   getContractors(post) {
@@ -234,9 +234,7 @@ export class ItUserService {
       svc_pw: 'test@123',
       searchuid: post,
     };
-    return this.http
-      .post<any>(`${BACKEND_URL}/renameid`, postData)
-      .toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/renameid`, postData).toPromise();
   }
 
   renameid(post) {
@@ -245,57 +243,88 @@ export class ItUserService {
       svc_pw: 'test@123',
       renameid: post,
     };
-    return this.http
-      .post<any>(`${BACKEND_URL}/renameid`, postData)
-      .toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/renameid`, postData).toPromise();
   }
 
   getPhoneCodes() {
     return this.http
-      .get<any>("./assets/sample/country-phonecodes.json").toPromise()
+      .get<any>('./assets/sample/country-phonecodes.json')
+      .toPromise();
   }
 
   getvendor(post) {
     const postData = {
-      svc_uid: 'lkarlin',
-      svc_pw: 'test@123',
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
       getvendor: post,
     };
-    return this.http
-      .post<any>(`${BACKEND_URL}/vendor`, postData)
-      .toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
   }
 
   addModifyVendor(post) {
     const postData = {
-      svc_uid: 'lkarlin',
-      svc_pw: 'test@123',
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
       vendor: post,
     };
-    return this.http
-      .post<any>(`${BACKEND_URL}/vendor`, postData)
-      .toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
   }
 
   resetpwVendor(post) {
     const postData = {
-      svc_uid: 'lkarlin',
-      svc_pw: 'test@123',
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
       resetpw: post,
     };
-    return this.http
-      .post<any>(`${BACKEND_URL}/vendor`, postData)
-      .toPromise();
+    return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
   }
 
   deleteVendor(post) {
     const postData = {
-      svc_uid: 'lkarlin',
-      svc_pw: 'test@123',
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
       delete: post,
     };
+    return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
+  }
+
+  getsaravendor(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      getsaravendor: post,
+    };
     return this.http
-      .post<any>(`${BACKEND_URL}/vendor`, postData)
+      .post<any>(`${BACKEND_URL}/saravendor`, postData)
       .toPromise();
+  }
+
+  addModifySaraVendor(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      saravendor: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/saravendor`, postData)
+      .toPromise();
+  }
+
+  deleteSaraVendor(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      delete: post,
+    };
+    return this.http.post<any>(`${BACKEND_URL}/saravendor`, postData).toPromise();
+  }
+
+  resetpwSaraVendor(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      resetpw: post,
+    };
+    return this.http.post<any>(`${BACKEND_URL}/saravendor`, postData).toPromise();
   }
 }

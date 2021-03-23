@@ -112,7 +112,7 @@ export class ReserveComponent implements OnInit {
   async generateUid() {
     if (this.lookupUid) return true;
     const { givenname, sn } = this.reserveForm.value;
-    if (givenname && sn) {
+    if (givenname && sn && !this.lookupUid) {
       try {
         this.toastr.clear();
         this.toastr.info('Generating...', 'Generating Enterprise ID', {

@@ -1,42 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 import { LayoutService } from 'src/app/layout/layout.service';
 import { ItUserService } from '../it-user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-vendor',
-  templateUrl: './add-vendor.component.html',
-  styleUrls: ['./add-vendor.component.scss'],
+  selector: 'app-add-sara-vendor',
+  templateUrl: './add-sara-vendor.component.html',
+  styleUrls: ['./add-sara-vendor.component.scss']
 })
-export class AddVendorComponent implements OnInit {
-  vendorForm: FormGroup;
+export class AddSaraVendorComponent implements OnInit {
+  saraVendorForm: FormGroup;
   uidReadOnly: boolean;
   orgs = [];
   opuid: string;
   phonecodes: [];
-  royaltyCodes = [
-    { id: '', name: 'None' },
-    { id: 'BR', name: 'Bongo' },
-    { id: 'C1', name: 'Cannon' },
-    { id: 'C2', name: 'Cannon Classic' },
-    { id: 'C5', name: 'Cannon Coexist' },
-    { id: 'C3', name: 'Cannon Kids' },
-    { id: 'C4', name: 'Cannon Royal Family' },
-    { id: 'MM', name: 'Disney Non-Royalty' },
-    { id: 'M', name: 'Disney Royalty' },
-    { id: 'ES', name: 'Everlast Sport' },
-    { id: 'JS', name: 'Jaclyn Smith' },
-    { id: 'JB', name: 'Joe Boxer' },
-    { id: 'MS', name: 'Martha Stewart' },
-    { id: 'PC', name: 'Protege Products Corporation' },
-    { id: 'W', name: 'Route 66' },
-    { id: 'SL', name: 'Sandra by Sandra Lee' },
-  ];
 
   constructor(
     private itUserService: ItUserService,
@@ -44,43 +26,18 @@ export class AddVendorComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-    this.vendorForm = new FormGroup({
+  ) { 
+    this.saraVendorForm = new FormGroup({
       givenname: new FormControl('', Validators.required),
       sn: new FormControl('', Validators.required),
       uid: new FormControl('', Validators.required),
       o: new FormControl(null, Validators.required),
       mail: new FormControl('', Validators.required),
-      kl: new FormControl(),
-      sbp: new FormControl(),
-      wb: new FormControl(),
-      ems: new FormControl(),
-      ap0: new FormControl(),
-      ap: new FormControl(),
-      cc: new FormControl(),
-      lb: new FormControl(),
-      mk: new FormControl(),
-      pmu: new FormControl(),
-      rc: new FormControl(),
-      ark: new FormControl(),
-      ima: new FormControl(),
-      rep: new FormControl(),
-      ins: new FormControl(),
-      pri: new FormControl(),
-      adm: new FormControl(),
-      cn: new FormControl(),
-      ip: new FormControl(),
-      plm: new FormControl(),
-      iin: new FormControl(),
-      trp: new FormControl(),
-      srp: new FormControl(),
-      osnd: new FormControl(),
-      vxnet: new FormControl(),
-      macdb: new FormControl(),
+      sig: new FormControl(),
+      admin: new FormControl(),
       countrycode: new FormControl(null),
       telephonenumber: new FormControl(''),
       ext: new FormControl(''),
-      roycode: new FormControl(null),
     });
   }
 
@@ -95,27 +52,26 @@ export class AddVendorComponent implements OnInit {
     );
     this.opuid = this.route.snapshot.paramMap.get('id');
     if (this.opuid) {
-      this.getVendor(this.opuid);
+      this.getSaraVendor(this.opuid);
     }
   }
 
-  async getVendor(opuid: string) {
+  async getSaraVendor(opuid: string) {
     try {
       this.toastr.clear();
       this.toastr.info('Searching...', 'Searching Enterprise ID', {
         disableTimeOut: true,
       });
-      let vendorRes = await this.itUserService.getvendor({
+      let saraVendorRes = await this.itUserService.getsaravendor({
         opuid,
       });
-      if (vendorRes.header.status == '1') {
+      if (saraVendorRes.header.status == '1') {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const { status, message, info } = vendorRes.header.getvendor;
+      const { status, message, info } = saraVendorRes.header.getsaravendor;
       if (status === '0') {
-        this.patchVendorValues(vendorRes.data.getvendor);
-        this.patchChkBxs(vendorRes.data.getvendor);
+        this.patchSaraVendorValues(saraVendorRes.data.getsaravendor);
         this.uidReadOnly = true;
       } else {
         Swal.fire({
@@ -129,27 +85,21 @@ export class AddVendorComponent implements OnInit {
     }
   }
 
-  patchVendorValues(data: any) {
+  patchSaraVendorValues(data: any) {
     Object.keys(data).forEach((key) => {
-      this.vendorForm.patchValue({
+      this.saraVendorForm.patchValue({
         [key]: data[key],
       });
     });
   }
 
-  patchChkBxs(data: any) {
-    if (data.ins) {
-      this.handleInstaller(true);
-    }
-  }
-
   async onAccountSubmit() {
-    if (this.vendorForm.valid) {
+    if (this.saraVendorForm.valid) {
       let params = {};
-      const formVals = this.vendorForm.value;
+      const formVals = this.saraVendorForm.value;
       for (const key in formVals) {
         const element = formVals[key];
-        if(key === 'countrycode' || key === 'roycode') {
+        if(key === 'countrycode') {
           params[key] = element || '';
         } else {
           params[key] = element === null ? false : element;
@@ -158,15 +108,15 @@ export class AddVendorComponent implements OnInit {
       params['operation'] = this.opuid ? 'modify' : 'add';
       try {
         this.toastr.clear();
-        this.toastr.info('Performing action...', 'On Vendor', {
+        this.toastr.info('Performing action...', 'On Sara Vendor', {
           disableTimeOut: true,
         });
-        let actionRes = await this.itUserService.addModifyVendor(params);
+        let actionRes = await this.itUserService.addModifySaraVendor(params);
         if (actionRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
         this.toastr.clear();
-        const { status, message, info } = actionRes.header.vendor;
+        const { status, message, info } = actionRes.header.saravendor;
         if (status === '0') {
           Swal.fire({
             icon: 'success',
@@ -189,10 +139,10 @@ export class AddVendorComponent implements OnInit {
   async onRemoveClk() {
     try {
       this.toastr.clear();
-      this.toastr.info('Removing...', 'On Vendor', {
+      this.toastr.info('Removing...', 'On Sara Vendor', {
         disableTimeOut: true,
       });
-      let actionRes = await this.itUserService.deleteVendor({
+      let actionRes = await this.itUserService.deleteSaraVendor({
         opuid: this.opuid,
       });
       if (actionRes.header.status == '1') {
@@ -225,10 +175,10 @@ export class AddVendorComponent implements OnInit {
   async onResetClk() {
     try {
       this.toastr.clear();
-      this.toastr.info('Resetting password...', 'On Vendor', {
+      this.toastr.info('Resetting password...', 'On Sara Vendor', {
         disableTimeOut: true,
       });
-      let actionRes = await this.itUserService.resetpwVendor({
+      let actionRes = await this.itUserService.resetpwSaraVendor({
         opuid: this.opuid,
       });
       if (actionRes.header.status == '1') {
@@ -283,7 +233,7 @@ export class AddVendorComponent implements OnInit {
   }
 
   async generateUid() {
-    const { givenname, sn } = this.vendorForm.value;
+    const { givenname, sn } = this.saraVendorForm.value;
     if (givenname && sn && !this.opuid) {
       try {
         this.toastr.clear();
@@ -298,7 +248,7 @@ export class AddVendorComponent implements OnInit {
         const { status, message, info } = generateRes.header.generateuid;
         if (status === '0') {
           const { uid } = generateRes.data.generateuid;
-          this.vendorForm.patchValue({ uid });
+          this.saraVendorForm.patchValue({ uid });
           this.uidReadOnly = true;
         } else {
           Swal.fire({
@@ -313,30 +263,8 @@ export class AddVendorComponent implements OnInit {
     }
   }
 
-  handleWorkbench(e) {
-    if (e.target.id === 'wb') {
-      this.vendorForm.patchValue({
-        ap: false,
-        cc: false,
-        sbp: false,
-        ems: false,
-        lb: false,
-      });
-    } else {
-      this.vendorForm.patchValue({
-        wb: false,
-      });
-    }
-  }
-
-  handleInstaller(chk: boolean) {
-    if (chk)
-      this.vendorForm.patchValue({
-        ap0: true,
-      });
-  }
-
   get c() {
-    return this.vendorForm.controls;
+    return this.saraVendorForm.controls;
   }
+
 }

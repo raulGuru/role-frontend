@@ -1,0 +1,161 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+        <app-sidebar></app-sidebar>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="app-page-title">
+                    <div class="card mb-3 mt-4">
+                        <div class="card p-4">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Add Sara Vendor
+                                Account</div>
+                            <div class="divider row"></div>
+                            <form class="p-4" [formGroup]="saraVendorForm" (ngSubmit)="onAccountSubmit()">
+                                <div class="form-row">
+                                    <div class="col-md-12 text-danger mb-2">Please enter account information below.
+                                        <br>Fields marked with an asterisk indicate required fields.
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="givenname" class="">First
+                                                Name<em class="text-danger">*</em></label>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <input
+                                                        formControlName="givenname" id="givenname" type="text"
+                                                        class="form-control" (blur)="generateUid()" required [ngClass]="{
+                                  'is-invalid':
+                                    c.givenname.invalid &&
+                                    (c.givenname.dirty || c.givenname.touched)
+                                }">
+                                                    <em *ngIf="
+                                  c.givenname.invalid &&
+                                  (c.givenname.dirty || c.givenname.touched)
+                                " class="error invalid-feedback">
+                                                        First Name field is required
+                                                    </em>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="osition-relative form-check">
+                                                        <input name="check" id="exampleCheck1" type="checkbox"
+                                                            class="form-check-input">
+                                                        <label for="exampleCheck1" class="form-check-label">M.I</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="sn" class="">Last Name<em
+                                                    class="text-danger">*</em></label>
+                                            <input formControlName="sn" (blur)="generateUid()" id="sn" type="text"
+                                                class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.sn.invalid && (c.sn.dirty || c.sn.touched)
+                        }" />
+                                            <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
+                                                class="error invalid-feedback">
+                                                Last Name field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="uid" class="">Enterprise
+                                                ID<em class="text-danger">*</em></label>
+                                            <input formControlName="uid" id="uid" type="text" class="form-control"
+                                                required [readOnly]="uidReadOnly" [ngClass]="{
+                          'is-invalid':
+                            c.uid.invalid && (c.uid.dirty || c.uid.touched)
+                        }" />
+                                            <em *ngIf="c.uid.invalid && (c.uid.dirty || c.uid.touched)"
+                                                class="error invalid-feedback">
+                                                Enterprise ID field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="o" class="">Company<em
+                                                    class="text-danger">*</em></label>
+                                            <ng-select [items]="orgs" placeholder="Type atleast 3 chars to search"
+                                                formControlName="o" (search)="getOrgs($event)">
+                                            </ng-select>
+                                            <em *ngIf="c.o.invalid && (c.o.dirty || c.o.touched)"
+                                                class="error invalid-feedback">
+                                                Organization/Company field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="mail" class="">Email
+                                                Address<em class="text-danger">*</em></label>
+                                            <input email formControlName="mail" id="mail" type="text"
+                                                class="form-control" required [ngClass]="{
+                          'is-invalid':
+                            c.mail.invalid && (c.mail.dirty || c.mail.touched)
+                        }" />
+                                            <em *ngIf="c.mail.invalid && (c.mail.dirty || c.mail.touched)"
+                                                class="error invalid-feedback">
+                                                Email Address field is required
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="roles"
+                                                class="">Roles</label>
+                                            <div class="row col-md-12">
+                                                <div class="osition-relative form-check col-md-6">
+                                                    <input formControlName="sig" id="sig" type="checkbox"
+                                                        class="form-check-input">
+                                                    <label for="sig" class="form-check-label">View
+                                                        Signatures</label>
+                                                </div>
+                                                <div class="osition-relative form-check col-md-6">
+                                                    <input formControlName="admin" id="admin" type="checkbox"
+                                                        class="form-check-input">
+                                                    <label for="admin"
+                                                        class="form-check-label">Administrator</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group"><label for="phNumber"
+                                                class="">Phone Number</label>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <ng-select [items]="phonecodes" bindLabel="name" bindValue="id"
+                                                        formControlName="countrycode" placeholder="Select item">
+                                                    </ng-select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input formControlName="telephonenumber" id="telephonenumber" type="text"
+                                                        class="form-control" placeholder="Number">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input formControlName="ext" placeholder="Ext" id="ext" type="text"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center">
+                                    <div class="ml-auto">
+                                        <button class="btn btn-primary btn-lg mr-2" type="submit"
+                                            [disabled]="!saraVendorForm.valid">{{ opuid ? 'Modify' : 'Add'}}</button>
+                                            <ng-container *ngIf="opuid">
+                                                <button class="btn btn-dark btn-lg mr-2" type="button" (click)="onRemoveClk()">Remove</button>
+                                                <button class="btn btn-dark btn-lg mr-2" type="button" (click)="onResetClk()">Reset Password</button>
+                                            </ng-container>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
