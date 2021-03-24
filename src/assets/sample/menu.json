@@ -123,6 +123,11 @@
       "key": "addvendorsara",
       "title": "Add Sara Vendor",
       "link": "ituser/addvendorsara"
+    },
+    {
+      "key": "syncmail",
+      "title": "Synch Email",
+      "link": "ituser/syncmail"
     }
   ]
 }

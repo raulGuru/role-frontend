@@ -327,4 +327,13 @@ export class ItUserService {
     };
     return this.http.post<any>(`${BACKEND_URL}/saravendor`, postData).toPromise();
   }
+
+  syncmail(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      syncmail: post,
+    };
+    return this.http.post<any>(`${BACKEND_URL}/syncmailaddr`, postData).toPromise();
+  }
 }

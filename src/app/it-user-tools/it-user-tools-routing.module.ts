@@ -14,6 +14,7 @@ import { LookupComponent } from './lookup/lookup.component';
 import { LookupresComponent } from './lookupres/lookupres.component';
 import { RenameContractorComponent } from './rename-contractor/rename-contractor.component';
 import { ReserveComponent } from './reserve/reserve.component';
+import { SyncEmailComponent } from './sync-email/sync-email.component';
 
 const routes: Routes = [
   { path: 'lookup', component: LookupComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'addvendor/:id', component: AddVendorComponent },
   { path: 'addvendorsara', component: AddSaraVendorComponent },
   { path: 'addvendorsara/:id', component: AddSaraVendorComponent },
+  { path: 'syncmail', component: SyncEmailComponent },
   { path: '', pathMatch: 'full', redirectTo: 'lookup' },
   { path: '**', component: PageNotFoundComponent },
 ];
