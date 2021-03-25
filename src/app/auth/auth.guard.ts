@@ -46,11 +46,14 @@ export class AuthGuard implements CanLoad {
     if (!access) {
       this.router.navigate(['/auth']);
     } else {
-      if (access.indexOf(segments[1].path) > -1) {
-        return true;
-      } else {
-        this.router.navigate(['/auth']);
+      if(segments.length > 1) {
+        if (access.indexOf(segments[1].path) > -1) {
+          return true;
+        } else {
+          this.router.navigate(['/auth']);
+        }
       }
+      this.router.navigate(['/auth']);
     }
     return false;
   }

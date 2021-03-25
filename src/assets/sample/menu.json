@@ -129,5 +129,12 @@
       "title": "Synch Email",
       "link": "ituser/syncmail"
     }
+  ],
+  "Unix Tools": [
+    {
+      "key": "addunixprof",
+      "title": "Add Profile",
+      "link": "unix/addunixprof"
+    }
   ]
 }

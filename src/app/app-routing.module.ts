@@ -6,18 +6,30 @@ import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.co
 
 const routes: Routes = [
   {
-    path: 'auth', 
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'access', 
-    loadChildren: () => import('./access-util/access-util.module').then(m => m.AccessUtilModule),
-    canLoad: [AuthGuard]
+    path: 'access',
+    loadChildren: () =>
+      import('./access-util/access-util.module').then(
+        (m) => m.AccessUtilModule
+      ),
+    canLoad: [AuthGuard],
   },
   {
-    path: 'ituser', 
-    loadChildren: () => import('./it-user-tools/it-user-tools.module').then(m => m.ItUserToolsModule),
-    canLoad: [AuthGuard]
+    path: 'ituser',
+    loadChildren: () =>
+      import('./it-user-tools/it-user-tools.module').then(
+        (m) => m.ItUserToolsModule
+      ),
+    canLoad: [AuthGuard],
+  },
+  {
+    path: 'unix',
+    loadChildren: () =>
+      import('./unix-tools/unix-tools.module').then((m) => m.UnixToolsModule),
+    canLoad: [AuthGuard],
   },
   { path: '', pathMatch: 'full', redirectTo: 'auth' },
   { path: '**', component: PageNotFoundComponent },
@@ -26,6 +38,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

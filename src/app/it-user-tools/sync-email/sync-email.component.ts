@@ -37,7 +37,7 @@ export class SyncEmailComponent implements OnInit {
       this.toastr.info('Searching...', 'User List', {
         disableTimeOut: true,
       });
-      let usersRes = await this.itUserService.searchuid(post);
+      let usersRes = await this.layoutService.searchuid(post);
       if (usersRes.header.status == '1') {
         this.layoutService.handleResponseError();
       }

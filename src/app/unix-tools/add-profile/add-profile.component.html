@@ -1,0 +1,61 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+        <app-sidebar></app-sidebar>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="app-page-title">
+                    <div class="card mb-3 mt-4">
+                        <div class="card p-4">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                                    class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Add Unix Profile</div>
+                            <div class="divider row"></div>
+                            <form class="p-4" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                                <div class="form-row">
+                                    <div class="col-md-12 text-danger mb-2">Please complete this form to add a Unix profile to and existing enterprise ID.<br>
+                                        An asterisk (*) indicates required fields.
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group"><label for="opuid" class="">Enterprise
+                                                ID<em class="text-danger">*</em></label>
+                                            <ng-select [items]="users" placeholder="Type atleast 3 chars to search"
+                                                formControlName="opuid" (search)="getUserIds($event)"
+                                                [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }"
+                                                required>
+                                            </ng-select>
+                                            <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)"
+                                                class="error invalid-feedback">
+                                                Enterprise ID field is required
+                                            </em>
+                                        </div>
+                                        <div class="position-relative form-group"><label for="uidnumber"
+                                                class="">Uid Number</label>
+                                            <input formControlName="uidnumber" id="uidnumber" type="text"
+                                                class="form-control" />
+                                        </div>
+                                        <div class="position-relative form-group"><label for="homedir"
+                                            class="">Login Shell<em class="text-danger">*</em></label>
+                                        <input formControlName="homedir" id="homedir" type="text"
+                                            class="form-control" [ngClass]="{ 'is-invalid': c.homedir.invalid && (c.homedir.dirty || c.homedir.touched) }" required/>
+                                            <em *ngIf="c.homedir.invalid && (c.homedir.dirty || c.homedir.touched)"
+                                                class="error invalid-feedback">
+                                                Login Shell field is required
+                                            </em>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center col-md-6">
+                                    <div class="ml-auto">
+                                        <button class="btn btn-primary btn-lg mr-2" type="submit"
+                                            [disabled]="!profileForm.valid">Add Profile</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

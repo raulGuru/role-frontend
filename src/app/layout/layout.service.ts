@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 import Swal from 'sweetalert2';
 
 import { LayoutModalComponent } from './layout-modal/layout-modal.component';
 
+const BACKEND_URL = environment.apiUrl;
 @Injectable({
   providedIn: 'root',
 })
@@ -36,6 +38,15 @@ export class LayoutService {
 
   setLocalStorage(key: string, data: any): void {
     localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  searchuid(post) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      searchuid: post,
+    };
+    return this.http.post<any>(`${BACKEND_URL}/renameid`, postData).toPromise();
   }
 
   handleResponseError() {
