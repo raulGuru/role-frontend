@@ -8,9 +8,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { UnixToolsRoutingModule } from './unix-tools-routing.module';
 import { AddProfileComponent } from './add-profile/add-profile.component';
 import { LayoutModule } from '../layout/layout.module';
+import { AddGroupComponent } from './add-group/add-group.component';
+import { SearchGroupComponent } from './search-group/search-group.component';
+import { ViewGrpDetailComponent } from './search-group/view-grp-detail/view-grp-detail.component';
 
 @NgModule({
-  declarations: [AddProfileComponent],
+  declarations: [AddProfileComponent, AddGroupComponent, SearchGroupComponent, ViewGrpDetailComponent],
   imports: [
     CommonModule,
     UnixToolsRoutingModule,

@@ -135,6 +135,16 @@
       "key": "addunixprof",
       "title": "Add Profile",
       "link": "unix/addunixprof"
+    },
+    {
+      "key": "addunixgroup",
+      "title": "Add Group",
+      "link": "unix/addunixgroup"
+    },
+    {
+      "key": "searchunixgroup",
+      "title": "Search Group",
+      "link": "unix/searchunixgroup"
     }
   ]
 }
