@@ -82,33 +82,6 @@ export class SearchGroupComponent implements OnInit {
               window.alert(error);
             }
           );
-
-        // try {
-
-        //   let delRes = await this.unixService.deleteunixgroup({
-        //     groupstr,
-        //   });
-        //   if (delRes.header.status == '1') {
-        //     this.layoutService.handleResponseError();
-        //   }
-        //   this.toastr.clear();
-        //   const { status, message, info } = delRes.header.deleteunixgroup;
-        //   if (status === '0') {
-        //     Swal.fire({
-        //       icon: 'success',
-        //       title: 'Action performed successfully',
-        //     });
-        //   } else {
-        //     Swal.fire({
-        //       width: 1000,
-        //       icon: 'error',
-        //       title: `${message}</br>${info || ''}`,
-        //     });
-        //   }
-        // } catch (error) {
-        //   this.toastr.clear();
-        //   window.alert(error);
-        // }
       }
     });
   }
