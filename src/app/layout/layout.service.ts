@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 import { LayoutModalComponent } from './layout-modal/layout-modal.component';
+import { environment } from 'src/environments/environment';
 
 const BACKEND_URL = environment.apiUrl;
 @Injectable({
@@ -20,7 +20,8 @@ export class LayoutService {
   constructor(
     private http: HttpClient,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   getLeftMenuJson() {
@@ -66,6 +67,7 @@ export class LayoutService {
     //   }
     // );
 
+    this.toastr.clear();
     localStorage.clear();
     Swal.fire({
       icon: 'error',

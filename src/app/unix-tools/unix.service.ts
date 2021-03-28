@@ -75,4 +75,37 @@ export class UnixService {
       .post<any>(`${BACKEND_URL}/unixgroup`, postData)
       .toPromise();
   }
+
+  getUserGroups(opuid: string) {
+    const postData = {
+      userunixgroups: {
+        opuid,
+      },
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixgroup`, postData)
+      .toPromise();
+  }
+
+  getAllGroups() {
+    const postData = {
+      allunixgroups: '1',
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixgroup`, postData)
+      .toPromise();
+  }
+
+  modifyGroup(action: any) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      action,
+    };
+    return this.http.post<any>(`${BACKEND_URL}/unixgroup`, postData).toPromise();
+  }
 }

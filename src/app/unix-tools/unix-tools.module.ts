@@ -11,9 +11,11 @@ import { LayoutModule } from '../layout/layout.module';
 import { AddGroupComponent } from './add-group/add-group.component';
 import { SearchGroupComponent } from './search-group/search-group.component';
 import { ViewGrpDetailComponent } from './search-group/view-grp-detail/view-grp-detail.component';
+import { GroupEditorComponent } from './group-editor/group-editor.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
-  declarations: [AddProfileComponent, AddGroupComponent, SearchGroupComponent, ViewGrpDetailComponent],
+  declarations: [AddProfileComponent, AddGroupComponent, SearchGroupComponent, ViewGrpDetailComponent, GroupEditorComponent],
   imports: [
     CommonModule,
     UnixToolsRoutingModule,
@@ -22,6 +24,7 @@ import { ViewGrpDetailComponent } from './search-group/view-grp-detail/view-grp-
     FormsModule,
     NgbModule,
     NgSelectModule,
+    PipesModule
   ],
 })
 export class UnixToolsModule {}

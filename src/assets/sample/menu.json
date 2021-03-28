@@ -31,38 +31,6 @@
       "link": "access/dlusers"
     }
   ],
-  "IDM Tools": [
-    {
-      "key": "idmrolesearch",
-      "title": "IDM Role Search",
-      "link": "idm/idmrolesearch"
-    },
-    {
-      "key": "idmrole",
-      "title": "IDM Role Editor",
-      "link": "idm/idmrole"
-    },
-    {
-      "key": "idmtemplate",
-      "title": "IDM Template Editor",
-      "link": "idm/idmtemplate"
-    },
-    {
-      "key": "idmrolerename",
-      "title": "IDM Role Rename Tool",
-      "link": "idm/idmrolerename"
-    },
-    {
-      "key": "idmtemplate",
-      "title": "IDM Template Assignment Tool",
-      "link": "idm/idmtemplate"
-    },
-    {
-      "key": "idmgroup",
-      "title": "IDM Group Assignment Tool",
-      "link": "idm/idmgroup"
-    }
-  ],
   "IT and User Tools": [
     {
       "key": "lookup",
@@ -145,6 +113,11 @@
       "key": "searchunixgroup",
       "title": "Search Group",
       "link": "unix/searchunixgroup"
+    },
+    {
+      "key": "unixgroup",
+      "title": "Unix Group Editor",
+      "link": "unix/unixgroup"
     }
   ]
 }

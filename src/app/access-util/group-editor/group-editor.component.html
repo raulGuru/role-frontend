@@ -1,82 +1,95 @@
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-    <app-header></app-header>
-    <div class="app-main">
-        <app-sidebar></app-sidebar>
-        <div class="app-main__outer">
-            <div class="app-main__inner">
-                <div class="app-page-title">
-                    <div class="card mb-3 mt-4">
-                        <div class="card-header-tab card-header">
-                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                               <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
-                               </i>Group Editor
-                            </div>
-                         </div>
-                         <div class="row p-4">
-                            <div class="col-md-6">
-                               <div class="position-relative form-group">
-                                  <label for="enterpriseId" class="">Enterprise
-                                     ID:</label>
-                                  <input name="opuid" type="text" class="form-control" #opuid value="">
-                               </div>
-                            </div>
-                            <div class="col-md-6">
-                               <label for="enterpriseId" class="wrapper">&nbsp;</label>
-                               <button class="btn btn-primary btn-lg" (click)="loadGroupData(opuid)" [disabled]="loading">Load</button>
-                            </div>
-                            <div class="col-md-12" *ngIf="showUserResMsg">
-                               <div *ngIf="showUserResMsg" class="alert fade show" [ngClass]="userResType"><span [innerHTML]="userResMsg"></span>
-                               </div>
-                               <!-- <div *ngIf="showModifyResMsg" class="alert fade show" [ngClass]="modifyResType">{{ modifyResMsg }}</div> -->
-                            </div>
-                         </div>
-                         <div class="row p-4" *ngIf="loadContent">
-                            <ng-container >
-                               <div class="subject-info-box-1 col-md-4">
-                                  <div class="">
-                                     <input type="text" name="search_group" class="form-control" placeholder="Type To Filter"
-                                        [(ngModel)]="searchAllGroups">
-                                  </div>
-                                  <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
-                                     <option *ngFor="let group of allGroups |  grdColumnFilter: { name: searchAllGroups } | keyvalue"
-                                        value="{{ group.value.name }}" (click)="toggleSelection(group.value)"
-                                        [class.item-selected]="group.selected">{{ group.value.name }}
-                                     </option>
-                                  </select> -->
-                                  <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
-                                     <li *ngFor="let group of allGroups |  grdColumnFilter: { name: searchAllGroups } | keyvalue"
-                                        (click)="toggleSelection(group.value)" [class.item-selected]="group.value.selected">{{
-                                        group.value.name
-                                        }}</li>
-                                  </ul>
-                               </div>
-                               <div class="subject-info-arrows text-center col-md-4">
-                                  <div class="btn_wrap">
-                                     <input type="button" value="Assign >>" class="btn btn-dark" (click)="moveSelected('add')"
-                                        [disabled]="groupSelected"><br>
-                                     <input type="button" value="<< Remove" class="btn btn-dark" (click)="moveSelected('del')"
-                                        [disabled]="groupSelected"><br>
-                                  </div>
-                               </div>
-                               <div class="subject-info-box-2 col-md-4 mt-5">
-                                  <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
-                                     <option *ngFor="let group of userGroups | keyvalue" value="{{ group.value.name }}"
-                                        [disabled]="group.value.disabled" (click)="toggleSelection(group.value)"
-                                        [class.item-selected]="group.selected">{{ group.value.name
-                                        }}</option>
-                                  </select> -->
-                                  <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
-                                     <li *ngFor="let group of userGroups | keyvalue" (click)="toggleSelection(group.value)"
-                                        [class.item-selected]="group.value.selected" [class.item-disabled]="group.value.disabled">{{
-                                        group.value.name
-                                        }}</li>
-                                  </ul>
-                               </div>
-                            </ng-container>
-                         </div>
-                    </div>
-                </div>
+   <app-header></app-header>
+   <div class="app-main">
+      <app-sidebar></app-sidebar>
+      <div class="app-main__outer">
+         <div class="app-main__inner">
+            <div class="app-page-title">
+               <div class="card mb-3 mt-4">
+                  <div class="card p-4">
+                     <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                           class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Group Editor</div>
+                     <div class="divider row"></div>
+                     <form class="p-4" [formGroup]="loadForm" (ngSubmit)="loadGroupData()">
+                        <div class="form-row">
+                           <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                 <label for="enterpriseId" class="">Enterprise
+                                    ID<em class="text-danger">*</em></label>
+                                 <input formControlName="opuid" type="text" class="form-control" value=""
+                                    [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }"
+                                    required>
+                                 <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)"
+                                    class="error invalid-feedback">Enterprise
+                                    ID field is required
+                                 </em>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="divider row"></div>
+                        <div class="d-flex align-items-center col-md-6">
+                           <div class="ml-auto">
+                              <button class="btn btn-primary btn-lg mr-2" type="submit"
+                                 [disabled]="loading || !loadForm.valid">Load</button>
+                           </div>
+                        </div>
+                     </form>
+                     <div class="row" *ngIf="showUserResMsg">
+                        <div class="col-md-12">
+                           <div class="alert fade show" [ngClass]="userResType"><span [innerHTML]="userResMsg"></span>
+                           </div>
+                           <!-- <div *ngIf="showModifyResMsg" class="alert fade show" [ngClass]="modifyResType">{{ modifyResMsg }}</div> -->
+                        </div>
+                     </div>
+                     <div class="row" *ngIf="loadContent">
+                        <div class="subject-info-box-1 col-md-4">
+                           <div class="">
+                              <input type="text" name="search_group" class="form-control" placeholder="Type To Filter"
+                                 [(ngModel)]="searchAllGroups">
+                           </div>
+                           <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
+                                          <option *ngFor="let group of allGroups |  grdColumnFilter: { name: searchAllGroups } | keyvalue"
+                                             value="{{ group.value.name }}" (click)="toggleSelection(group.value)"
+                                             [class.item-selected]="group.selected">{{ group.value.name }}
+                                          </option>
+                                       </select> -->
+                           <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
+                              <li *ngFor="let group of allGroups |  grdColumnFilter: { name: searchAllGroups } | keyvalue"
+                                 (click)="toggleSelection(group.value, 'a')"
+                                 [class.item-selected]="group.value.selected">{{
+                                 group.value.name
+                                 }}</li>
+                           </ul>
+                        </div>
+                        <div class="subject-info-arrows text-center col-md-4">
+                           <div class="btn_wrap">
+                              <input type="button" value="Assign >>" class="btn btn-dark" (click)="moveSelected('add')"
+                                 [disabled]="addBtnDisabled"><br>
+                              <input type="button" value="<< Remove" class="btn btn-dark" (click)="moveSelected('del')"
+                                 [disabled]="delBtnDisabled"><br>
+                           </div>
+                        </div>
+                        <div class="subject-info-box-2 col-md-4 mt-5">
+                           <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
+                                          <option *ngFor="let group of userGroups | keyvalue" value="{{ group.value.name }}"
+                                             [disabled]="group.value.disabled" (click)="toggleSelection(group.value)"
+                                             [class.item-selected]="group.selected">{{ group.value.name
+                                             }}</option>
+                                       </select> -->
+                           <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
+                              <li *ngFor="let group of userGroups | keyvalue"
+                                 (click)="toggleSelection(group.value, 'd')"
+                                 [class.item-selected]="group.value.selected"
+                                 [class.item-disabled]="group.value.disabled">{{
+                                 group.value.name
+                                 }}</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
+         </div>
+      </div>
+   </div>
 </div>
