@@ -8,55 +8,56 @@ import { LayoutService } from 'src/app/layout/layout.service';
 import { UnixService } from '../unix.service';
 
 @Component({
-  selector: 'app-add-group',
-  templateUrl: './add-group.component.html',
-  styleUrls: ['./add-group.component.scss']
+  selector: 'app-add-net-group',
+  templateUrl: './add-net-group.component.html',
+  styleUrls: ['./add-net-group.component.scss'],
 })
-export class AddGroupComponent implements OnInit {
-  groupForm: FormGroup;
+export class AddNetGroupComponent implements OnInit {
+  netGrpForm: FormGroup;
+  types = [
+    { id: 'host', name: 'Host' },
+    { id: 'user', name: 'User' },
+  ];
 
   constructor(
     private unixService: UnixService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) { 
-    this.groupForm = new FormGroup({
+  ) {
+    this.netGrpForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      gidnumber: new FormControl(''),
+      type: new FormControl('host', Validators.required),
       desc: new FormControl('', Validators.required),
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   async onSubmit() {
-    if (this.groupForm.valid) {
-      const { name, gidnumber, desc } = this.groupForm.value;
+    if (this.netGrpForm.valid) {
+      const { name, type, desc } = this.netGrpForm.value;
       try {
         this.toastr.clear();
-        this.toastr.info('Adding Group...', 'Unix Group', {
+        this.toastr.info('Adding Group...', 'Unix Net Group', {
           disableTimeOut: true,
         });
-        let submitRes = await this.unixService.addunixgroup({
+        let submitRes = await this.unixService.addunixnetgroup({
           name,
-          gidnumber,
+          type,
           desc,
         });
         if (submitRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
         this.toastr.clear();
-        const { status, message, info } = submitRes.header.addunixgroup;
+        const { status, message, info } = submitRes.header.addunixnetgroup;
         if (status === '0') {
           Swal.fire({
             icon: 'success',
             title: 'Action performed successfully',
           }).then((result) => {
-            this.groupForm.reset();
+            this.clearForm();
           });
-          // const { gidnumber } = submitRes.data.addunixgroup;
-          // this.groupForm.patchValue({ gidnumber });
         } else {
           Swal.fire({
             icon: 'error',
@@ -70,8 +71,12 @@ export class AddGroupComponent implements OnInit {
     }
   }
 
-  get c() {
-    return this.groupForm.controls;
+  clearForm() {
+    this.netGrpForm.reset();
+    this.netGrpForm.patchValue({ type: 'host' });
   }
 
+  get c() {
+    return this.netGrpForm.controls;
+  }
 }

@@ -118,6 +118,26 @@
       "key": "unixgroup",
       "title": "Unix Group Editor",
       "link": "unix/unixgroup"
+    },
+    {
+      "key": "addunixnetgroup",
+      "title": "Add Net Group",
+      "link": "unix/addunixnetgroup"
+    },
+    {
+      "key": "searchunixnetgroup",
+      "title": "Search Net Group",
+      "link": "unix/searchunixnetgroup"
+    },
+    {
+      "key": "unixnetgroup",
+      "title": "Net Group Editor",
+      "link": "unix/unixnetgroup"
+    },
+    {
+      "key": "unixnetgroupsrv",
+      "title": "Net Group Host Editor",
+      "link": "unix/unixnetgroupsrv"
     }
   ]
 }

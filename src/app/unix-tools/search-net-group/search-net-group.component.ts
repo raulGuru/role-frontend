@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { LayoutService } from 'src/app/layout/layout.service';
 import { UnixService } from '../unix.service';
-import { ViewGrpDetailComponent } from './view-grp-detail/view-grp-detail.component';
+import { ViewNetgrpDetailComponent } from './view-netgrp-detail/view-netgrp-detail.component';
 
 @Component({
-  selector: 'app-search-group',
-  templateUrl: './search-group.component.html',
-  styleUrls: ['./search-group.component.scss'],
+  selector: 'app-search-net-group',
+  templateUrl: './search-net-group.component.html',
+  styleUrls: ['./search-net-group.component.scss'],
 })
-export class SearchGroupComponent implements OnInit {
+export class SearchNetGroupComponent implements OnInit {
   searchForm: FormGroup;
   groups: [];
-  groupdetails: [];
+  netgroupdetails: [];
   srchDisabled: boolean = false;
   loadContent: boolean = false;
   viewModalRef: NgbModalRef;
@@ -48,11 +47,11 @@ export class SearchGroupComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.toastr.clear();
-        this.toastr.info('Deleting...', 'On Group', {
+        this.toastr.info('Deleting...', 'On Net Group', {
           disableTimeOut: true,
         });
         this.unixService
-          .deleteunixgroup({
+          .deleteunixnetgroup({
             groupstr,
           })
           .then(
@@ -61,7 +60,11 @@ export class SearchGroupComponent implements OnInit {
                 this.layoutService.handleResponseError();
               }
               this.toastr.clear();
-              const { status, message, info } = response.header.deleteunixgroup;
+              const {
+                status,
+                message,
+                info,
+              } = response.header.deleteunixnetgroup;
               if (status === '0') {
                 Swal.fire({
                   icon: 'success',
@@ -86,38 +89,34 @@ export class SearchGroupComponent implements OnInit {
     });
   }
 
-  clearForm() {
-    this.searchForm.reset();
-    this.groups = [];
-    this.groupdetails = [];
-    this.srchDisabled = false;
-    this.loadContent = false;
-  }
-
-  async viewDetails(groupstr: string) {
+  async viewDetails(groupstr: string, type: string) {
     if (!groupstr) return;
     try {
       this.toastr.clear();
-      this.toastr.info('Searching...', 'Group Detail', {
+      this.toastr.info('Searching...', 'Net Group Detail', {
         disableTimeOut: true,
       });
-      let searchRes = await this.unixService.unixgroupusers({
+      let searchRes = await this.unixService.unixnetgroupusers({
         groupstr,
       });
       if (searchRes.header.status == '1') {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const { status, message, info } = searchRes.header.unixgroupusers;
+      const { status, message, info } = searchRes.header.unixnetgroupusers;
       if (status === '0') {
-        const users = searchRes.data.unixgroupusers;
-        if (users.length > 0) {
-          this.viewModalRef = this.modalService.open(ViewGrpDetailComponent, {
-            backdrop: 'static',
-            size: 'xl',
-            scrollable: true,
-          });
-          this.viewModalRef.componentInstance.users = users;
+        const resData = searchRes.data.unixnetgroupusers;
+        if (resData.length > 0) {
+          this.viewModalRef = this.modalService.open(
+            ViewNetgrpDetailComponent,
+            {
+              backdrop: 'static',
+              size: 'xl',
+              scrollable: true,
+            }
+          );
+          this.viewModalRef.componentInstance.data = resData;
+          this.viewModalRef.componentInstance.type = type;
         } else {
           Swal.fire({
             icon: 'info',
@@ -143,20 +142,20 @@ export class SearchGroupComponent implements OnInit {
       if (groupsearchstr.length < 4) return;
       try {
         this.toastr.clear();
-        this.toastr.info('Searching...', 'Groups List', {
+        this.toastr.info('Searching...', 'Net Groups List', {
           disableTimeOut: true,
         });
         this.loadContent = false;
-        let searchRes = await this.unixService.groupdetails({
+        let searchRes = await this.unixService.netgroupdetails({
           groupstr: groupsearchstr,
         });
         if (searchRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
         this.toastr.clear();
-        const { status, message, info } = searchRes.header.groupdetails;
+        const { status, message, info } = searchRes.header.netgroupdetails;
         if (status === '0') {
-          this.groupdetails = searchRes.data.groupdetails;
+          this.netgroupdetails = searchRes.data.netgroupdetails;
           this.loadContent = true;
         } else {
           Swal.fire({
@@ -170,6 +169,14 @@ export class SearchGroupComponent implements OnInit {
         window.alert(error);
       }
     }
+  }
+
+  clearForm() {
+    this.searchForm.reset();
+    this.groups = [];
+    this.netgroupdetails = [];
+    this.srchDisabled = false;
+    this.loadContent = false;
   }
 
   searchClose() {
@@ -192,17 +199,17 @@ export class SearchGroupComponent implements OnInit {
     const post = { groupsearchstr: event.term };
     try {
       this.toastr.clear();
-      this.toastr.info('Searching...', 'Groups List', {
+      this.toastr.info('Searching...', 'Net Groups List', {
         disableTimeOut: true,
       });
-      let groupsRes = await this.unixService.unixgroupsearch(post);
+      let groupsRes = await this.unixService.unixnetgroupsearch(post);
       if (groupsRes.header.status == '1') {
         this.layoutService.handleResponseError();
       }
       this.toastr.clear();
-      const { status, message, info } = groupsRes.header.unixgroupsearch;
+      const { status, message, info } = groupsRes.header.unixnetgroupsearch;
       if (status === '0') {
-        this.groups = groupsRes.data.unixgroupsearch;
+        this.groups = groupsRes.data.unixnetgroupsearch;
       } else {
         Swal.fire({
           width: 1000,

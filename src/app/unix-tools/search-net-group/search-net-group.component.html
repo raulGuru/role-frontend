@@ -1,0 +1,80 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+  <app-header></app-header>
+  <div class="app-main">
+      <app-sidebar></app-sidebar>
+      <div class="app-main__outer">
+          <div class="app-main__inner">
+              <div class="app-page-title">
+                  <div class="card mb-3 mt-4">
+                      <div class="card p-4">
+                          <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                              <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
+                              </i>Search Unix Net Group
+                          </div>
+                          <div class="divider row"></div>
+                          <form class="p-4" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+                              <div class="form-row">
+                                  <div class="col-md-6">
+                                      <div class="position-relative form-group">
+                                          <label for="groupsearchstr" class="">Net Group Name<em class="text-danger">*</em></label>
+                                          <ng-select [items]="groups" placeholder="Type atleast 4 chars to search"
+                                              formControlName="groupsearchstr" (search)="getGroups($event)" (close)="searchClose()" [addTag]="true"
+                                              [ngClass]="{ 'is-invalid': c.groupsearchstr.invalid && (c.groupsearchstr.dirty || c.groupsearchstr.touched) }"
+                                              required>
+                                          </ng-select>
+                                          <em *ngIf="c.groupsearchstr.invalid && (c.groupsearchstr.dirty || c.groupsearchstr.touched)"
+                                              class="error invalid-feedback">
+                                              Net Group Name field is required
+                                          </em>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="divider row"></div>
+                              <div class="d-flex align-items-center col-md-6">
+                                  <div class="ml-auto">
+                                      <button class="btn btn-primary btn-lg mr-2" type="submit"
+                                          [disabled]="!searchForm.valid || srchDisabled">Search</button>
+                                  </div>
+                              </div>
+                          </form>
+                          <div class="row p-4" *ngIf="loadContent">
+                              <div class="col-sm-12" *ngIf="netgroupdetails.length > 0">
+                                  <table
+                                  class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline">
+                                  <thead>
+                                      <tr>
+                                          <th>Name</th>
+                                          <th>Host</th>
+                                          <th>Description</th>
+                                          <th></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let group of netgroupdetails">
+                                          <td>{{ group.name }}</td>
+                                          <td>{{ (group.type == 'host') ? 'Host' : 'User' }}</td>
+                                          <td>{{ group.description }}</td>
+                                          <td>
+                                              <div class="dropdown d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+                                                  <button type="button" ngbDropdownToggle class="mb-2 mr-2 dropdown-toggle btn btn-primary btn-sm">Actions</button>
+                                                  <div ngbDropdownMenu class="dropdown-menu-rounded dropdown-menu drop_scale">
+                                                      <button type="button" class="dropdown-item" (click)="viewDetails(group.name, group.type)">View</button>
+                                                      <button type="button" class="dropdown-item" (click)="deleteGrp(group.name)">Delete</button>
+                                                  </div>
+                                              </div>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                                  </table>
+                              </div>
+                              <div class="col-sm-12" *ngIf="netgroupdetails.length === 0">
+                                  No data to show!!
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

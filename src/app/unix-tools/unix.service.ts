@@ -106,6 +106,111 @@ export class UnixService {
       svc_pw: 'Nevin@12',
       action,
     };
-    return this.http.post<any>(`${BACKEND_URL}/unixgroup`, postData).toPromise();
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixgroup`, postData)
+      .toPromise();
+  }
+
+  addunixnetgroup(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      addunixnetgroup: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  unixnetgroupsearch(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      unixnetgroupsearch: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  netgroupdetails(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      netgroupdetails: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  deleteunixnetgroup(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      deleteunixnetgroup: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  unixnetgroupusers(post) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      unixnetgroupusers: post,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  getUserNetGroups(opuid: string) {
+    const postData = {
+      userunixnetgroups: {
+        opuid,
+      },
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  getAllNetGroups(type: string) {
+    const postData = {
+      allunixnetgroups: {
+        type,
+      },
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  modifyNetGroup(action: any) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      action,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
+  }
+
+  modifyHostNetGrp(action: any) {
+    const postData = {
+      svc_uid: 'nchilka',
+      svc_pw: 'Nevin@12',
+      action,
+    };
+    return this.http
+      .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
+      .toPromise();
   }
 }

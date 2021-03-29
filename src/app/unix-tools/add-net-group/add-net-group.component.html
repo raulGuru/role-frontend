@@ -1,0 +1,64 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+  <app-header></app-header>
+  <div class="app-main">
+      <app-sidebar></app-sidebar>
+      <div class="app-main__outer">
+          <div class="app-main__inner">
+              <div class="app-page-title">
+                  <div class="card mb-3 mt-4">
+                      <div class="card p-4">
+                          <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                                  class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Create Unix
+                              Net Group</div>
+                          <div class="divider row"></div>
+                          <form class="p-4" [formGroup]="netGrpForm" (ngSubmit)="onSubmit()">
+                              <div class="form-row">
+                                  <div class="col-md-6">
+                                      <div class="position-relative form-group"><label for="name" class="">Net Group
+                                              Name<em class="text-danger">*</em></label>
+                                          <input formControlName="name" id="name" type="text"
+                                              class="form-control"
+                                              [ngClass]="{ 'is-invalid': c.name.invalid && (c.name.dirty || c.name.touched) }"
+                                              required />
+                                          <em *ngIf="c.name.invalid && (c.name.dirty || c.name.touched)"
+                                              class="error invalid-feedback">
+                                              Net Group Name field is required
+                                          </em>
+                                      </div>
+                                      <div class="position-relative form-group"><label for="type" class="">Type<em class="text-danger">*</em></label>
+                                              <ng-select [items]="types"  bindLabel="name" bindValue="id" placeholder="Select an item"
+                                                formControlName="type" [ngClass]="{ 'is-invalid': c.type.invalid && (c.type.dirty || c.type.touched) }"
+                                                required>
+                                            </ng-select>
+                                            <em *ngIf="c.type.invalid && (c.type.dirty || c.type.touched)"
+                                                class="error invalid-feedback">
+                                               Type field is required
+                                            </em>
+                                      </div>
+                                      <div class="position-relative form-group"><label for="desc"
+                                              class="">Description<em class="text-danger">*</em></label>
+                                          <textarea formControlName="desc" class="form-control"
+                                              [ngClass]="{ 'is-invalid': c.desc.invalid && (c.desc.dirty || c.desc.touched) }"
+                                              id="desc" required></textarea>
+                                          <em *ngIf="c.desc.invalid && (c.desc.dirty || c.desc.touched)"
+                                              class="error invalid-feedback">
+                                              Description field is required
+                                          </em>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="divider row"></div>
+                              <div class="d-flex align-items-center col-md-6">
+                                  <div class="ml-auto">
+                                      <button class="btn btn-primary btn-lg mr-2" type="submit"
+                                          [disabled]="!netGrpForm.valid">Add Net Group</button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

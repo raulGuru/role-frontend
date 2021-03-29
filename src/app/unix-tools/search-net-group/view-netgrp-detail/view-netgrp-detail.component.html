@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ (type === 'user') ? 'Group Users' : 'Host Details'}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table *ngIf="type === 'user'" class="table table-hover table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Enterprise ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Title</th>
+        <th>Manager</th>
+        <th>Department</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of data">
+        <td>{{ user.uid }}</td>
+        <td>{{ user.cn }}</td>
+        <td>{{ user.mail }}</td>
+        <td>{{ user.title }}</td>
+        <td>{{ user.manager }}</td>
+        <td>{{ user.shcdepartmentnumber }}</td>
+        <td>{{ user.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table *ngIf="type === 'host'" class="table table-hover table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Host</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let h of data">
+        <td>{{ h.host }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- <div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div> -->

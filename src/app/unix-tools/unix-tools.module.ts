@@ -13,9 +13,14 @@ import { SearchGroupComponent } from './search-group/search-group.component';
 import { ViewGrpDetailComponent } from './search-group/view-grp-detail/view-grp-detail.component';
 import { GroupEditorComponent } from './group-editor/group-editor.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { AddNetGroupComponent } from './add-net-group/add-net-group.component';
+import { SearchNetGroupComponent } from './search-net-group/search-net-group.component';
+import { ViewNetgrpDetailComponent } from './search-net-group/view-netgrp-detail/view-netgrp-detail.component';
+import { NetGroupEditorComponent } from './net-group-editor/net-group-editor.component';
+import { HostEditorComponent } from './host-editor/host-editor.component';
 
 @NgModule({
-  declarations: [AddProfileComponent, AddGroupComponent, SearchGroupComponent, ViewGrpDetailComponent, GroupEditorComponent],
+  declarations: [AddProfileComponent, AddGroupComponent, SearchGroupComponent, ViewGrpDetailComponent, GroupEditorComponent, AddNetGroupComponent, SearchNetGroupComponent, ViewNetgrpDetailComponent, NetGroupEditorComponent, HostEditorComponent],
   imports: [
     CommonModule,
     UnixToolsRoutingModule,
