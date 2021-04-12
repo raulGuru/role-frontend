@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-change-password',
@@ -6,10 +10,62 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  changeForm: FormGroup
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {
+    this.changeForm = new FormGroup({
+      opuid: new FormControl('', Validators.required),
+      currpassword: new FormControl('', Validators.required),
+      newpassword: new FormControl('', Validators.required),
+      confirmpassword: new FormControl('', Validators.required),
+    });
+  }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.getLocalStorage('user');
+  }
+
+  async onSubmit() {
+    if (this.changeForm.valid) {
+      try {
+        this.toastr.clear();
+        this.toastr.info('Performing action...', 'Changing', {
+            disableTimeOut: true,
+        });
+        let changeRes = await this.authService.changepassword(this.changeForm.value);
+        if (changeRes.header.status == '1') {
+            this.authService.handleResponseError();
+        }
+        this.toastr.clear();
+        const {
+            status, message, info
+        } = changeRes.header.changepassword;
+        if (status === '0') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Action performed successfully',
+            }).then((res) => {
+              this.changeForm.reset();
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: `${message}</br>${info || ''}`,
+            });
+        }
+      } catch (error) {
+        this.toastr.clear();
+        window.alert(error);
+      }
+    }
+  }
+
+  get c() {
+    return this.changeForm.controls;
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="app-header header-shadow">
+<!-- <div class="app-header header-shadow">
     <div class="app-header__logo">
         <div class="logo-src"></div>
     <div class="app-header__content wrapper">
@@ -6,25 +6,73 @@
             <div class="f-right">
                 <ul class="header-megamenu nav app-header-right">
                     <li class="nav-item">
-                        <a href="#" data-placement="bottom" rel="popover-focus" data-offset="300"
-                            data-toggle="popover-custom" class="nav-link">
+                        <a href="javascript:void(0);" class="nav-link">
                             Admin Services
                         </a>
-                        <a href="#" data-placement="bottom" rel="popover-focus" data-offset="300"
-                            data-toggle="popover-custom" class="nav-link">
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/id-lookup']">
                             Enterprise ID Lookup
                         </a>
-                        <a href="#" data-placement="bottom" rel="popover-focus" data-offset="300"
-                            data-toggle="popover-custom" class="nav-link">
-                            Reset Password
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/reset-password']">
+                        Reset Password
                         </a>
-                        <a href="#" data-placement="bottom" rel="popover-focus" data-offset="300"
-                            data-toggle="popover-custom" class="nav-link">
-                            Change Password
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/chng-password']">
+                        Change Password
                         </a>
-                        <a href="#" data-placement="bottom" rel="popover-focus" data-offset="300"
-                            data-toggle="popover-custom" class="nav-link">
-                            Register Passphrase
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/register-pass']">
+                        Register Passphrase
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="app-header header-shadow bg-heavy-rain header-text-dark">
+    <div class="app-header__logo">
+        <div class="logo-src"></div>
+    </div>
+    <div class="app-header__content wrapper">
+        <div class="app-header-right">
+            	 <div class="f-right">
+                    <ul class="header-megamenu nav app-header-right">
+                    <!-- <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link">
+                            Admin Services
+                        </a>
+                    </li> -->
+                    <li class="nav-item" *ngIf="!isLoggedIn && !isLoginPg">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/login']">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/id-lookup']">
+                            Enterprise ID Lookup
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/reset-password']">
+                        Reset Password
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/chng-password']">
+                        Change Password
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/register-pass']">
+                        Register Passphrase
                         </a>
                     </li>
                 </ul>

@@ -54,7 +54,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="scroll-area-xs" style="height: 150px">
+                                    <div class="scroll-area-xs" style="height: 180px">
                                         <div class="scrollbar-container ps">
                                             <ul class="nav flex-column">
                                                 <li class="nav-item">
@@ -62,15 +62,21 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Register Passpharse
+                                                    <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/register-pass']">Register Passpharse
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Reset Password
+                                                    <a href="javascript:void(0);" class="nav-link"
+                                                    [routerLink]="['/auth/reset-password']">Reset Password
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Change Password
+                                                    <a href="javascript:void(0);" class="nav-link"
+                                                    [routerLink]="['/auth/chng-password']">Change Password
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="nav-link" [routerLink]="['/auth/setting']">Settings
                                                     </a>
                                                 </li>
                                             </ul>

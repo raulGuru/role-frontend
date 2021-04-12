@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthRoutingModule } from './auth-routing.module';
@@ -10,14 +10,18 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { IdLookupComponent } from './id-lookup/id-lookup.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthHeaderComponent } from './auth-header/auth-header.component';
+import { SettingComponent } from './setting/setting.component';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
-  declarations: [LoginComponent, ResetPasswordComponent, ChangePasswordComponent, IdLookupComponent, RegisterComponent, AuthHeaderComponent],
+  declarations: [LoginComponent, ResetPasswordComponent, ChangePasswordComponent, IdLookupComponent, RegisterComponent, AuthHeaderComponent, SettingComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    LayoutModule
   ]
 })
 export class AuthModule { }
