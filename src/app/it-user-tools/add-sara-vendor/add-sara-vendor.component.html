@@ -28,7 +28,7 @@
                                   'is-invalid':
                                     c.givenname.invalid &&
                                     (c.givenname.dirty || c.givenname.touched)
-                                }">
+                                }" autocomplete="off" >
                                                     <em *ngIf="
                                   c.givenname.invalid &&
                                   (c.givenname.dirty || c.givenname.touched)
@@ -53,7 +53,7 @@
                                                 class="form-control" required [ngClass]="{
                           'is-invalid':
                             c.sn.invalid && (c.sn.dirty || c.sn.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
                                                 class="error invalid-feedback">
                                                 Last Name field is required
@@ -67,7 +67,7 @@
                                                 required [readOnly]="uidReadOnly" [ngClass]="{
                           'is-invalid':
                             c.uid.invalid && (c.uid.dirty || c.uid.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="c.uid.invalid && (c.uid.dirty || c.uid.touched)"
                                                 class="error invalid-feedback">
                                                 Enterprise ID field is required
@@ -93,7 +93,7 @@
                                                 class="form-control" required [ngClass]="{
                           'is-invalid':
                             c.mail.invalid && (c.mail.dirty || c.mail.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="c.mail.invalid && (c.mail.dirty || c.mail.touched)"
                                                 class="error invalid-feedback">
                                                 Email Address field is required
@@ -130,11 +130,11 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <input formControlName="telephonenumber" id="telephonenumber" type="text"
-                                                        class="form-control" placeholder="Number">
+                                                        class="form-control" placeholder="Number" autocomplete="off" >
                                                 </div>
                                                 <div class="col-md-4">
                                                     <input formControlName="ext" placeholder="Ext" id="ext" type="text"
-                                                        class="form-control">
+                                                        class="form-control" autocomplete="off" >
                                                 </div>
                                             </div>
                                         </div>

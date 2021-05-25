@@ -17,7 +17,7 @@
                       <label for="enterpriseId" class="">Enterprise
                         ID<em class="text-danger">*</em></label>
                       <input formControlName="opuid" type="text" class="form-control" value=""
-                        [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }" required>
+                        [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }" required autocomplete="off" >
                       <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)"
                         class="error invalid-feedback">Enterprise
                         ID field is required

@@ -90,7 +90,7 @@ export class AddVendorComponent implements OnInit {
         this.phonecodes = response;
       },
       (error) => {
-        window.alert(error);
+        console.log(error);
       }
     );
     this.opuid = this.route.snapshot.paramMap.get('id');
@@ -125,7 +125,7 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -181,7 +181,7 @@ export class AddVendorComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }
@@ -218,7 +218,7 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -250,7 +250,7 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -278,7 +278,7 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -308,7 +308,7 @@ export class AddVendorComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }

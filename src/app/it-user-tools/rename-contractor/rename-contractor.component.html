@@ -34,7 +34,7 @@
                                         <div class="position-relative form-group"><label for="nuid" class="">New
                                                 User ID<em class="text-danger">*</em></label><input
                                                 formControlName="nuid" id="nuid" type="text" class="form-control"
-                                                [ngClass]="{ 'is-invalid': c.nuid.invalid && (c.nuid.dirty || c.nuid.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.nuid.invalid && (c.nuid.dirty || c.nuid.touched) }" autocomplete="off" >
                                             <em *ngIf="c.nuid.invalid && (c.nuid.dirty || c.nuid.touched)"
                                                 class="error invalid-feedback">
                                                 New User ID field is required

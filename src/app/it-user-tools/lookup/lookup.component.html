@@ -16,16 +16,16 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group"><label for="uid" class=""><em
                                                     class="text-danger">*</em> Enterprise ID:</label><input name="uid"
-                                                formControlName="uid" type="text" class="form-control">
+                                                formControlName="uid" type="text" class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="position-relative form-group"><label for="givenname" class=""><em
                                                     class="text-danger">*</em> First Name:</label><input
                                                 name="givenname" formControlName="givenname" type="text"
-                                                class="form-control">
+                                                class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="position-relative form-group"><label for="sn" class=""><em
                                                     class="text-danger">*</em> Last Name:</label><input name="sn"
-                                                formControlName="sn" type="text" class="form-control">
+                                                formControlName="sn" type="text" class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="position-relative form-group"><label for="mail" class=""><em
                                                     class="text-danger">*</em> Email Address:</label><input name="mail"
@@ -34,30 +34,30 @@
                                         <div class="position-relative form-group"><label for="createtimestamp"
                                                 class=""><em class="text-danger">*</em> Created:</label><input
                                                 name="createtimestamp" formControlName="createtimestamp" type="text"
-                                                class="form-control">
+                                                class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="position-relative form-group"><label for="emplid" class=""> Employee
                                                 ID:</label><input name="emplid" formControlName="emplid" type="text"
-                                                class="form-control">
+                                                class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="position-relative form-group"><label for="ssn" class=""><em
                                                     class="text-danger">*</em> Employee Number:</label><input name="ssn"
-                                                formControlName="ssn" type="text" class="form-control">
+                                                formControlName="ssn" type="text" class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="position-relative form-group"><label for="altuid" class=""><em
                                                     class="text-danger">*</em> Alternate ID:</label><input name="altuid"
-                                                formControlName="altuid" type="text" class="form-control">
+                                                formControlName="altuid" type="text" class="form-control" autocomplete="off" >
                                         </div>
                                         <!-- <div class="position-relative form-group"><label for="examplePassword" class=""><em
                                                         class="text-danger">*</em> Entry ID:</label><input name="password"
                                                      type="password" class="form-control"></div> -->
                                         <div class="position-relative form-group"><label for="procid" class=""><em
                                                     class="text-danger">*</em> Procurement ID:</label><input
-                                                name="procid" formControlName="procid" type="text" class="form-control">
+                                                name="procid" formControlName="procid" type="text" class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="position-relative form-group"><label for="o" class=""><em
                                                     class="text-danger">*</em> Company:</label><input name="o"
-                                                formControlName="o" type="text" class="form-control">
+                                                formControlName="o" type="text" class="form-control" autocomplete="off" >
                                         </div>
                                         <div class="col-md-12 text-dark mb-2"><em class="text-danger">*</em> indicates
                                             wildcards (*) are supported</div>
@@ -142,21 +142,24 @@
                                                         <td>{{ user.cn }}</td>
                                                         <td *ngIf="user.type === 'Contractor'">
                                                             <a [routerLink]="['/ituser/addcontractor', user.uid]"
-                                                                placement="right" ngbTooltip="Click to Edit">{{
+                                                                placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
                                                                 user.type }}</a>
                                                         </td>
                                                         <td *ngIf="user.type === 'Vendor'">
                                                             <a [routerLink]="['/ituser/addvendor', user.uid]"
-                                                                placement="right" ngbTooltip="Click to Edit">{{
+                                                                placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
                                                                 user.type }}</a>
                                                         </td>
                                                         <td *ngIf="user.type === 'Sara'">
                                                             <a [routerLink]="['/ituser/addvendorsara', user.uid]"
-                                                                placement="right" ngbTooltip="Click to Edit">{{
+                                                                placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
                                                                 user.type }}</a>
                                                         </td>
                                                         <td *ngIf="user.type === 'Associate'">{{ user.type }}</td>
-                                                        <td>{{ user.status }}</td>
+                                                        <td *ngIf="user.type === 'Other'">{{ user.type }}</td>
+                                                        <td><span class="badge ml-2"
+                                                                [ngClass]="{'badge-danger': user.status === 'Disable', 'badge-success': user.status ==='Active' }">{{
+                                                                user.status }}</span></td>
                                                         <td>{{ user.emplid }}</td>
                                                         <td>{{ user.o }}</td>
                                                         <td>{{ user.title }}</td>

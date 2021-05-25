@@ -14,12 +14,12 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group"><label for="givenname" class="">First
-                                                Name</label><input name="givenname" type="text" class="form-control">
+                                                Name</label><input name="givenname" type="text" class="form-control" autocomplete="off">
                                         </div>
                                         <div class="position-relative form-group"><label for="sn" class="">Last Name<em
                                                     class="text-danger">*</em></label><input name="sn"
                                                 formControlName="sn" type="text" class="form-control" required
-                                                [ngClass]="{ 'is-invalid': c.sn.invalid && (c.sn.dirty || c.sn.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.sn.invalid && (c.sn.dirty || c.sn.touched) }" autocomplete="off">
                                             <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
                                                 class="error invalid-feedback">
                                                 Last Name field is required

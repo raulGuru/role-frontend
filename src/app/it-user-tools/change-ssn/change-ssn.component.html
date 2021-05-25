@@ -18,7 +18,7 @@
                                                 class="">Contractor's Enterprise ID<em
                                                     class="text-danger">*</em></label><input name="opuid"
                                                 formControlName="opuid" type="text" class="form-control" required
-                                                [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }" autocomplete="off" >
                                             <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)"
                                                 class="error invalid-feedback">
                                                 Contractor's Enterprise ID field is required
@@ -28,7 +28,7 @@
                                                 Challenge Word<em class="text-danger">*</em></label><input name="ssn"
                                                 formControlName="ssn" type="text" class="form-control" required
                                                 maxlength="10"
-                                                [ngClass]="{ 'is-invalid': c.ssn.invalid && (c.ssn.dirty || c.ssn.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.ssn.invalid && (c.ssn.dirty || c.ssn.touched) }" autocomplete="off" >
                                             <em *ngIf="c.ssn.invalid && (c.ssn.dirty || c.ssn.touched)"
                                                 class="error invalid-feedback">
                                                 <ng-container *ngIf="c.ssn.errors.required">

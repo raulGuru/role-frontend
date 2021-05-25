@@ -60,7 +60,7 @@ export class RoleViewComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -85,7 +85,7 @@ export class RoleViewComponent implements OnInit {
         this.roledef = res.data.roledef;
       }
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
   }
 

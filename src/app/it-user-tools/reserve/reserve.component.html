@@ -18,7 +18,7 @@
                                                 Name<em class="text-danger">*</em></label><input name="givenname"
                                                 formControlName="givenname" type="text" class="form-control"
                                                 (blur)="generateUid()" required
-                                                [ngClass]="{ 'is-invalid': c.givenname.invalid && (c.givenname.dirty || c.givenname.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.givenname.invalid && (c.givenname.dirty || c.givenname.touched) }" autocomplete="off" >
                                             <em *ngIf="c.givenname.invalid && (c.givenname.dirty || c.givenname.touched)"
                                                 class="error invalid-feedback">
                                                 First Name field is required
@@ -28,7 +28,7 @@
                                                     class="text-danger">*</em></label><input name="sn"
                                                 formControlName="sn" type="text" class="form-control"
                                                 (blur)="generateUid()" required
-                                                [ngClass]="{ 'is-invalid': c.sn.invalid && (c.sn.dirty || c.sn.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.sn.invalid && (c.sn.dirty || c.sn.touched) }" autocomplete="off" >
                                             <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
                                                 class="error invalid-feedback">
                                                 Last Name field is required
@@ -38,7 +38,7 @@
                                                 ID<em class="text-danger">*</em></label><input name="uid"
                                                 formControlName="uid" type="text" class="form-control"
                                                 [readOnly]="uidReadOnly" required
-                                                [ngClass]="{ 'is-invalid': c.uid.invalid && (c.uid.dirty || c.uid.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.uid.invalid && (c.uid.dirty || c.uid.touched) }" autocomplete="off" >
                                             <em *ngIf="c.uid.invalid && (c.uid.dirty || c.uid.touched)"
                                                 class="error invalid-feedback">
                                                 Enterprise ID field is required
@@ -48,7 +48,7 @@
                                                 class="">PeopleSoft Employee ID<em
                                                     class="text-danger">*</em></label><input name="emplid"
                                                 formControlName="emplid" type="text" class="form-control" required
-                                                [ngClass]="{ 'is-invalid': c.emplid.invalid && (c.emplid.dirty || c.emplid.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.emplid.invalid && (c.emplid.dirty || c.emplid.touched) }" autocomplete="off" >
                                             <em *ngIf="c.emplid.invalid && (c.emplid.dirty || c.emplid.touched)"
                                                 class="error invalid-feedback">
                                                 PeopleSoft Employee ID field is required

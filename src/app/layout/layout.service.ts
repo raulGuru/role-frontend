@@ -41,6 +41,11 @@ export class LayoutService {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
+  doLogout(): void {
+    localStorage.clear();
+    this.router.navigate(['/auth']);
+  }
+
   searchuid(post) {
     const postData = {
       svc_uid: 'lkarlin',

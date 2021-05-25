@@ -31,12 +31,12 @@
                                         <div class="position-relative form-group"><label for="uidnumber"
                                                 class="">Uid Number</label>
                                             <input formControlName="uidnumber" id="uidnumber" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="homedir"
                                             class="">Login Shell<em class="text-danger">*</em></label>
                                         <input formControlName="homedir" id="homedir" type="text"
-                                            class="form-control" [ngClass]="{ 'is-invalid': c.homedir.invalid && (c.homedir.dirty || c.homedir.touched) }" required/>
+                                            class="form-control" [ngClass]="{ 'is-invalid': c.homedir.invalid && (c.homedir.dirty || c.homedir.touched) }" required autocomplete="off" />
                                             <em *ngIf="c.homedir.invalid && (c.homedir.dirty || c.homedir.touched)"
                                                 class="error invalid-feedback">
                                                 Login Shell field is required

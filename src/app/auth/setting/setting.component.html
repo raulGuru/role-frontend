@@ -1,5 +1,6 @@
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-    <app-auth-header></app-auth-header>
+    <app-auth-header *ngIf="!isLoggedIn"></app-auth-header>
+    <app-header *ngIf="isLoggedIn"></app-header>
     <div class="app-main">
         <app-sidebar></app-sidebar>
         <div class="app-main__outer">
@@ -21,6 +22,30 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6">
+                                    <label>Enterprise ID : &nbsp;</label>
+                                    <label> {{ profile.uid }}</label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>SHC Email : &nbsp;</label>
+                                    <label> {{ profile.mail }}</label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>Department : &nbsp;</label>
+                                    <label> {{ profile.departmentnumber }}</label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label>Manager : &nbsp;</label>
+                                    <label> {{ profile.manager }}</label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
                                     <label>Unit : &nbsp;</label>
                                     <label> {{ profile.unit }}</label>
                                 </div>
@@ -38,52 +63,39 @@
                                         <div class="position-relative form-group"><label for="" class="">Preferred First Name &nbsp;</label>
                                             <label><a href="https://hr.searshc.com/aos/logon.do">Click here to update</a> New: PeopleSoft Associates must update their preferred name through MPI.</label>
                                         </div>
-                                        <div class="position-relative form-group"><label for="" class="">Enterprise ID &nbsp;</label>
-                                            <label>{{ profile.uid }}</label>
-                                        </div>
-                                        <div class="position-relative form-group"><label for="" class="">SHC Email &nbsp;</label>
-                                            <label>{{ profile.mail }}</label>
-                                        </div>
-                                        
                                     </div>
                                     <div class="col-md-6"> 
                                         <div class="position-relative form-group"><label for="mailalternateaddress" class="">Alternate Work Email</label>
                                             <input formControlName="mailalternateaddress" id="mailalternateaddress" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="roomnumber" class="">Office location</label>
                                             <input formControlName="roomnumber" id="roomnumber" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="telephonenumber" class="">Office Phone</label>
                                             <input formControlName="telephonenumber" id="telephonenumber" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="mobile" class="">SHC Cell Phone</label>
                                             <input formControlName="mobile" id="mobile" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="blackberryphonenumber" class="">SHC Blackberry</label>
                                             <input formControlName="blackberryphonenumber" id="blackberryphonenumber" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="alternatephonenumber" class="">Alternate Phone</label>
                                             <input formControlName="alternatephonenumber" id="alternatephonenumber" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="fax" class="">Office Fax</label>
                                             <input formControlName="fax" id="fax" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="pager" class="">SHC Pager</label>
                                             <input formControlName="pager" id="pager" type="text"
-                                                class="form-control" />
-                                        </div>
-                                        <div class="position-relative form-group"><label for="departmentnumber" class="">Department</label>
-                                            <label>&nbsp;{{ profile.departmentnumber }}</label>
-                                        </div>
-                                        <div class="position-relative form-group"><label for="manager" class="">Manager</label>
-                                            <label>&nbsp;{{ profile.manager }}</label>
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                     </div>
                                 </div>

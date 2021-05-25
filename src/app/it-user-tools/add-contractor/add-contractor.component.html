@@ -26,7 +26,7 @@
                           'is-invalid':
                             c.givenname.invalid &&
                             (c.givenname.dirty || c.givenname.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="
                           c.givenname.invalid &&
                           (c.givenname.dirty || c.givenname.touched)
@@ -43,7 +43,7 @@
                                                 [ngClass]="{
                           'is-invalid':
                             c.sn.invalid && (c.sn.dirty || c.sn.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="c.sn.invalid && (c.sn.dirty || c.sn.touched)"
                                                 class="error invalid-feedback">
                                                 Last Name field is required
@@ -58,7 +58,7 @@
                                                 [readOnly]="uidReadOnly" [ngClass]="{
                           'is-invalid':
                             c.uid.invalid && (c.uid.dirty || c.uid.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="c.uid.invalid && (c.uid.dirty || c.uid.touched)"
                                                 class="error invalid-feedback">
                                                 Enterprise ID field is required
@@ -175,7 +175,7 @@
                           'is-invalid':
                             c.dept.invalid &&
                             (c.dept.dirty || c.dept.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="
                           c.dept.invalid &&
                           (c.dept.dirty || c.dept.touched)
@@ -192,7 +192,7 @@
                           'is-invalid':
                             c.ssn.invalid &&
                             (c.ssn.dirty || c.ssn.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="
                           c.ssn.invalid &&
                           (c.ssn.dirty || c.ssn.touched)
@@ -209,7 +209,7 @@
                           'is-invalid':
                             c.title.invalid &&
                             (c.title.dirty || c.title.touched)
-                        }" />
+                        }" autocomplete="off" />
                                             <em *ngIf="
                           c.title.invalid && (c.title.dirty || c.title.touched)
                         " class="error invalid-feedback">
@@ -220,34 +220,34 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="emplid" class="">PeopleSoft Employee ID</label><input formControlName="emplid"
-                                                id="emplid" type="text" class="form-control" />
+                                                id="emplid" type="text" class="form-control" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="procid" class="">Procurement ID</label><input
-                                                formControlName="procid" id="procid" type="text" class="form-control" />
+                                                formControlName="procid" id="procid" type="text" class="form-control" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="expire" class="">Contract Expiration Date</label>
                                             <input type="text" class="form-control" placeholder="YYYYMMDD"
-                                                formControlName="expire" />
+                                                formControlName="expire" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="manager" class="">Manager Enterprise ID</label><input
                                                 formControlName="manager" id="manager" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="room" class="">Office Location <em> eg.
                                                     B2-237A</em></label><input formControlName="room" id="room"
-                                                type="text" class="form-control" />
+                                                type="text" class="form-control" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">

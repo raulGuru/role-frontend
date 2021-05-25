@@ -92,7 +92,7 @@ export class LookupComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     } else {
       Swal.fire({
@@ -128,7 +128,7 @@ export class LookupComponent implements OnInit {
           });
         }
       } catch (error) {
-        window.alert(error);
+        console.log(error);
       }
     } else {
       val = val.toLowerCase();
@@ -176,7 +176,7 @@ export class LookupComponent implements OnInit {
         });
       }
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
   }
 

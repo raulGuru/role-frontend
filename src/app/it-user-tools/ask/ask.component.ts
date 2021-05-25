@@ -87,7 +87,7 @@ export class AskComponent implements OnInit, OnDestroy {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 

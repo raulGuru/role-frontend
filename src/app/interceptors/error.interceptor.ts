@@ -26,7 +26,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
         // window.alert(errorMessage);
-        Swal.fire(errorMessage);
+        Swal.fire({
+          icon: 'error',
+          title: errorMessage,
+          width: 900
+        })
         return throwError(errorMessage);
       })
     );

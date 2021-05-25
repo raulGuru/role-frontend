@@ -19,7 +19,7 @@ export class AuthService {
     const authData: AuthData = {
       uid: enterpriseId,
       pw: password,
-      attrs: ['cn', 'title'],
+      attrs: ['cn', 'title', 'uid'],
       mode: 'f',
     };
     return this.http
@@ -95,6 +95,11 @@ export class AuthService {
     return this.http
       .post<any>(`${BACKEND_URL}/lookupuid`, postData)
       .toPromise();
+  }
+
+  doLogout(): void {
+    localStorage.clear();
+    this.router.navigate(['/auth']);
   }
 
   handleResponseError() {

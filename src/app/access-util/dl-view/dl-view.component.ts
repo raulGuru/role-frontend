@@ -60,7 +60,7 @@ export class DlViewComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -85,7 +85,7 @@ export class DlViewComponent implements OnInit {
         this.dldef = res.data.dldef;
       }
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
   }
 }

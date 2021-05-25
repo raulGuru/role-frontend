@@ -24,7 +24,7 @@
                                             <input formControlName="name" id="name" type="text"
                                                 class="form-control"
                                                 [ngClass]="{ 'is-invalid': c.name.invalid && (c.name.dirty || c.name.touched) }"
-                                                required />
+                                                required autocomplete="off" />
                                             <em *ngIf="c.name.invalid && (c.name.dirty || c.name.touched)"
                                                 class="error invalid-feedback">
                                                 Group Name field is required
@@ -33,7 +33,7 @@
                                         <div class="position-relative form-group"><label for="gidnumber" class="">GID
                                                 Number</label>
                                             <input formControlName="gidnumber" id="gidnumber" type="text"
-                                                class="form-control" />
+                                                class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="position-relative form-group"><label for="desc"
                                                 class="">Description<em class="text-danger">*</em></label>

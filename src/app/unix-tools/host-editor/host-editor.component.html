@@ -37,7 +37,7 @@
                     <div class="position-relative form-group"><label for="host" class="">Fully qualified DNS name<em
                           class="text-danger">*</em></label>
                       <input formControlName="host" id="host" type="text" class="form-control"
-                        [ngClass]="{ 'is-invalid': c.host.invalid && (c.host.dirty || c.host.touched) }" required />
+                        [ngClass]="{ 'is-invalid': c.host.invalid && (c.host.dirty || c.host.touched) }" required autocomplete="off" />
                       <em *ngIf="c.host.invalid && (c.host.dirty || c.host.touched)" class="error invalid-feedback">
                         Fully qualified DNS name field is required
                       </em>

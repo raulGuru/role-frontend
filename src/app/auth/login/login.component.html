@@ -22,7 +22,7 @@
                                             <div class="position-relative form-group"><input name="enterpriseID"
                                                     id="enterpriseID" placeholder="Enterprise ID" type="text"
                                                     class="form-control" ngModel #enterpriseInput="ngModel" required
-                                                    [ngClass]="{ 'is-invalid': enterpriseInput.invalid && (enterpriseInput.dirty || enterpriseInput.touched) }">
+                                                    [ngClass]="{ 'is-invalid': enterpriseInput.invalid && (enterpriseInput.dirty || enterpriseInput.touched) }" autocomplete="off">
                                                 <em *ngIf="enterpriseInput.invalid && (enterpriseInput.dirty || enterpriseInput.touched)"
                                                     class="error invalid-feedback">
                                                     Enterprise ID is required
@@ -42,13 +42,19 @@
                                                 </em>
                                             </div>
                                         </div>
+                                        <div class="col-md-12" *ngIf="errMsg !== null">
+                                            <span class="pr-2">
+                                                <b class="text-danger">{{ errMsg }}</b>
+                                            </span>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="modal-footer clearfix">
                                     <div class="float-right">
-                                        <button class="btn btn-dark btn-lg">Back</button>
+                                        <!-- <button class="btn btn-dark btn-lg">Back</button> -->
                                         <button class="btn btn-primary btn-lg"
-                                            [disabled]="!loginForm.form.valid">Login</button>
+                                            [disabled]="!loginForm.form.valid || isLoading">Login</button>
                                     </div>
                                 </div>
                             </div>

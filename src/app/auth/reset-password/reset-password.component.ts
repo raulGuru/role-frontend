@@ -10,13 +10,14 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  isLoggedIn: any;
   resetForm: FormGroup
 
   constructor(
     private authService: AuthService,
     private toastr: ToastrService
   ) {
+    this.isLoggedIn = null;
     this.resetForm = new FormGroup({
       opuid: new FormControl('', Validators.required),
       altpass: new FormControl('', Validators.required),
@@ -27,6 +28,9 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.getLocalStorage('user');
+    if (this.isLoggedIn) {
+      this.resetForm.patchValue({ opuid: this.isLoggedIn.uid })
+    }
   }
 
   async onSubmit() {
@@ -50,6 +54,7 @@ export class ResetPasswordComponent implements OnInit {
                 title: 'Action performed successfully',
             }).then((res) => {
               this.resetForm.reset();
+              this.authService.doLogout();
             });
         } else {
             Swal.fire({
@@ -59,7 +64,7 @@ export class ResetPasswordComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }

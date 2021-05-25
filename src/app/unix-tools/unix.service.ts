@@ -24,7 +24,7 @@ export class UnixService {
   addunixgroup(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       addunixgroup: post,
     };
     return this.http
@@ -35,7 +35,7 @@ export class UnixService {
   unixgroupsearch(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       unixgroupsearch: post,
     };
     return this.http
@@ -46,7 +46,7 @@ export class UnixService {
   groupdetails(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       groupdetails: post,
     };
     return this.http
@@ -57,7 +57,7 @@ export class UnixService {
   unixgroupusers(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       unixgroupusers: post,
     };
     return this.http
@@ -68,7 +68,7 @@ export class UnixService {
   deleteunixgroup(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       deleteunixgroup: post,
     };
     return this.http
@@ -82,7 +82,7 @@ export class UnixService {
         opuid,
       },
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
     };
     return this.http
       .post<any>(`${BACKEND_URL}/unixgroup`, postData)
@@ -93,7 +93,7 @@ export class UnixService {
     const postData = {
       allunixgroups: '1',
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
     };
     return this.http
       .post<any>(`${BACKEND_URL}/unixgroup`, postData)
@@ -103,7 +103,7 @@ export class UnixService {
   modifyGroup(action: any) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       action,
     };
     return this.http
@@ -114,7 +114,7 @@ export class UnixService {
   addunixnetgroup(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       addunixnetgroup: post,
     };
     return this.http
@@ -125,7 +125,7 @@ export class UnixService {
   unixnetgroupsearch(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       unixnetgroupsearch: post,
     };
     return this.http
@@ -136,7 +136,7 @@ export class UnixService {
   netgroupdetails(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       netgroupdetails: post,
     };
     return this.http
@@ -147,7 +147,7 @@ export class UnixService {
   deleteunixnetgroup(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       deleteunixnetgroup: post,
     };
     return this.http
@@ -158,7 +158,7 @@ export class UnixService {
   unixnetgroupusers(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       unixnetgroupusers: post,
     };
     return this.http
@@ -172,7 +172,7 @@ export class UnixService {
         opuid,
       },
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
     };
     return this.http
       .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
@@ -185,7 +185,7 @@ export class UnixService {
         type,
       },
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
     };
     return this.http
       .post<any>(`${BACKEND_URL}/unixnetgroup`, postData)
@@ -195,7 +195,7 @@ export class UnixService {
   modifyNetGroup(action: any) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       action,
     };
     return this.http
@@ -206,7 +206,7 @@ export class UnixService {
   modifyHostNetGrp(action: any) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       action,
     };
     return this.http

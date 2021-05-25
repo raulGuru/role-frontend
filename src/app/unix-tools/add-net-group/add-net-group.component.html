@@ -19,7 +19,7 @@
                                           <input formControlName="name" id="name" type="text"
                                               class="form-control"
                                               [ngClass]="{ 'is-invalid': c.name.invalid && (c.name.dirty || c.name.touched) }"
-                                              required />
+                                              required autocomplete="off" />
                                           <em *ngIf="c.name.invalid && (c.name.dirty || c.name.touched)"
                                               class="error invalid-feedback">
                                               Net Group Name field is required

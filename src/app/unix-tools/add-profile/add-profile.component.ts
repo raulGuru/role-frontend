@@ -63,7 +63,7 @@ export class AddProfileComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }
@@ -92,7 +92,7 @@ export class AddProfileComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 

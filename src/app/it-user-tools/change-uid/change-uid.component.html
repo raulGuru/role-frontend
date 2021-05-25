@@ -15,7 +15,7 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group"><label for="opuid" class="">Enterprise ID<em class="text-danger">*</em></label><input name="opuid"
                                                 formControlName="opuid" type="text" class="form-control" required
-                                                [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }" autocomplete="off" >
                                             <em *ngIf="c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)"
                                                 class="error invalid-feedback">
                                                 Enterprise ID field is required
@@ -24,7 +24,7 @@
                                         <div class="position-relative form-group"><label for="alternateuid" class="">Alternate ID<em
                                                     class="text-danger">*</em></label><input name="alternateuid"
                                                 formControlName="alternateuid" type="text" class="form-control" required
-                                                [ngClass]="{ 'is-invalid': c.alternateuid.invalid && (c.alternateuid.dirty || c.alternateuid.touched) }">
+                                                [ngClass]="{ 'is-invalid': c.alternateuid.invalid && (c.alternateuid.dirty || c.alternateuid.touched) }" autocomplete="off" >
                                             <em *ngIf="c.alternateuid.invalid && (c.alternateuid.dirty || c.alternateuid.touched)"
                                                 class="error invalid-feedback">
                                                 Alternate ID field is required

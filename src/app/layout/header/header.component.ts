@@ -31,8 +31,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    localStorage.clear();
-    this.router.navigate(['/auth']);
+    this.layoutService.doLogout();
   }
 
   passwordExpiryCheck() {

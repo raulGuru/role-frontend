@@ -28,6 +28,7 @@ export class AddContractorComponent implements OnInit {
   disable: boolean = false;
   uidReadOnly: boolean;
   opuid: string;
+  sendKmart: boolean;
 
   constructor(
     private itUserService: ItUserService,
@@ -64,6 +65,7 @@ export class AddContractorComponent implements OnInit {
       e3: new FormControl(),
       e5: new FormControl(),
     });
+    this.sendKmart = false;
   }
 
   ngOnInit(): void {
@@ -72,7 +74,7 @@ export class AddContractorComponent implements OnInit {
         this.businessCats = response;
       },
       (error) => {
-        window.alert(error);
+        console.log(error);
       }
     );
 
@@ -81,7 +83,7 @@ export class AddContractorComponent implements OnInit {
         this.businessUnits = response;
       },
       (error) => {
-        window.alert(error);
+        console.log(error);
       }
     );
     this.opuid = this.route.snapshot.paramMap.get('id');
@@ -116,7 +118,7 @@ export class AddContractorComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -212,7 +214,7 @@ export class AddContractorComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -242,7 +244,7 @@ export class AddContractorComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }
@@ -310,7 +312,7 @@ export class AddContractorComponent implements OnInit {
       params['nonexpiry'] = !nonexpiry ? false : nonexpiry;
       params['testing'] = !testing ? false : testing;
       params['procurement'] = !procurement ? false : procurement;
-      params['kmart'] = !kmart ? false : kmart;
+      params['kmart'] = (this.sendKmart) ? true : (!kmart ? false : kmart);
       params['sears2'] = !sears2 ? false : sears2;
       params['vpn'] = !vpn ? false : vpn;
       params['k1'] = !k1 ? false : k1;
@@ -342,7 +344,7 @@ export class AddContractorComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }
@@ -414,6 +416,7 @@ export class AddContractorComponent implements OnInit {
         this.contractorForm.patchValue({
           kmart: chk,
         });
+        this.sendKmart = chk;
         this.manageControl(chk, 'testing');
         this.manageControl(chk, 'vendor');
         this.manageControl(chk, 'kmart');

@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class SettingComponent implements OnInit {
     profile: any;
     loader: boolean = true;
+    isLoggedIn: boolean = false;
     settingForm: FormGroup;
 
     constructor(
@@ -30,6 +31,7 @@ export class SettingComponent implements OnInit {
     }    
 
     ngOnInit(): void {
+        this.isLoggedIn = this.authService.getLocalStorage('user');
         this.getUserProfile();
     }
 
@@ -69,7 +71,7 @@ export class SettingComponent implements OnInit {
             }
         } catch (error) {
             this.toastr.clear();
-            window.alert(error);
+            console.log(error);
         }
     }
 
@@ -99,7 +101,7 @@ export class SettingComponent implements OnInit {
                 }
             } catch (error) {
                 this.toastr.clear();
-                window.alert(error);
+                console.log(error);
             }
         }
     }

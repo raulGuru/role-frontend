@@ -82,7 +82,7 @@ export class SearchNetGroupComponent implements OnInit {
             },
             (error) => {
               this.toastr.clear();
-              window.alert(error);
+              console.log(error);
             }
           );
       }
@@ -132,7 +132,7 @@ export class SearchNetGroupComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 
@@ -166,7 +166,7 @@ export class SearchNetGroupComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }
@@ -219,7 +219,7 @@ export class SearchNetGroupComponent implements OnInit {
       }
     } catch (error) {
       this.toastr.clear();
-      window.alert(error);
+      console.log(error);
     }
   }
 

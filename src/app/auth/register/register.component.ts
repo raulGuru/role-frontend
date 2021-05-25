@@ -10,13 +10,14 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  isLoggedIn: any;
   registerForm: FormGroup;
 
   constructor(
     private authService: AuthService,
     private toastr: ToastrService
   ) {
+    this.isLoggedIn = null;
     this.registerForm = new FormGroup({
       opuid: new FormControl('', Validators.required),
       currpassword: new FormControl('', Validators.required),
@@ -27,6 +28,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.getLocalStorage('user');
+    if (this.isLoggedIn) {
+      this.registerForm.patchValue({ opuid: this.isLoggedIn.uid })
+    }
   }
 
   async onSubmit() {
@@ -59,7 +63,7 @@ export class RegisterComponent implements OnInit {
         }
       } catch (error) {
         this.toastr.clear();
-        window.alert(error);
+        console.log(error);
       }
     }
   }
