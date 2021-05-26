@@ -23,6 +23,7 @@
     "@ng-select/ng-select": "^6.1.0",
     "angular-ng-autocomplete": "^2.0.5",
     "bootstrap": "^4.6.0",
+    "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-toastr": "^13.2.0",
     "rxjs": "~6.6.0",
     "sweetalert2": "^10.15.5",

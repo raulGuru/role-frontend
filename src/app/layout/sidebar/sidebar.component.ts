@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SideNav } from './sidenav-data';
 import { LayoutService } from '../layout.service';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+declare let $: any;
 
 @Component({
   selector: 'app-sidebar',
@@ -10,12 +13,16 @@ import { LayoutService } from '../layout.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
+  @ViewChild('menuElement') metismenu: any;
   menuIcons: [] = [];
   leftSidebar: SideNav[] = [];
   activeCat: string;
   activeSub: string;
+  public config: PerfectScrollbarConfigInterface = {};
 
-  constructor(private layoutService: LayoutService, private router: Router) {}
+  constructor(private layoutService: LayoutService,
+    private router: Router,
+    public el: ElementRef) { }
 
   ngOnInit(): void {
     this.getMenuIcons();
@@ -30,10 +37,11 @@ export class SidebarComponent implements OnInit {
               }
               this.leftSidebar[key].push(response[key][k]);
               //if (`/${response[key][k]['link']}` == this.router.url) {
-                if (this.router.url.indexOf(response[key][k]['link']) > -1) {
+              if (this.router.url.indexOf(response[key][k]['link']) > -1) {
                 this.activeCat = key;
                 this.activeSub = response[key][k]['link'];
               }
+              this.loadMetisMenu();
             }
           }
         }
@@ -42,6 +50,14 @@ export class SidebarComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  loadMetisMenu() {
+    setTimeout(() => {
+      this.metismenu = this.el.nativeElement.querySelector('#metismenu');
+      $(this.metismenu).metisMenu('dispose');
+      $(this.metismenu).metisMenu();
+    }, 200);
   }
 
   getMenuIcons() {

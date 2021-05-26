@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 
 import { LayoutService } from '../layout.service';
 import { LayoutModalComponent } from '../layout-modal/layout-modal.component';
+declare let $: any;
 
 @Component({
   selector: 'app-header',
@@ -15,12 +16,14 @@ import { LayoutModalComponent } from '../layout-modal/layout-modal.component';
 export class HeaderComponent implements OnInit {
   user: any = {};
   inAuthModalRef: NgbModalRef;
+  isTopbar: boolean;
+  sidebar: boolean;
 
   constructor(
     public layoutService: LayoutService,
     private modalService: NgbModal,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.user = this.layoutService.getLocalStorage('user');
@@ -28,6 +31,19 @@ export class HeaderComponent implements OnInit {
       this.layoutService.handleResponseError();
     }
     //this.passwordExpiryCheck();
+  }
+
+  toggelTopBar() {
+    this.isTopbar = !this.isTopbar;
+  }
+
+  toggleSidebar() {
+    this.sidebar = !this.sidebar;
+    if (this.sidebar) {
+      $('body .app-container').addClass('closed-sidebar');
+    } else {
+      $('body .app-container').removeClass('closed-sidebar');
+    }
   }
 
   onLogout() {

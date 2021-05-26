@@ -1,13 +1,14 @@
 <div class="app-sidebar sidebar-shadow bg-dark sidebar-text-light">
-   <div class="scrollbar-sidebar">
+   <div class="scrollbar-sidebar" [perfectScrollbar]="config">
       <div class="app-sidebar__inner">
-         <ul class="vertical-nav-menu" *ngIf="leftSidebar" id="metismenu">
+         <ul *ngIf="leftSidebar" class="vertical-nav-menu" #menuElement id="metismenu">
             <li *ngFor="let row of leftSidebar | keyvalue" [ngClass]="{'mm-active': row.key == activeCat }">
-               <a href="javascript:void(0);"><i class="metismenu-icon {{ menuIcons[row.key] }}"></i>{{row.key}}<i
+               <a href="javascript:void(0);" aria-expanded="true"><i class="metismenu-icon" [ngClass]="menuIcons[row.key]"></i>{{row.key}}<i
                      class="metismenu-state-icon pe-7s-angle-down caret-left"></i></a>
-               <ul>
-                  <li *ngFor="let item of row.value" [ngClass]="{'mm-active': item.link == activeSub }"><a
-                        [routerLink]="'/' + item.link"><i class="metismenu-icon"></i>{{item.title}}</a></li>
+               <ul *ngIf="row.value.length && row.value.length > 0">
+                  <li *ngFor="let item of row.value">
+                     <a [routerLink]="'/' + item.link" [ngClass]="{'mm-active': item.link == activeSub }"><i class="metismenu-icon"></i>{{item.title}}</a>
+                  </li>
                </ul>
             </li>
          </ul>
