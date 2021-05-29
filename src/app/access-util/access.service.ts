@@ -99,7 +99,7 @@ export class AccessService {
         opuid,
       },
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
     };
     return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
   }
@@ -108,7 +108,7 @@ export class AccessService {
     const postData = {
       allgroups: '1',
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
     };
     return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
   }
@@ -116,7 +116,7 @@ export class AccessService {
   modifyGroup(action: any) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       action,
     };
     return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();

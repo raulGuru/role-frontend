@@ -255,7 +255,7 @@ export class ItUserService {
   getvendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       getvendor: post,
     };
     return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
@@ -264,7 +264,7 @@ export class ItUserService {
   addModifyVendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       vendor: post,
     };
     return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
@@ -273,7 +273,7 @@ export class ItUserService {
   resetpwVendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       resetpw: post,
     };
     return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
@@ -282,7 +282,7 @@ export class ItUserService {
   deleteVendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       delete: post,
     };
     return this.http.post<any>(`${BACKEND_URL}/vendor`, postData).toPromise();
@@ -291,7 +291,7 @@ export class ItUserService {
   getsaravendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       getsaravendor: post,
     };
     return this.http
@@ -302,7 +302,7 @@ export class ItUserService {
   addModifySaraVendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       saravendor: post,
     };
     return this.http
@@ -313,7 +313,7 @@ export class ItUserService {
   deleteSaraVendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       delete: post,
     };
     return this.http.post<any>(`${BACKEND_URL}/saravendor`, postData).toPromise();
@@ -322,7 +322,7 @@ export class ItUserService {
   resetpwSaraVendor(post) {
     const postData = {
       svc_uid: 'nchilka',
-      svc_pw: 'Nevin@12',
+      svc_pw: 'test@123',
       resetpw: post,
     };
     return this.http.post<any>(`${BACKEND_URL}/saravendor`, postData).toPromise();
