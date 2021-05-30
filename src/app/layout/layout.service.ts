@@ -55,6 +55,15 @@ export class LayoutService {
     return this.http.post<any>(`${BACKEND_URL}/renameid`, postData).toPromise();
   }
 
+  searchEnterpriseId(enterpriseid) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      enterpriseid
+    };
+    return this.http.post<any>(`${BACKEND_URL}/utils`, postData).toPromise();
+  }
+
   handleResponseError() {
     // this.errorModalRef = this.modalService.open(LayoutModalComponent, {
     //   size: 'sm',

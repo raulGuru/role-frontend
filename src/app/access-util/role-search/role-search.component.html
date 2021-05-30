@@ -47,9 +47,9 @@
                       <option value="shcdepartmentnumber">SHC Department Number</option>
                       <option value="l">Legacy Location</option>
                       <option value="shclocnumber">SHC Location</option>
-                    </select></label><input type="search" class="form-control form-control-sm" placeholder="Type here"
+                    </select></label><input type="text" class="form-control form-control-sm" placeholder="Type here"
                     name="txtSearchTbl" #txtSearchTbl [disabled]="searchTxtDisabled"
-                    (keyup)="searchTxtkey($event.target.value)" /><button class="btn btn-primary btn-lg"
+                    (keyup)="searchTxtkey($event.target.value)" autocomplete="off" /><button class="btn btn-primary btn-lg"
                     [disabled]="searchBtnDisabled" (click)="searchTblBtn(txtSearchTbl.value)">
                     Search
                   </button>

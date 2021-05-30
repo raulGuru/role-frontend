@@ -57,6 +57,33 @@ export class AccessService {
     return this.http.post<any>(`${BACKEND_URL}/role`, postData).toPromise();
   }
 
+  groupsearch(groupsearch: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      groupsearch
+    };
+    return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
+  }
+
+  groupdef(groupdef: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      groupdef
+    };
+    return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
+  }
+
+  groupusers(groupusers: any) {
+    const postData = {
+      svc_uid: 'lkarlin',
+      svc_pw: 'test@123',
+      groupusers
+    };
+    return this.http.post<any>(`${BACKEND_URL}/group`, postData).toPromise();
+  }
+
   dlsearch(dlsearch: any) {
     const postData = {
       svc_uid: 'lkarlin',

@@ -12,17 +12,21 @@ import { DlViewComponent } from './dl-view/dl-view.component';
 import { RoleSearchComponent } from './role-search/role-search.component';
 import { DlSearchComponent } from './dl-search/dl-search.component';
 import { GroupEditorComponent } from './group-editor/group-editor.component';
+import { GroupViewComponent } from './group-view/group-view.component';
+import { GroupSearchComponent } from './group-search/group-search.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent, RoleSearchComponent, DlSearchComponent, GroupEditorComponent],
+  declarations: [RoleEditorComponent, RoleAssignmentComponent, RoleViewComponent, DlViewComponent, RoleSearchComponent, DlSearchComponent, GroupEditorComponent, GroupViewComponent, GroupSearchComponent],
   imports: [
     CommonModule,
     FormsModule,
     AccessUtilRoutingModule,
     LayoutModule,
     PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class AccessUtilModule { }

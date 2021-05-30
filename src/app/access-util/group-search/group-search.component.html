@@ -1,0 +1,125 @@
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <app-header></app-header>
+    <div class="app-main">
+      <app-sidebar></app-sidebar>
+      <div class="app-main__outer">
+        <div class="app-main__inner">
+          <div class="app-page-title">
+            <div class="card mb-3 mt-4">
+              <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                  <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
+                  </i>Group Search
+                </div>
+              </div>
+              <div class="row p-4">
+                <div class="col-md-6">
+                  <div class="position-relative form-group">
+                    <input type="text" class="form-control" placeholder="Type at least 3 chars to search groups"
+                      (input)="findGroups($event.target.value)" [(ngModel)]="searchText" name="searchText"
+                      autocomplete="off" />
+                  </div>
+                  <ul class="" *ngIf="groupSearchData.length > 0" style="height: 300px; overflow: auto; cursor: pointer">
+                    <li *ngFor="let group of groupSearchData">
+                      <a (click)="getGroupUsers(group)">{{ group }}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row p-4" *ngIf="loadContent" id="loadContent">
+                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="dataTables_filter">
+                    <label>Search:<select class="form-control form-control-sm"
+                        (change)="searchSelect($event.target.value)">
+                        <option value="">Select Column</option>
+                        <option value="uid">Enterprise ID</option>
+                        <option value="cn">Full Name</option>
+                        <option value="type">Type</option>
+                        <option value="emplid">Employee ID</option>
+                        <option value="o">Organisation</option>
+                        <option value="title">Title</option>
+                        <option value="mail">Mail Address</option>
+                        <option value="telephonenumber">Telephone Number</option>
+                        <option value="manager">Manager</option>
+                        <option value="searsorgjobcode">Job Code</option>
+                        <option value="departmentnumber">Legacy Department Number</option>
+                        <option value="shcdepartmentnumber">SHC Department Number</option>
+                        <option value="l">Legacy Location</option>
+                        <option value="shclocnumber">SHC Location</option>
+                      </select></label>
+                      <input type="text" class="form-control form-control-sm" placeholder="Type here"
+                      name="txtSearchTbl" #txtSearchTbl [disabled]="searchTxtDisabled"
+                      (keyup)="searchTxtkey($event.target.value)" autocomplete="off" /><button class="btn btn-primary btn-lg"
+                      [disabled]="searchBtnDisabled" (click)="searchTblBtn(txtSearchTbl.value)">
+                      Search
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-12" *ngIf="groupUsers.length > 0">
+                  <table class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline">
+                    <thead>
+                      <tr>
+                        <th>Enterprise ID</th>
+                        <th>Full Name</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Employee ID</th>
+                        <th>Organisation</th>
+                        <th>Title</th>
+                        <th>Mail Address</th>
+                        <th>Telephone Number</th>
+                        <th>Manager</th>
+                        <th>Job Code</th>
+                        <th>Legacy Department Number</th>
+                        <th>SHC Department Number</th>
+                        <th>Legacy Location</th>
+                        <th>SHC Location</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let user of groupUsers">
+                        <td>{{ user?.uid }}</td>
+                        <td>{{ user?.cn }}</td>
+                        <td>{{ user?.type }}</td>
+                        <td>{{ user?.status }}</td>
+                        <td>{{ user?.emplid }}</td>
+                        <td>{{ user?.o }}</td>
+                        <td>{{ user?.title }}</td>
+                        <td>{{ user?.mail }}</td>
+                        <td>{{ user?.telephonenumber }}</td>
+                        <td>{{ user?.manager }}</td>
+                        <td>{{ user?.searsorgjobcode }}</td>
+                        <td>{{ user?.departmentnumber }}</td>
+                        <td>{{ user?.shcdepartmentnumber }}</td>
+                        <td>{{ user?.l }}</td>
+                        <td>{{ user?.shclocnumber }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-sm-12" *ngIf="groupUsers.length === 0">
+                  No data to show!!
+                </div>
+              </div>
+              <div class="row p-4" *ngIf="groupUsers.length > 0 && forceServerSearch">
+                <div class="col-sm-12"></div>
+                <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers">
+                    <ul class="pagination">
+                      <li class="paginate_button page-item previous" [class.disabled]="pageid === 1">
+                        <a href="javascript:void(0);" class="page-link" (click)="paginateTbl('pre')">Previous</a>
+                      </li>
+                      <li class="paginate_button page-item next">
+                        <a href="javascript:void(0);" class="page-link" (click)="paginateTbl('nxt')">Next</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

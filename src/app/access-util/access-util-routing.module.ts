@@ -5,6 +5,8 @@ import { PageNotFoundComponent } from '../layout/page-not-found/page-not-found.c
 import { DlSearchComponent } from './dl-search/dl-search.component';
 import { DlViewComponent } from './dl-view/dl-view.component';
 import { GroupEditorComponent } from './group-editor/group-editor.component';
+import { GroupSearchComponent } from './group-search/group-search.component';
+import { GroupViewComponent } from './group-view/group-view.component';
 import { RoleEditorComponent } from './role-editor/role-editor.component';
 import { RoleSearchComponent } from './role-search/role-search.component';
 import { RoleViewComponent } from './role-view/role-view.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'roleview', component: RoleViewComponent },
   { path: 'roleusers', component: RoleSearchComponent },
   { path: 'group', component: GroupEditorComponent },
+  { path: 'groupview', component: GroupViewComponent },
+  { path: 'groupusers', component: GroupSearchComponent },
   { path: 'dlview', component: DlViewComponent },
   { path: 'dlusers', component: DlSearchComponent },
   { path: '', pathMatch: 'full', redirectTo: 'role' },

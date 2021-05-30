@@ -21,6 +21,16 @@
       "link": "access/group"
     },
     {
+      "key": "groupview",
+      "title": "Group Viewer",
+      "link": "access/groupview"
+    },
+    {
+      "key": "groupusers",
+      "title": "Group Search",
+      "link": "access/groupusers"
+    },
+    {
       "key": "dlview",
       "title": "Distribution List Viewer",
       "link": "access/dlview"

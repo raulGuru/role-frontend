@@ -59,40 +59,42 @@
                   </tr>
                 </tbody>
               </table> -->
-              <table class="mb-0 table table-bordered" *ngIf="roledef">
-                <tr>
-                  <th>Name</th>
-                  <td>{{ roledef.name }}</td>
-                </tr>
-                <tr>
-                  <th>Type</th>
-                  <td>{{ roledef.type }}</td>
-                </tr>
-                <tr>
-                  <th>Description</th>
-                  <td>{{ roledef.description }}</td>
-                </tr>
-                <tr>
-                  <th>dn</th>
-                  <td>{{ roledef.dn }}</td>
-                </tr>
-                <tr>
-                  <th>Created</th>
-                  <td>{{ roledef.created }}</td>
-                </tr>
-                <tr>
-                  <th *ngIf="roledef.type === 'filtered'">nsrolefilter</th>
-                  <td *ngIf="roledef.type === 'filtered'">{{ roledef.nsrolefilter }}</td>
-                </tr>
-                <tr>
-                  <th *ngIf="roledef.type === 'nested'">nesting</th>
-                  <td *ngIf="roledef.type === 'nested'">
-                    <ng-container *ngFor="let r of roledef.nesting">
-                      <a href="javascript:void(0);" (click)="getNestingRole(r)">{{ r }}</a><br>
-                    </ng-container>
-                  </td>
-                </tr>
-              </table>
+              <div class="col-md-12">
+                <table class="mb-0 table table-bordered" *ngIf="roledef">
+                  <tr>
+                    <th>Name</th>
+                    <td>{{ roledef.name }}</td>
+                  </tr>
+                  <tr>
+                    <th>Type</th>
+                    <td>{{ roledef.type }}</td>
+                  </tr>
+                  <tr>
+                    <th>Description</th>
+                    <td>{{ roledef.description }}</td>
+                  </tr>
+                  <tr>
+                    <th>dn</th>
+                    <td>{{ roledef.dn }}</td>
+                  </tr>
+                  <tr>
+                    <th>Created</th>
+                    <td>{{ roledef.created }}</td>
+                  </tr>
+                  <tr>
+                    <th *ngIf="roledef.type === 'filtered'">nsrolefilter</th>
+                    <td *ngIf="roledef.type === 'filtered'">{{ roledef.nsrolefilter }}</td>
+                  </tr>
+                  <tr>
+                    <th *ngIf="roledef.type === 'nested'">nesting</th>
+                    <td *ngIf="roledef.type === 'nested'">
+                      <ng-container *ngFor="let r of roledef.nesting">
+                        <a href="javascript:void(0);" (click)="getNestingRole(r)">{{ r }}</a><br>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
         </div>
