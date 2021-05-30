@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RoleEditorComponent implements OnInit {
   loadContent: boolean = false;
-  opuid: string = '';
+  opuid: string | null = '';
   allRoles: any = [];
   userRoles: any = [];
   userResMsg: string = '';
@@ -30,84 +30,90 @@ export class RoleEditorComponent implements OnInit {
     private accessService: AccessService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  onSearchClosed(opuid: any): void {
+    if(opuid !== null) {
+      this.loadRoleData(opuid);
+    }
+  }
+
+  onSearchCleard(isCleard) {
+    this.opuid = null;
+    this.clearDefaults();
+  }
 
   async loadRoleData(opuid: any) {
-    if (opuid.value) {
-      try {
-        this.opuid = opuid.value;
-        this.clearDefaults();
-        this.toastr.info('Loading...', 'Role Data', {
-          disableTimeOut: true,
-        });
-        this.loading = true;
-        let userRes = await this.accessService.getUserRoles(this.opuid);
-        if (userRes.header.status == '1') {
+    try {
+      this.opuid = opuid;
+      this.clearDefaults();
+      this.toastr.info('Loading...', 'Role Data', {
+        disableTimeOut: true,
+      });
+      this.loading = true;
+      let userRes = await this.accessService.getUserRoles(opuid);
+      if (userRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.showUserResMsg = true;
+      const { status, message } = userRes.header.userroles;
+      if (status === '0') {
+        const userRoles = userRes.data.userroles;
+        let allRes = await this.accessService.getAllRoles();
+        if (allRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
-        this.showUserResMsg = true;
-        const { status, message } = userRes.header.userroles;
+        this.toastr.clear();
+        const { status, message } = allRes.header.allroles;
         if (status === '0') {
-          const userRoles = userRes.data.userroles;
-          let allRes = await this.accessService.getAllRoles();
-          if (allRes.header.status == '1') {
-            this.layoutService.handleResponseError();
-          }
-          this.toastr.clear();
-          const { status, message } = allRes.header.allroles;
-          if (status === '0') {
-            this.userResType = 'alert-success';
-            this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-            const allRoles = allRes.data.allroles;
+          this.userResType = 'alert-success';
+          this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
+          const allRoles = allRes.data.allroles;
 
-            // remove common roles from allroles
+          // remove common roles from allroles
 
-            // this.allRoles = allRoles.filter(function (el) {
-            //   return !userRoles.includes(el);
-            // });
-            const filteredRoles = allRoles.filter(function (el) {
-              return !userRoles.includes(el);
-            });
-            filteredRoles.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              this.allRoles.push(tmp);
-            });
+          // this.allRoles = allRoles.filter(function (el) {
+          //   return !userRoles.includes(el);
+          // });
+          const filteredRoles = allRoles.filter(function (el) {
+            return !userRoles.includes(el);
+          });
+          filteredRoles.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            this.allRoles.push(tmp);
+          });
 
-            // readonly roles not in allroles
-            userRoles.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              tmp['disabled'] = allRoles.includes(el) ? false : true;
-              this.userRoles.push(tmp);
-            });
-            this.loadContent = true;
-            this.loading = false;
-          } else {
-            //if (status === '1') {
-              this.userResType = 'alert-danger';
-              this.userResMsg = message;
-            //}
-          }
-        } else {
-          this.toastr.clear();
+          // readonly roles not in allroles
+          userRoles.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            tmp['disabled'] = allRoles.includes(el) ? false : true;
+            this.userRoles.push(tmp);
+          });
+          this.loadContent = true;
           this.loading = false;
+        } else {
+          //if (status === '1') {
           this.userResType = 'alert-danger';
-            this.userResMsg = message;
-          // if (status === '1') {
-          //   this.userResType = 'alert-danger';
-          //   this.userResMsg = message;
-          // }
+          this.userResMsg = message;
+          //}
         }
-      } catch (error) {}
-    } else {
-      //window.alert('Please enter Enterprise ID!')
-      Swal.fire('Please enter Enterprise ID!');
-    }
+      } else {
+        this.toastr.clear();
+        this.loading = false;
+        this.userResType = 'alert-danger';
+        this.userResMsg = message;
+        // if (status === '1') {
+        //   this.userResType = 'alert-danger';
+        //   this.userResMsg = message;
+        // }
+      }
+    } catch (error) { }
   }
 
   async moveSelected(op: string) {
@@ -128,7 +134,7 @@ export class RoleEditorComponent implements OnInit {
       });
     }
     this.roleSelected = true;
-    if (role.length === 0 || this.opuid === '') {
+    if (role.length === 0 || this.opuid === null || this.opuid === '') {
       Swal.fire({
         icon: 'warning',
         title: role.length === 0 ? 'No role selected!' : 'Empty Enterprise ID!',
@@ -186,7 +192,7 @@ export class RoleEditorComponent implements OnInit {
         icon: status === '0' ? 'success' : 'error',
         title: this.modifyResMsg,
       });
-    } catch (error) {}
+    } catch (error) { }
   }
 
   toggleSelection(item) {
@@ -196,12 +202,12 @@ export class RoleEditorComponent implements OnInit {
   }
 
   clearDefaults() {
+    this.toastr.clear();
     this.allRoles = [];
     this.userRoles = [];
     this.loadContent = false;
     this.showUserResMsg = false;
     this.userResMsg = '';
     this.userResType = '';
-    this.toastr.clear();
   }
 }

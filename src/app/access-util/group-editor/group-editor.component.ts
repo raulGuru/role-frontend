@@ -13,7 +13,6 @@ import { AccessService } from '../access.service';
   styleUrls: ['./group-editor.component.scss']
 })
 export class GroupEditorComponent implements OnInit {
-  loadForm: FormGroup;
   opuid: string = '';
   loading: boolean = false;
   loadContent: boolean = false;
@@ -34,87 +33,89 @@ export class GroupEditorComponent implements OnInit {
     private accessService: AccessService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) { 
-    this.loadForm = new FormGroup({
-      opuid: new FormControl('', Validators.required),
-    });
-  }
+  ) { }
 
   ngOnInit(): void {
   }
 
-  async loadGroupData() {
-    if (this.loadForm.valid) {
-      try {
-        this.opuid = this.loadForm.value.opuid;
-        this.clearDefaults();
-        this.toastr.info('Loading...', 'Group Data', {
-          disableTimeOut: true,
-        });
-        this.loading = true;
-        let userRes = await this.accessService.getUserGroups(this.opuid);
-        if (userRes.header.status == '1') {
+  onSearchClosed(opuid: any): void {
+    if (opuid !== null) {
+      this.loadGroupData(opuid);
+    }
+  }
+
+  onSearchCleard(isCleard) {
+    this.opuid = null;
+    this.clearDefaults();
+  }
+
+  async loadGroupData(opuid: any) {
+    try {
+      this.opuid = opuid;
+      this.clearDefaults();
+      this.toastr.info('Loading...', 'Group Data', {
+        disableTimeOut: true,
+      });
+      this.loading = true;
+      let userRes = await this.accessService.getUserGroups(this.opuid);
+      if (userRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.showUserResMsg = true;
+      const { status, message } = userRes.header.usergroups;
+      if (status === '0') {
+        const userGroups = userRes.data.usergroups;
+        let allRes = await this.accessService.getAllGroups();
+        if (allRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
-        this.showUserResMsg = true;
-        const { status, message } = userRes.header.usergroups;
+        this.toastr.clear();
+        const { status, message } = allRes.header.allgroups;
         if (status === '0') {
-          const userGroups = userRes.data.usergroups;
-          let allRes = await this.accessService.getAllGroups();
-          if (allRes.header.status == '1') {
-            this.layoutService.handleResponseError();
-          }
-          this.toastr.clear();
-          const { status, message } = allRes.header.allgroups;
-          if (status === '0') {
-            this.userResType = 'alert-success';
-            this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-            const allGroups = allRes.data.allgroups;
+          this.userResType = 'alert-success';
+          this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
+          const allGroups = allRes.data.allgroups;
 
-            // remove common groups from allgroups
+          // remove common groups from allgroups
 
-            // this.allGroups = allGroups.filter(function (el) {
-            //   return !userGroups.includes(el);
-            // });
-            const filteredGroups = allGroups.filter(function (el) {
-              return !userGroups.includes(el);
-            });
-            filteredGroups.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              this.allGroups.push(tmp);
-            });
+          // this.allGroups = allGroups.filter(function (el) {
+          //   return !userGroups.includes(el);
+          // });
+          const filteredGroups = allGroups.filter(function (el) {
+            return !userGroups.includes(el);
+          });
+          filteredGroups.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            this.allGroups.push(tmp);
+          });
 
-            // readonly groups not in allgroups
-            userGroups.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              tmp['disabled'] = allGroups.includes(el) ? false : true;
-              this.userGroups.push(tmp);
-            });
-            this.loadContent = true;
-            this.loading = false;
-          } else {
-            if (status === '1') {
-              this.userResType = 'alert-danger';
-              this.userResMsg = message;
-            }
-          }
-        } else {
-          this.toastr.clear();
+          // readonly groups not in allgroups
+          userGroups.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            tmp['disabled'] = allGroups.includes(el) ? false : true;
+            this.userGroups.push(tmp);
+          });
+          this.loadContent = true;
           this.loading = false;
+        } else {
           if (status === '1') {
             this.userResType = 'alert-danger';
             this.userResMsg = message;
           }
         }
-      } catch (error) {}
-    } else {
-      //window.alert('Please enter Enterprise ID!')
-      Swal.fire('Please enter Enterprise ID!');
-    }
+      } else {
+        this.toastr.clear();
+        this.loading = false;
+        if (status === '1') {
+          this.userResType = 'alert-danger';
+          this.userResMsg = message;
+        }
+      }
+    } catch (error) { }
   }
 
   async moveSelected(op: string) {
@@ -188,7 +189,7 @@ export class GroupEditorComponent implements OnInit {
         icon: status === '0' ? 'success' : 'error',
         title: this.modifyResMsg,
       });
-    } catch (error) {}
+    } catch (error) { }
   }
 
   toggleSelection(item, action: string) {
@@ -210,16 +211,12 @@ export class GroupEditorComponent implements OnInit {
   }
 
   clearDefaults() {
+    this.toastr.clear();
     this.allGroups = [];
     this.userGroups = [];
     this.loadContent = false;
     this.showUserResMsg = false;
     this.userResMsg = '';
     this.userResType = '';
-    this.toastr.clear();
-  }
-
-  get c() {
-    return this.loadForm.controls;
   }
 }

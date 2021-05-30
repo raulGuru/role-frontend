@@ -14,15 +14,7 @@
                   </div>
                   <div class="row p-4">
                      <div class="col-md-6">
-                        <div class="position-relative form-group">
-                           <label for="enterpriseId" class="">Enterprise
-                              ID:</label>
-                           <input name="opuid" type="text" class="form-control" #opuid value="" autocomplete="off">
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <label for="enterpriseId" class="wrapper">&nbsp;</label>
-                        <button class="btn btn-primary btn-lg" (click)="loadRoleData(opuid)" [disabled]="loading">Load</button>
+                        <app-search-enterprise-id [isRequired]="true" (isSearchClosed)="onSearchClosed($event)" (isSearchCleard)="onSearchCleard($event)"></app-search-enterprise-id>
                      </div>
                      <div class="col-md-12" *ngIf="showUserResMsg">
                         <div *ngIf="showUserResMsg" class="alert fade show" [ngClass]="userResType"><span [innerHTML]="userResMsg"></span>
