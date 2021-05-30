@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                   <div class="position-relative form-group"><label for="opuid" class="">Contractor ID<em
                         class="text-danger">*</em></label>
-                    <ng-select [items]="contractors" placeholder="Type atleast 3 chars to search"
+                    <ng-select class="custom-select2" [items]="contractors" placeholder="Type atleast 3 chars to search"
                       formControlName="opuid" (search)="getSelectList($event, 'contr')"
                       [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }" required>
                     </ng-select>
@@ -32,7 +32,7 @@
                 <div class="col-md-6">
                   <div class="position-relative form-group"><label for="assoc" class="">Associate ID<em
                         class="text-danger">*</em></label>
-                    <ng-select [items]="associates" placeholder="Type atleast 3 chars to search" formControlName="assoc"
+                    <ng-select class="custom-select2" [items]="associates" placeholder="Type atleast 3 chars to search" formControlName="assoc"
                       (search)="getSelectList($event, 'assoc')"
                       [ngClass]="{ 'is-invalid': c.assoc.invalid && (c.assoc.dirty || c.assoc.touched) }" required>
                     </ng-select>

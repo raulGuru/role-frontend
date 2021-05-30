@@ -23,11 +23,15 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group"><label for="ouid" class="">Current
                                                 User ID<em class="text-danger">*</em></label>
-                                            <ng-select [items]="users" placeholder="Type atleast 3 chars to search"
+                                            <ng-select class="custom-select2" [items]="users" placeholder="Type atleast 3 chars to search"
                                                 formControlName="ouid" (search)="getUserList($event)"
                                                 [ngClass]="{ 'is-invalid': c.ouid.invalid && (c.ouid.dirty || c.ouid.touched) }"
                                                 required>
                                             </ng-select>
+                                            <em *ngIf="c.ouid.invalid && (c.ouid.dirty || c.ouid.touched)"
+                                                class="error invalid-feedback">
+                                                Current User ID field is required
+                                            </em>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

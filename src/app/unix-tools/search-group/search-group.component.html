@@ -17,7 +17,7 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="groupsearchstr" class="">Group Name<em class="text-danger">*</em></label>
-                                            <ng-select [items]="groups" placeholder="Type atleast 4 chars to search"
+                                            <ng-select class="custom-select2" [items]="groups" placeholder="Type atleast 4 chars to search"
                                                 formControlName="groupsearchstr" (search)="getGroups($event)" (close)="searchClose()" [addTag]="true"
                                                 [ngClass]="{ 'is-invalid': c.groupsearchstr.invalid && (c.groupsearchstr.dirty || c.groupsearchstr.touched) }"
                                                 required>

@@ -69,7 +69,7 @@
                                         <div class="position-relative form-group">
                                             <label for="o" class="">Organization/Company<em
                                                     class="text-danger">*</em></label>
-                                            <ng-select [items]="orgs" placeholder="Type atleast 3 chars to search"
+                                            <ng-select class="custom-select2" [items]="orgs" placeholder="Type atleast 3 chars to search"
                                                 formControlName="o" (search)="getOrgs($event)">
                                             </ng-select>
                                             <em *ngIf="c.o.invalid && (c.o.dirty || c.o.touched)"

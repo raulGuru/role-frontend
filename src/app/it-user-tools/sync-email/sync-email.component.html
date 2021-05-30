@@ -21,7 +21,7 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group"><label for="opuid" class="">Enterprise
                                                 ID<em class="text-danger">*</em></label>
-                                            <ng-select [items]="users" placeholder="Type atleast 3 chars to search"
+                                            <ng-select class="custom-select2" [items]="users" placeholder="Type atleast 3 chars to search"
                                                 formControlName="opuid" (search)="getUserIds($event)"
                                                 [ngClass]="{ 'is-invalid': c.opuid.invalid && (c.opuid.dirty || c.opuid.touched) }"
                                                 required>

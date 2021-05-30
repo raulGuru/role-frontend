@@ -2962,6 +2962,10 @@ pre code {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.form-control.ng-select {
+  padding: 0;
+  border: none;
+}
 @media screen and (prefers-reduced-motion: reduce) {
   .form-control {
     transition: none;
@@ -3294,6 +3298,12 @@ textarea.form-control.is-invalid {
 .was-validated .custom-select:invalid ~ .invalid-tooltip,
 .custom-select.is-invalid ~ .invalid-feedback,
 .custom-select.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+.was-validated .custom-select2:invalid ~ .invalid-feedback,
+.was-validated .custom-select2:invalid ~ .invalid-tooltip,
+.custom-select2.is-invalid ~ .invalid-feedback,
+.custom-select2.is-invalid ~ .invalid-tooltip {
   display: block;
 }
 .was-validated .form-control-file:invalid ~ .invalid-feedback,

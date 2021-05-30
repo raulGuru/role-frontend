@@ -15,7 +15,7 @@
                   <div class="col-md-6">
                     <div class="position-relative form-group"><label for="unixnetgroup" class="">Host Net Group
                         Name<em class="text-danger">*</em></label>
-                        <ng-select [items]="groups" bindLabel="name" bindValue="id" placeholder="Select an item"
+                        <ng-select class="custom-select2" [items]="groups" bindLabel="name" bindValue="id" placeholder="Select an item"
                           formControlName="unixnetgroup" [ngClass]="{ 'is-invalid': c.unixnetgroup.invalid && (c.unixnetgroup.dirty || c.unixnetgroup.touched) }" required>
                       </ng-select>
                       <em *ngIf="c.unixnetgroup.invalid && (c.unixnetgroup.dirty || c.unixnetgroup.touched)"
