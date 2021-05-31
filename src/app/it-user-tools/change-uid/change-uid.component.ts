@@ -26,7 +26,21 @@ export class ChangeUidComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  uidValid(status): void {
+    if(!status) {
+      this.chgaltForm.patchValue({ opuid: '' });
+    }
+  }
+
+  onUidClosed(uid): void {
+    this.chgaltForm.patchValue({ opuid: uid });
+  }
+
+  onUidCleard(isCleard) { 
+    this.chgaltForm.patchValue({ opuid: '' });
+  }
 
   onRemove() {
     if (this.chgaltForm.valid) {

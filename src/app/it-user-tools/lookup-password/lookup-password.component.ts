@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
@@ -13,7 +12,6 @@ import { ItUserService } from '../it-user.service';
   styleUrls: ['./lookup-password.component.scss'],
 })
 export class LookupPasswordComponent implements OnInit {
-  lookuppwForm: FormGroup;
   loadContent: boolean = false;
   ldapArr: any = [];
   sears1Arr: any = [];
@@ -25,16 +23,12 @@ export class LookupPasswordComponent implements OnInit {
     private itUserService: ItUserService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) {
-    this.lookuppwForm = new FormGroup({
-      opuid: new FormControl(''),
-    });
-  }
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  async onLookupPwSubmit() {
-    if (this.lookuppwForm.valid && this.lookuppwForm.value) {
+  async onUidClosed(opuid) {
+    if (opuid) {
       this.loadContent = false;
       this.ldapArr = [];
       this.toastr.clear();
@@ -43,7 +37,7 @@ export class LookupPasswordComponent implements OnInit {
       });
       try {
         let ldapRes = await this.itUserService.getldappasswordinfo(
-          this.lookuppwForm.value
+          { opuid }
         );
         if (ldapRes.header.status == '1') {
           this.layoutService.handleResponseError();
@@ -55,7 +49,7 @@ export class LookupPasswordComponent implements OnInit {
           this.ldapArr = ldapRes.data.getldappasswordinfo;
 
           this.itUserService
-            .getsears1passwordinfo(this.lookuppwForm.value)
+            .getsears1passwordinfo({ opuid })
             .then((res) => {
               if (res.header.status == '1') {
                 this.layoutService.handleResponseError();
@@ -71,7 +65,7 @@ export class LookupPasswordComponent implements OnInit {
               }
             });
           this.itUserService
-            .getsears2passwordinfo(this.lookuppwForm.value)
+            .getsears2passwordinfo({ opuid })
             .then((res) => {
               if (res.header.status == '1') {
                 this.layoutService.handleResponseError();
@@ -87,7 +81,7 @@ export class LookupPasswordComponent implements OnInit {
               }
             });
           this.itUserService
-            .getkmartpasswordinfo(this.lookuppwForm.value)
+            .getkmartpasswordinfo({ opuid })
             .then((res) => {
               if (res.header.status == '1') {
                 this.layoutService.handleResponseError();
@@ -103,7 +97,7 @@ export class LookupPasswordComponent implements OnInit {
               }
             });
           this.itUserService
-            .gettampasswordinfo(this.lookuppwForm.value)
+            .gettampasswordinfo({ opuid })
             .then((res) => {
               if (res.header.status == '1') {
                 this.layoutService.handleResponseError();
@@ -128,15 +122,6 @@ export class LookupPasswordComponent implements OnInit {
         this.toastr.clear();
         console.log(error);
       }
-    } else {
-      Swal.fire({
-        icon: 'info',
-        title: 'Enterprise ID is required!!',
-      });
     }
-  }
-
-  clearForm() {
-    this.lookuppwForm.reset();
   }
 }

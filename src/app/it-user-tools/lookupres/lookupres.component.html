@@ -22,10 +22,11 @@
                                                 Number (SSN):</label><input name="employeenumber" formControlName="employeenumber" type="text"
                                                 class="form-control" autocomplete="off" >
                                         </div>
-                                        <div class="position-relative form-group"><label for="uid" class="">Enterprise
+                                        <!-- <div class="position-relative form-group"><label for="uid" class="">Enterprise
                                                 ID:</label><input name="uid" formControlName="uid" type="text"
                                                 class="form-control" autocomplete="off" >
-                                        </div>
+                                        </div> -->
+                                        <app-search-enterprise-id (isSearchClosed)="onUidClosed($event)" (isSearchCleard)="onUidCleard($event)" [clearForm]="clearUidForm"></app-search-enterprise-id>
                                     </div>
                                 </div>
                                 <div class="divider row"></div>

@@ -1,12 +1,12 @@
 <form [formGroup]="uidForm">
     <div class="position-relative form-group">
-        <label for="opuid" class="">Enterprise ID<em *ngIf="isRequired" class="text-danger">*</em></label>
+        <label for="opuid" class="">{{ uidLabel }}<em *ngIf="isRequired" class="text-danger">*</em></label>
         <ng-select [items]="users" class="" placeholder="Type atleast 3 chars to search" formControlName="opuid"
             (search)="getUserIds($event)" (clear)="searchClear()" (close)="searchClose()"
             [ngClass]="{ 'custom-select2' : isRequired, 'is-invalid': (isRequired && c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)) }" [required]="isRequired">
         </ng-select>
         <em *ngIf="isRequired && c.opuid.invalid && (c.opuid.dirty || c.opuid.touched)" class="error invalid-feedback">
-            Enterprise ID field is required
+            {{ uidLabel }} field is required
         </em>
     </div>
 </form>

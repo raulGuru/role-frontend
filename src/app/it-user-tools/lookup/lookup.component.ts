@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +25,7 @@ export class LookupComponent implements OnInit {
   searchBtnDisabled: boolean = true;
   searchText: string = '';
   tablesearch: any = {};
+  clearUidForm: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private itUserService: ItUserService,
@@ -33,7 +34,7 @@ export class LookupComponent implements OnInit {
   ) {
     this.lookupForm = new FormGroup(
       {
-        uid: new FormControl(''),
+        //uid: new FormControl(''),
         givenname: new FormControl(''),
         sn: new FormControl(''),
         mail: new FormControl(''),
@@ -48,7 +49,21 @@ export class LookupComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  onUidClosed(uid) {
+    if (uid) {
+      this.lookupForm.addControl('uid', new FormControl(uid));
+    } else {
+      this.lookupForm.removeControl('uid');
+    }
+    this.lookupForm.updateValueAndValidity();
+  }
+
+  onUidCleard(isCleard) {
+    this.lookupForm.removeControl('uid');
+    this.lookupForm.updateValueAndValidity();
+  }
 
   async onLookupSubmit() {
     if (this.lookupForm.valid && this.lookupForm.value) {
@@ -201,6 +216,8 @@ export class LookupComponent implements OnInit {
 
   clearForm() {
     this.lookupForm.reset();
+    this.clearUidForm.emit(true);
+    this.onUidCleard(true);
   }
 
   atLeastOneValue(form: FormGroup): ValidationErrors {

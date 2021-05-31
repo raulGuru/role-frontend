@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/layout.service';
 import Swal from 'sweetalert2';
 
@@ -9,10 +10,15 @@ import Swal from 'sweetalert2';
   templateUrl: './search-enterprise-id.component.html',
   styleUrls: ['./search-enterprise-id.component.scss']
 })
-export class SearchEnterpriseIdComponent implements OnInit {
+export class SearchEnterpriseIdComponent implements OnInit, OnDestroy {
   users: [];
   uidForm: FormGroup;
+  clearFormSub: Subscription;
+  statusChangeSub: Subscription;
   @Input() isRequired: boolean = false;
+  @Input() uidType: string = 'ALL';
+  @Input() uidLabel: string = 'Enterprise ID';
+  @Input() clearForm: EventEmitter<boolean>;;
   @Output() isUidSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() isSearchClosed: EventEmitter<any> = new EventEmitter<any>();
   @Output() isSearchCleard: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -34,11 +40,18 @@ export class SearchEnterpriseIdComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.uidForm.statusChanges.subscribe(value => {
+    this.statusChangeSub = this.uidForm.statusChanges.subscribe(value => {
       if (value === 'VALID') {
         this.isUidSelected.emit(true);
+      } else {
+        this.isUidSelected.emit(false);
       }
     });
+    if (this.clearForm) {
+      this.clearFormSub = this.clearForm.subscribe(data => {
+        this.uidForm.reset();
+      })
+    }
   }
 
   searchClose() {
@@ -52,7 +65,7 @@ export class SearchEnterpriseIdComponent implements OnInit {
 
   async getUserIds(event: any) {
     if (event.term.length < 3) return;
-    const post = { opuid: event.term, "type": "A" };
+    const post = { opuid: event.term, 'type': this.uidType };
     try {
       this.toastr.clear();
       this.toastr.info('Searching...', 'User List', {
@@ -80,6 +93,15 @@ export class SearchEnterpriseIdComponent implements OnInit {
 
   get c() {
     return this.uidForm.controls;
+  }
+
+  ngOnDestroy(): void {
+    if (this.statusChangeSub) {
+      this.statusChangeSub.unsubscribe();
+    }
+    if (this.clearFormSub) {
+      this.clearFormSub.unsubscribe();
+    }
   }
 
 }

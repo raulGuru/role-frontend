@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
@@ -31,17 +30,18 @@ export class AskComponent implements OnInit, OnDestroy {
     this.clearHistory();
   }
 
-  onAskSubmit(form: NgForm) {
-    const opuid = form.value.opuid;
+  onUidCleard(isCleard) {}
+
+  onAskSubmit(opuid) {
     if (opuid) {
       this.clearHistory();
       this.searchUid = opuid;
       this.renderLdapUser(opuid);
     } else {
-      Swal.fire({
-        icon: 'info',
-        title: 'Enter Enterprise ID to search!!',
-      });
+      // Swal.fire({
+      //   icon: 'info',
+      //   title: 'Enter Enterprise ID to search!!',
+      // });
     }
   }
 

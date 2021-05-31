@@ -14,7 +14,8 @@
                             <form [formGroup]="chgssnForm" (ngSubmit)="onChngSub()">
                                 <div class="form-row">
                                     <div class="col-md-6">
-                                        <div class="position-relative form-group"><label for="opuid"
+                                        <app-search-enterprise-id (isUidSelected)="uidValid($event)" (isSearchClosed)="onUidClosed($event)" (isSearchCleard)="onUidCleard($event)" isRequired="true" uidType="C" uidLabel="Contractor's Enterprise ID"></app-search-enterprise-id>
+                                        <!-- <div class="position-relative form-group"><label for="opuid"
                                                 class="">Contractor's Enterprise ID<em
                                                     class="text-danger">*</em></label><input name="opuid"
                                                 formControlName="opuid" type="text" class="form-control" required
@@ -23,7 +24,7 @@
                                                 class="error invalid-feedback">
                                                 Contractor's Enterprise ID field is required
                                             </em>
-                                        </div>
+                                        </div> -->
                                         <div class="position-relative form-group"><label for="ssn" class="">SSN/PW Reset
                                                 Challenge Word<em class="text-danger">*</em></label><input name="ssn"
                                                 formControlName="ssn" type="text" class="form-control" required

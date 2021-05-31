@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
@@ -20,6 +20,7 @@ export class LookupresComponent implements OnInit {
   pageid: number = 1;
   users: any = [];
   tablesearch: any = {};
+  clearUidForm: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private itUserService: ItUserService,
@@ -28,7 +29,7 @@ export class LookupresComponent implements OnInit {
   ) {
     this.lookupresForm = new FormGroup(
       {
-        uid: new FormControl(''),
+        //uid: new FormControl(''),
         emplid: new FormControl(''),
         employeenumber: new FormControl(''),
       },
@@ -47,6 +48,20 @@ export class LookupresComponent implements OnInit {
     extsearch['tablesearch'] = tablesearch;
     const postData = { extsearch };
     this.getLookupRes(postData);
+  }
+
+  onUidClosed(uid): void {
+    if (uid) {
+      this.lookupresForm.addControl('uid', new FormControl(uid));
+    } else {
+      this.lookupresForm.removeControl('uid');
+    }
+    this.lookupresForm.updateValueAndValidity();
+  }
+
+  onUidCleard(isCleard): void {
+    this.lookupresForm.removeControl('uid');
+    this.lookupresForm.updateValueAndValidity();
   }
 
   onLookupresSubmit() {
@@ -118,5 +133,7 @@ export class LookupresComponent implements OnInit {
 
   clearForm() {
     this.lookupresForm.reset();
+    this.clearUidForm.emit(true);
+    this.onUidCleard(true);
   }
 }

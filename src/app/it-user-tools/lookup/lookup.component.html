@@ -14,10 +14,11 @@
                             <form [formGroup]="lookupForm" (ngSubmit)="onLookupSubmit()">
                                 <div class="form-row">
                                     <div class="col-md-6">
-                                        <div class="position-relative form-group"><label for="uid" class=""><em
+                                        <app-search-enterprise-id (isSearchClosed)="onUidClosed($event)" (isSearchCleard)="onUidCleard($event)" [clearForm]="clearUidForm"></app-search-enterprise-id>
+                                        <!-- <div class="position-relative form-group"><label for="uid" class=""><em
                                                     class="text-danger">*</em> Enterprise ID:</label><input name="uid"
                                                 formControlName="uid" type="text" class="form-control" autocomplete="off" >
-                                        </div>
+                                        </div> -->
                                         <div class="position-relative form-group"><label for="givenname" class=""><em
                                                     class="text-danger">*</em> First Name:</label><input
                                                 name="givenname" formControlName="givenname" type="text"
@@ -103,10 +104,10 @@
                                                     <option value="shcdepartmentnumber">SHC Department Number</option>
                                                     <option value="l">Legacy Location</option>
                                                     <option value="shclocnumber">SHC Location</option>
-                                                </select></label><input type="search"
+                                                </select></label><input type="text"
                                                 class="form-control form-control-sm" placeholder="Type here"
                                                 name="txtSearchTbl" #txtSearchTbl [disabled]="searchTxtDisabled"
-                                                (keyup)="searchTxtkey($event.target.value)" /><button
+                                                (keyup)="searchTxtkey($event.target.value)" autocomplete="off" /><button
                                                 class="btn btn-primary btn-lg" [disabled]="searchBtnDisabled"
                                                 (click)="searchTblBtn(txtSearchTbl.value)">
                                                 Search

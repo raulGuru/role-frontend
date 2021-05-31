@@ -8,6 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 import { LookupComponent } from './lookup/lookup.component';
 import { AskComponent } from './ask/ask.component';
@@ -36,6 +37,7 @@ import { SyncEmailComponent } from './sync-email/sync-email.component';
     FormsModule,
     NgbModule,
     NgSelectModule,
+    SharedModule
   ]
 })
 export class ItUserToolsModule { }

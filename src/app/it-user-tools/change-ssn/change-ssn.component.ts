@@ -33,6 +33,20 @@ export class ChangeSsnComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  uidValid(status): void {
+    if(!status) {
+      this.chgssnForm.patchValue({ opuid: '' });
+    }
+  }
+
+  onUidClosed(uid): void {
+    this.chgssnForm.patchValue({ opuid: uid });
+  }
+
+  onUidCleard(isCleard) { 
+    this.chgssnForm.patchValue({ opuid: '' });
+  }
+
   async onChngSub() {
     if (this.chgssnForm.valid) {
       const { opuid, ssn } = this.chgssnForm.value;
