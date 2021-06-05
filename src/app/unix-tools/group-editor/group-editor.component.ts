@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
@@ -13,8 +12,7 @@ import { UnixService } from '../unix.service';
   styleUrls: ['./group-editor.component.scss'],
 })
 export class GroupEditorComponent implements OnInit {
-  loadForm: FormGroup;
-  opuid: string = '';
+  opuid: string | null = '';
   loading: boolean = false;
   loadContent: boolean = false;
   showUserResMsg: boolean = false;
@@ -33,86 +31,88 @@ export class GroupEditorComponent implements OnInit {
     private unixService: UnixService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) {
-    this.loadForm = new FormGroup({
-      opuid: new FormControl('', Validators.required),
-    });
+  ) { }
+
+  ngOnInit(): void { }
+
+  onSearchClosed(opuid: any): void {
+    if (opuid !== null) {
+      this.opuid = opuid;
+      this.loadGroupData();
+    }
   }
 
-  ngOnInit(): void {}
+  onSearchCleard(isCleard): void {
+    this.opuid = null;
+    this.clearDefaults();
+  }
 
   async loadGroupData() {
-    if (this.loadForm.valid) {
-      try {
-        this.opuid = this.loadForm.value.opuid;
-        this.clearDefaults();
-        this.toastr.info('Loading...', 'Group Data', {
-          disableTimeOut: true,
-        });
-        this.loading = true;
-        let userRes = await this.unixService.getUserGroups(this.opuid);
-        if (userRes.header.status == '1') {
+    try {
+      this.clearDefaults();
+      this.toastr.info('Loading...', 'Group Data', {
+        disableTimeOut: true,
+      });
+      this.loading = true;
+      let userRes = await this.unixService.getUserGroups(this.opuid);
+      if (userRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.showUserResMsg = true;
+      const { status, message, info } = userRes.header.userunixgroups;
+      if (status === '0') {
+        const userGroups = userRes.data.userunixgroups;
+        let allRes = await this.unixService.getAllGroups();
+        if (allRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
-        this.showUserResMsg = true;
-        const { status, message, info } = userRes.header.userunixgroups;
+        this.toastr.clear();
+        const { status, message, info } = allRes.header.allunixgroups;
         if (status === '0') {
-          const userGroups = userRes.data.userunixgroups;
-          let allRes = await this.unixService.getAllGroups();
-          if (allRes.header.status == '1') {
-            this.layoutService.handleResponseError();
-          }
-          this.toastr.clear();
-          const { status, message, info } = allRes.header.allunixgroups;
-          if (status === '0') {
-            this.userResType = 'alert-success';
-            this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-            const allGroups = allRes.data.allunixgroups;
+          this.userResType = 'alert-success';
+          this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
+          const allGroups = allRes.data.allunixgroups;
 
-            // remove common groups from allunixgroups
+          // remove common groups from allunixgroups
 
-            // this.allGroups = allGroups.filter(function (el) {
-            //   return !userGroups.includes(el);
-            // });
-            const filteredGroups = allGroups.filter(function (el) {
-              return !userGroups.includes(el);
-            });
-            filteredGroups.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              this.allGroups.push(tmp);
-            });
+          // this.allGroups = allGroups.filter(function (el) {
+          //   return !userGroups.includes(el);
+          // });
+          const filteredGroups = allGroups.filter(function (el) {
+            return !userGroups.includes(el);
+          });
+          filteredGroups.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            this.allGroups.push(tmp);
+          });
 
-            // readonly groups not in allunixgroups
-            userGroups.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              tmp['disabled'] = allGroups.includes(el) ? false : true;
-              this.userGroups.push(tmp);
-            });
-            this.loadContent = true;
-            this.loading = false;
-          } else {
-            if (status === '1') {
-              this.userResType = 'alert-danger';
-              this.userResMsg = `${message}</br>${info || ''}`;
-            }
-          }
-        } else {
-          this.toastr.clear();
+          // readonly groups not in allunixgroups
+          userGroups.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            tmp['disabled'] = allGroups.includes(el) ? false : true;
+            this.userGroups.push(tmp);
+          });
+          this.loadContent = true;
           this.loading = false;
+        } else {
           if (status === '1') {
             this.userResType = 'alert-danger';
             this.userResMsg = `${message}</br>${info || ''}`;
           }
         }
-      } catch (error) {}
-    } else {
-      //window.alert('Please enter Enterprise ID!')
-      Swal.fire('Please enter Enterprise ID!');
-    }
+      } else {
+        this.toastr.clear();
+        this.loading = false;
+        if (status === '1') {
+          this.userResType = 'alert-danger';
+          this.userResMsg = `${message}</br>${info || ''}`;
+        }
+      }
+    } catch (error) { }
   }
 
   toggleSelection(item, action: string) {
@@ -202,7 +202,7 @@ export class GroupEditorComponent implements OnInit {
         icon: status === '0' ? 'success' : 'error',
         title: this.modifyResMsg,
       });
-    } catch (error) {}
+    } catch (error) { }
   }
 
   clearDefaults() {
@@ -214,9 +214,5 @@ export class GroupEditorComponent implements OnInit {
     this.userResMsg = '';
     this.userResType = '';
     this.toastr.clear();
-  }
-
-  get c() {
-    return this.loadForm.controls;
   }
 }

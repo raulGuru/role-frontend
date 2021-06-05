@@ -29,32 +29,18 @@ export class SyncEmailComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async getUserIds(event: any) {
-    if (event.term.length < 3) return;
-    const post = { opuid: event.term };
-    try {
-      this.toastr.clear();
-      this.toastr.info('Searching...', 'User List', {
-        disableTimeOut: true,
-      });
-      let usersRes = await this.layoutService.searchuid(post);
-      if (usersRes.header.status == '1') {
-        this.layoutService.handleResponseError();
-      }
-      this.toastr.clear();
-      const { status, message, info } = usersRes.header.searchuid;
-      if (status === '0') {
-        this.users = usersRes.data.searchuid;
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: `${message}</br>${info || ''}`,
-        });
-      }
-    } catch (error) {
-      this.toastr.clear();
-      console.log(error);
+  uidValid(status): void {
+    if(!status) {
+      this.syncForm.patchValue({ opuid: '' });
     }
+  }
+
+  onUidClosed(uid): void {
+    this.syncForm.patchValue({ opuid: uid });
+  }
+
+  onUidCleard(isCleard) { 
+    this.syncForm.patchValue({ opuid: '' });
   }
 
   async onSubmit() {
@@ -89,9 +75,5 @@ export class SyncEmailComponent implements OnInit {
         console.log(error);
       }
     }
-  }
-
-  get c() {
-    return this.syncForm.controls;
   }
 }

@@ -11,7 +11,6 @@ import { UnixService } from '../unix.service';
   styleUrls: ['./net-group-editor.component.scss'],
 })
 export class NetGroupEditorComponent implements OnInit {
-  loadForm: FormGroup;
   opuid: string = '';
   loading: boolean = false;
   loadContent: boolean = false;
@@ -31,86 +30,88 @@ export class NetGroupEditorComponent implements OnInit {
     private unixService: UnixService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) {
-    this.loadForm = new FormGroup({
-      opuid: new FormControl('', Validators.required),
-    });
-  }
+  ) {}
 
   ngOnInit(): void {}
 
+  onSearchClosed(opuid: any): void {
+    if (opuid !== null) {
+      this.opuid = opuid;
+      this.loadGroupData();
+    }
+  }
+
+  onSearchCleard(isCleard): void {
+    this.opuid = null;
+    this.clearDefaults();
+  }
+
   async loadGroupData() {
-    if (this.loadForm.valid) {
-      try {
-        this.opuid = this.loadForm.value.opuid;
-        this.clearDefaults();
-        this.toastr.info('Loading...', 'Net Group Data', {
-          disableTimeOut: true,
-        });
-        this.loading = true;
-        let userRes = await this.unixService.getUserNetGroups(this.opuid);
-        if (userRes.header.status == '1') {
+    try {
+      this.clearDefaults();
+      this.toastr.info('Loading...', 'Net Group Data', {
+        disableTimeOut: true,
+      });
+      this.loading = true;
+      let userRes = await this.unixService.getUserNetGroups(this.opuid);
+      if (userRes.header.status == '1') {
+        this.layoutService.handleResponseError();
+      }
+      this.showUserResMsg = true;
+      const { status, message, info } = userRes.header.userunixnetgroups;
+      if (status === '0') {
+        const userGroups = userRes.data.userunixnetgroups;
+        let allRes = await this.unixService.getAllNetGroups('user');
+        if (allRes.header.status == '1') {
           this.layoutService.handleResponseError();
         }
-        this.showUserResMsg = true;
-        const { status, message, info } = userRes.header.userunixnetgroups;
+        this.toastr.clear();
+        const { status, message, info } = allRes.header.allunixnetgroups;
         if (status === '0') {
-          const userGroups = userRes.data.userunixnetgroups;
-          let allRes = await this.unixService.getAllNetGroups('user');
-          if (allRes.header.status == '1') {
-            this.layoutService.handleResponseError();
-          }
-          this.toastr.clear();
-          const { status, message, info } = allRes.header.allunixnetgroups;
-          if (status === '0') {
-            this.userResType = 'alert-success';
-            this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-            const allGroups = allRes.data.allunixnetgroups;
+          this.userResType = 'alert-success';
+          this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
+          const allGroups = allRes.data.allunixnetgroups;
 
-            // remove common groups from allunixnetgroups
+          // remove common groups from allunixnetgroups
 
-            // this.allGroups = allGroups.filter(function (el) {
-            //   return !userGroups.includes(el);
-            // });
-            const filteredGroups = allGroups.filter(function (el) {
-              return !userGroups.includes(el);
-            });
-            filteredGroups.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              this.allGroups.push(tmp);
-            });
+          // this.allGroups = allGroups.filter(function (el) {
+          //   return !userGroups.includes(el);
+          // });
+          const filteredGroups = allGroups.filter(function (el) {
+            return !userGroups.includes(el);
+          });
+          filteredGroups.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            this.allGroups.push(tmp);
+          });
 
-            // readonly groups not in allunixnetgroups
-            userGroups.forEach((el) => {
-              let tmp = [];
-              tmp['name'] = el;
-              tmp['selected'] = false;
-              tmp['disabled'] = allGroups.includes(el) ? false : true;
-              this.userGroups.push(tmp);
-            });
-            this.loadContent = true;
-            this.loading = false;
-          } else {
-            if (status === '1') {
-              this.userResType = 'alert-danger';
-              this.userResMsg = `${message}</br>${info || ''}`;
-            }
-          }
-        } else {
-          this.toastr.clear();
+          // readonly groups not in allunixnetgroups
+          userGroups.forEach((el) => {
+            let tmp = [];
+            tmp['name'] = el;
+            tmp['selected'] = false;
+            tmp['disabled'] = allGroups.includes(el) ? false : true;
+            this.userGroups.push(tmp);
+          });
+          this.loadContent = true;
           this.loading = false;
+        } else {
           if (status === '1') {
             this.userResType = 'alert-danger';
             this.userResMsg = `${message}</br>${info || ''}`;
           }
         }
-      } catch (error) {}
-    } else {
-      //window.alert('Please enter Enterprise ID!')
-      Swal.fire('Please enter Enterprise ID!');
-    }
+      } else {
+        this.toastr.clear();
+        this.loading = false;
+        if (status === '1') {
+          this.userResType = 'alert-danger';
+          this.userResMsg = `${message}</br>${info || ''}`;
+        }
+      }
+    } catch (error) {}
   }
 
   toggleSelection(item, action: string) {
@@ -217,9 +218,5 @@ export class NetGroupEditorComponent implements OnInit {
     this.userResMsg = '';
     this.userResType = '';
     this.toastr.clear();
-  }
-
-  get c() {
-    return this.loadForm.controls;
   }
 }

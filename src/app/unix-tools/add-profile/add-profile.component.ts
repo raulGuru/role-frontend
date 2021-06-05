@@ -30,6 +30,20 @@ export class AddProfileComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  uidValid(status): void {
+    if(!status) {
+      this.profileForm.patchValue({ opuid: '' });
+    }
+  }
+
+  onUidClosed(uid): void {
+    this.profileForm.patchValue({ opuid: uid });
+  }
+
+  onUidCleard(isCleard) { 
+    this.profileForm.patchValue({ opuid: '' });
+  }
+
   async onSubmit() {
     if (this.profileForm.valid) {
       const { opuid, uidnumber, homedir } = this.profileForm.value;

@@ -18,6 +18,7 @@ import { SearchNetGroupComponent } from './search-net-group/search-net-group.com
 import { ViewNetgrpDetailComponent } from './search-net-group/view-netgrp-detail/view-netgrp-detail.component';
 import { NetGroupEditorComponent } from './net-group-editor/net-group-editor.component';
 import { HostEditorComponent } from './host-editor/host-editor.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [AddProfileComponent, AddGroupComponent, SearchGroupComponent, ViewGrpDetailComponent, GroupEditorComponent, AddNetGroupComponent, SearchNetGroupComponent, ViewNetgrpDetailComponent, NetGroupEditorComponent, HostEditorComponent],
@@ -29,7 +30,8 @@ import { HostEditorComponent } from './host-editor/host-editor.component';
     FormsModule,
     NgbModule,
     NgSelectModule,
-    PipesModule
+    PipesModule,
+    SharedModule
   ],
 })
 export class UnixToolsModule {}
