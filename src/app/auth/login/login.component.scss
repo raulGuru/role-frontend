@@ -1,0 +1,30 @@
+
+ .loader_page{position:fixed;left:0;top:0;width:100%;height:100%;  background-color: rgba(0, 0, 0, 0.7);
+ text-align:center;z-index:999;}
+
+ .loader_com{position:absolute;left:0;top:0;width:100%;height:100%;  background-color: rgba(0, 0, 0, 0.7);text-align:center;z-index:999;min-height:400px;}
+
+
+.loader_global {top:50%;position:relative;
+   width:45px;
+   height:45px;
+   display:inline-block;
+   padding:0px;
+   border-radius:100%;
+   border:5px solid;
+   border-top-color:rgb(255, 255, 255);
+   border-bottom-color:rgba(41, 31, 33, 1);
+   border-left-color:rgba(255, 255, 255, 1);
+   border-right-color:rgba(41, 31, 33, 1);
+   -webkit-animation: loader_global 1s ease-in-out infinite;
+   animation: loader_global 1s ease-in-out infinite;
+}
+@keyframes loader_global {
+   from {transform: rotate(0deg);}
+   to {transform: rotate(360deg);}
+}
+@-webkit-keyframes loader_global {
+   from {-webkit-transform: rotate(0deg);}
+   to {-webkit-transform: rotate(360deg);}
+}
+

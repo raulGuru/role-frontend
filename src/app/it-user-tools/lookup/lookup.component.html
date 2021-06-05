@@ -5,7 +5,7 @@
         <div class="app-main__outer">
             <div class="app-main__inner">
                 <div class="app-page-title">
-                    <div class="card mb-3 mt-4">
+                    <div class="card mb-3 mt-4 card_height">
                         <div class="card p-4">
                             <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
                                     class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Enterprise
@@ -19,44 +19,44 @@
                                                     class="text-danger">*</em> Enterprise ID:</label><input name="uid"
                                                 formControlName="uid" type="text" class="form-control" autocomplete="off" >
                                         </div> -->
-                                        <div class="position-relative form-group"><label for="givenname" class=""><em
+                                        <div class="position-relative form-group "><label for="givenname" class=""><em
                                                     class="text-danger">*</em> First Name:</label><input
                                                 name="givenname" formControlName="givenname" type="text"
                                                 class="form-control" autocomplete="off" >
                                         </div>
-                                        <div class="position-relative form-group"><label for="sn" class=""><em
+                                        <div class="position-relative form-group "><label for="sn" class=""><em
                                                     class="text-danger">*</em> Last Name:</label><input name="sn"
                                                 formControlName="sn" type="text" class="form-control" autocomplete="off" >
                                         </div>
-                                        <div class="position-relative form-group"><label for="mail" class=""><em
+                                        <div class="position-relative form-group "><label for="mail" class=""><em
                                                     class="text-danger">*</em> Email Address:</label><input name="mail"
                                                 formControlName="mail" type="email" class="form-control">
                                         </div>
-                                        <div class="position-relative form-group"><label for="createtimestamp"
+                                        <div class="position-relative form-group "><label for="createtimestamp"
                                                 class=""><em class="text-danger">*</em> Created:</label><input
                                                 name="createtimestamp" formControlName="createtimestamp" type="text"
                                                 class="form-control" autocomplete="off" >
                                         </div>
-                                        <div class="position-relative form-group"><label for="emplid" class=""> Employee
+                                        <div class="position-relative form-group "><label for="emplid" class=""> Employee
                                                 ID:</label><input name="emplid" formControlName="emplid" type="text"
                                                 class="form-control" autocomplete="off" >
                                         </div>
-                                        <div class="position-relative form-group"><label for="ssn" class=""><em
+                                        <div class="position-relative form-group "><label for="ssn" class=""><em
                                                     class="text-danger">*</em> Employee Number:</label><input name="ssn"
                                                 formControlName="ssn" type="text" class="form-control" autocomplete="off" >
                                         </div>
-                                        <div class="position-relative form-group"><label for="altuid" class=""><em
+                                        <div class="position-relative form-group "><label for="altuid" class=""><em
                                                     class="text-danger">*</em> Alternate ID:</label><input name="altuid"
                                                 formControlName="altuid" type="text" class="form-control" autocomplete="off" >
                                         </div>
                                         <!-- <div class="position-relative form-group"><label for="examplePassword" class=""><em
                                                         class="text-danger">*</em> Entry ID:</label><input name="password"
                                                      type="password" class="form-control"></div> -->
-                                        <div class="position-relative form-group"><label for="procid" class=""><em
+                                        <div class="position-relative form-group "><label for="procid" class=""><em
                                                     class="text-danger">*</em> Procurement ID:</label><input
                                                 name="procid" formControlName="procid" type="text" class="form-control" autocomplete="off" >
                                         </div>
-                                        <div class="position-relative form-group"><label for="o" class=""><em
+                                        <div class="position-relative form-group "><label for="o" class=""><em
                                                     class="text-danger">*</em> Company:</label><input name="o"
                                                 formControlName="o" type="text" class="form-control" autocomplete="off" >
                                         </div>
@@ -84,10 +84,9 @@
                             <div class="card-body">
                                 <div id="loopuptable" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                        </div>
-                                        <div class="dataTables_filter">
-                                            <label>Search:<select class="form-control form-control-sm"
+                                         
+                                        <div class="dataTables_filter col-12 text-right">
+                                           <div class="d-inline-block"> <label><div>Search:</div><select class="form-control form-control-sm custom-select"
                                                     (change)="searchSelect($event.target.value)">
                                                     <option value="">Select Column</option>
                                                     <option value="uid">Enterprise ID</option>
@@ -104,10 +103,12 @@
                                                     <option value="shcdepartmentnumber">SHC Department Number</option>
                                                     <option value="l">Legacy Location</option>
                                                     <option value="shclocnumber">SHC Location</option>
-                                                </select></label><input type="text"
+                                                </select></label>
+                                            </div>
+                                                <div class="d-inline-block"><input type="text"
                                                 class="form-control form-control-sm" placeholder="Type here"
                                                 name="txtSearchTbl" #txtSearchTbl [disabled]="searchTxtDisabled"
-                                                (keyup)="searchTxtkey($event.target.value)" autocomplete="off" /><button
+                                                (keyup)="searchTxtkey($event.target.value)" autocomplete="off" /></div><button
                                                 class="btn btn-primary btn-lg" [disabled]="searchBtnDisabled"
                                                 (click)="searchTblBtn(txtSearchTbl.value)">
                                                 Search
@@ -115,7 +116,7 @@
                                         </div>
                                     </div>
                                     <div class="row" *ngIf="users.length > 0">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12 table-responsive">
                                             <table style="width: 100%;"
                                                 class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline">
                                                 <thead>
@@ -144,17 +145,17 @@
                                                         <td *ngIf="user.type === 'Contractor'">
                                                             <a [routerLink]="['/ituser/addcontractor', user.uid]"
                                                                 placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
-                                                                user.type }}</a>
+                                                                user.type }}<i class="lnr-pencil"></i></a>
                                                         </td>
                                                         <td *ngIf="user.type === 'Vendor'">
                                                             <a [routerLink]="['/ituser/addvendor', user.uid]"
                                                                 placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
-                                                                user.type }}</a>
+                                                                user.type }}<i class="lnr-pencil"></i></a>
                                                         </td>
                                                         <td *ngIf="user.type === 'Sara'">
                                                             <a [routerLink]="['/ituser/addvendorsara', user.uid]"
                                                                 placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
-                                                                user.type }}</a>
+                                                                user.type }}<i class="lnr-pencil"></i></a>
                                                         </td>
                                                         <td *ngIf="user.type === 'Associate'">{{ user.type }}</td>
                                                         <td *ngIf="user.type === 'Other'">{{ user.type }}</td>
