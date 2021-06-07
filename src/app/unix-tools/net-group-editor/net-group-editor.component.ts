@@ -30,9 +30,9 @@ export class NetGroupEditorComponent implements OnInit {
     private unixService: UnixService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSearchClosed(opuid: any): void {
     if (opuid !== null) {
@@ -61,48 +61,67 @@ export class NetGroupEditorComponent implements OnInit {
       const { status, message, info } = userRes.header.userunixnetgroups;
       if (status === '0') {
         const userGroups = userRes.data.userunixnetgroups;
-        let allRes = await this.unixService.getAllNetGroups('user');
-        if (allRes.header.status == '1') {
-          this.layoutService.handleResponseError();
-        }
-        this.toastr.clear();
-        const { status, message, info } = allRes.header.allunixnetgroups;
-        if (status === '0') {
+        const allGroups2 = this.layoutService.getLocalStorage('allUnixNetGroups') || [];
+        if (allGroups2.length === 0) {
+          let allRes = await this.unixService.getAllNetGroups('user');
+          if (allRes.header.status == '1') {
+            this.layoutService.handleResponseError();
+          }
+          const { status, message, info } = allRes.header.allunixnetgroups;
+          if (status === '0') {
+            this.userResType = 'alert-success';
+            this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
+            const allGroups = allRes.data.allunixnetgroups;
+
+            // remove common groups from allunixnetgroups
+
+            // this.allGroups = allGroups.filter(function (el) {
+            //   return !userGroups.includes(el);
+            // });
+            const filteredGroups = allGroups.filter(function (el) {
+              return !userGroups.includes(el);
+            });
+            filteredGroups.forEach((el) => {
+              let tmp = {};
+              tmp['name'] = el;
+              tmp['selected'] = false;
+              this.allGroups.push(tmp);
+            });
+
+            // readonly groups not in allunixnetgroups
+            userGroups.forEach((el) => {
+              let tmp = [];
+              tmp['name'] = el;
+              tmp['selected'] = false;
+              tmp['disabled'] = allGroups.includes(el) ? false : true;
+              this.userGroups.push(tmp);
+            });
+            this.layoutService.setLocalStorage('allUnixNetGroups', this.allGroups);
+            this.loadContent = true;
+            this.loading = false;
+          } else {
+            if (status === '1') {
+              this.userResType = 'alert-danger';
+              this.userResMsg = `${message}</br>${info || ''}`;
+            }
+          }
+        } else {
+          this.allGroups = allGroups2;
           this.userResType = 'alert-success';
           this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-          const allGroups = allRes.data.allunixnetgroups;
-
-          // remove common groups from allunixnetgroups
-
-          // this.allGroups = allGroups.filter(function (el) {
-          //   return !userGroups.includes(el);
-          // });
-          const filteredGroups = allGroups.filter(function (el) {
-            return !userGroups.includes(el);
-          });
-          filteredGroups.forEach((el) => {
-            let tmp = [];
-            tmp['name'] = el;
-            tmp['selected'] = false;
-            this.allGroups.push(tmp);
-          });
 
           // readonly groups not in allunixnetgroups
           userGroups.forEach((el) => {
             let tmp = [];
             tmp['name'] = el;
             tmp['selected'] = false;
-            tmp['disabled'] = allGroups.includes(el) ? false : true;
+            tmp['disabled'] = allGroups2.includes(el) ? false : true;
             this.userGroups.push(tmp);
           });
           this.loadContent = true;
           this.loading = false;
-        } else {
-          if (status === '1') {
-            this.userResType = 'alert-danger';
-            this.userResMsg = `${message}</br>${info || ''}`;
-          }
         }
+        this.toastr.clear();
       } else {
         this.toastr.clear();
         this.loading = false;
@@ -111,7 +130,7 @@ export class NetGroupEditorComponent implements OnInit {
           this.userResMsg = `${message}</br>${info || ''}`;
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   toggleSelection(item, action: string) {
@@ -206,7 +225,7 @@ export class NetGroupEditorComponent implements OnInit {
         icon: status === '0' ? 'success' : 'error',
         title: this.modifyResMsg,
       });
-    } catch (error) {}
+    } catch (error) { }
   }
 
   clearDefaults() {

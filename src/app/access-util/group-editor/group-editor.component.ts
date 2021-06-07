@@ -65,48 +65,67 @@ export class GroupEditorComponent implements OnInit {
       const { status, message } = userRes.header.usergroups;
       if (status === '0') {
         const userGroups = userRes.data.usergroups;
-        let allRes = await this.accessService.getAllGroups();
-        if (allRes.header.status == '1') {
-          this.layoutService.handleResponseError();
-        }
-        this.toastr.clear();
-        const { status, message } = allRes.header.allgroups;
-        if (status === '0') {
+        const allGroups2 = this.layoutService.getLocalStorage('allGroups') || [];
+        if (allGroups2.length === 0) {
+          let allRes = await this.accessService.getAllGroups();
+          if (allRes.header.status == '1') {
+            this.layoutService.handleResponseError();
+          }
+          const { status, message } = allRes.header.allgroups;
+          if (status === '0') {
+            this.userResType = 'alert-success';
+            this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
+            const allGroups = allRes.data.allgroups;
+
+            // remove common groups from allgroups
+
+            // this.allGroups = allGroups.filter(function (el) {
+            //   return !userGroups.includes(el);
+            // });
+            const filteredGroups = allGroups.filter(function (el) {
+              return !userGroups.includes(el);
+            });
+            filteredGroups.forEach((el) => {
+              let tmp = {};
+              tmp['name'] = el;
+              tmp['selected'] = false;
+              this.allGroups.push(tmp);
+            });
+
+            // readonly groups not in allgroups
+            userGroups.forEach((el) => {
+              let tmp = [];
+              tmp['name'] = el;
+              tmp['selected'] = false;
+              tmp['disabled'] = allGroups.includes(el) ? false : true;
+              this.userGroups.push(tmp);
+            });
+            this.layoutService.setLocalStorage('allGroups', this.allGroups);
+            this.loadContent = true;
+            this.loading = false;
+          } else {
+            if (status === '1') {
+              this.userResType = 'alert-danger';
+              this.userResMsg = message;
+            }
+          }
+        } else {
+          this.allGroups = allGroups2;
           this.userResType = 'alert-success';
           this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-          const allGroups = allRes.data.allgroups;
-
-          // remove common groups from allgroups
-
-          // this.allGroups = allGroups.filter(function (el) {
-          //   return !userGroups.includes(el);
-          // });
-          const filteredGroups = allGroups.filter(function (el) {
-            return !userGroups.includes(el);
-          });
-          filteredGroups.forEach((el) => {
-            let tmp = [];
-            tmp['name'] = el;
-            tmp['selected'] = false;
-            this.allGroups.push(tmp);
-          });
 
           // readonly groups not in allgroups
           userGroups.forEach((el) => {
             let tmp = [];
             tmp['name'] = el;
             tmp['selected'] = false;
-            tmp['disabled'] = allGroups.includes(el) ? false : true;
+            tmp['disabled'] = allGroups2.includes(el) ? false : true;
             this.userGroups.push(tmp);
           });
           this.loadContent = true;
           this.loading = false;
-        } else {
-          if (status === '1') {
-            this.userResType = 'alert-danger';
-            this.userResMsg = message;
-          }
         }
+        this.toastr.clear();
       } else {
         this.toastr.clear();
         this.loading = false;
@@ -135,7 +154,6 @@ export class GroupEditorComponent implements OnInit {
         }
       });
     }
-    this.addBtnDisabled = this.delBtnDisabled = true;
     if (!group || !this.opuid) {
       Swal.fire({
         icon: 'warning',
@@ -172,6 +190,8 @@ export class GroupEditorComponent implements OnInit {
             }
           });
           this.userGroups = this.userGroups.filter((i) => !i.selected);
+          this.addBtnDisabled = false;
+          this.delBtnDisabled = true;
         } else {
           this.allGroups.forEach((item) => {
             if (item.selected) {
@@ -180,6 +200,8 @@ export class GroupEditorComponent implements OnInit {
             }
           });
           this.allGroups = this.allGroups.filter((i) => !i.selected);
+          this.addBtnDisabled = true;
+          this.delBtnDisabled = false;
         }
       } else {
         this.modifyResType = 'alert-danger';
@@ -214,9 +236,11 @@ export class GroupEditorComponent implements OnInit {
     this.toastr.clear();
     this.allGroups = [];
     this.userGroups = [];
+    this.addBtnDisabled = this.delBtnDisabled = true;
     this.loadContent = false;
     this.showUserResMsg = false;
     this.userResMsg = '';
     this.userResType = '';
+    this.searchAllGroups = '';
   }
 }

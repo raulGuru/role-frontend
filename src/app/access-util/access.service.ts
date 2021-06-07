@@ -8,7 +8,7 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: 'root',
 })
 export class AccessService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUserRoles(opuid: string) {
     const postData = {

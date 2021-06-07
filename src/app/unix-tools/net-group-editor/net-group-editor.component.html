@@ -26,7 +26,7 @@
                 <div class="subject-info-box-1 col-md-4">
                   <div class="">
                     <input type="text" name="search_group" class="form-control" placeholder="Type To Filter"
-                      [(ngModel)]="searchAllGroups">
+                      [(ngModel)]="searchAllGroups" autocomplete="off">
                   </div>
                   <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
                     <li *ngFor="let group of allGroups |  grdColumnFilter: { name: searchAllGroups } | keyvalue"

@@ -27,7 +27,7 @@
                         <div class="subject-info-box-1 col-md-4">
                            <div class="">
                               <input type="text" name="search_role" class="form-control" placeholder="Type To Filter"
-                                 [(ngModel)]="searchAllRoles">
+                                 [(ngModel)]="searchAllRoles" autocomplete="off">
                            </div>
                            <!-- <select multiple="multiple" class="form-control select_custom" style="height:300px;">
                               <option *ngFor="let role of allRoles |  grdColumnFilter: { name: searchAllRoles } | keyvalue"
@@ -37,7 +37,7 @@
                            </select> -->
                            <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
                               <li *ngFor="let role of allRoles |  grdColumnFilter: { name: searchAllRoles } | keyvalue"
-                                 (click)="toggleSelection(role.value)" [class.item-selected]="role.value.selected">{{
+                                 (click)="toggleSelection(role.value, 'a')" [class.item-selected]="role.value.selected">{{
                                  role.value.name
                                  }}</li>
                            </ul>
@@ -45,9 +45,9 @@
                         <div class="subject-info-arrows text-center col-md-4">
                            <div class="btn_wrap">
                               <input type="button" value="Assign >>" class="btn btn-dark" (click)="moveSelected('add')"
-                                 [disabled]="roleSelected"><br>
+                                 [disabled]="addBtnDisabled"><br>
                               <input type="button" value="<< Remove" class="btn btn-dark" (click)="moveSelected('del')"
-                                 [disabled]="roleSelected"><br>
+                                 [disabled]="delBtnDisabled"><br>
                            </div>
                         </div>
                         <div class="subject-info-box-2 col-md-4 mt-5">
@@ -58,7 +58,7 @@
                                  }}</option>
                            </select> -->
                            <ul class="form-control" style="height:300px; overflow: auto; cursor: pointer;">
-                              <li *ngFor="let role of userRoles | keyvalue" (click)="toggleSelection(role.value)"
+                              <li *ngFor="let role of userRoles | keyvalue" (click)="toggleSelection(role.value, 'd')"
                                  [class.item-selected]="role.value.selected" [class.item-disabled]="role.value.disabled">{{
                                  role.value.name
                                  }}</li>

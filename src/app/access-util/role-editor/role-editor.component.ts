@@ -19,9 +19,10 @@ export class RoleEditorComponent implements OnInit {
   userResMsg: string = '';
   searchAllRoles: string = '';
   modifyResMsg: string = '';
-  roleSelected: boolean = true;
   userResType: string = '';
   modifyResType: string = '';
+  addBtnDisabled: boolean = true;
+  delBtnDisabled: boolean = true;
   showUserResMsg: boolean = false;
   showModifyResMsg: boolean = false;
   loading: boolean = false;
@@ -35,7 +36,7 @@ export class RoleEditorComponent implements OnInit {
   ngOnInit(): void { }
 
   onSearchClosed(opuid: any): void {
-    if(opuid !== null) {
+    if (opuid !== null) {
       this.loadRoleData(opuid);
     }
   }
@@ -61,48 +62,67 @@ export class RoleEditorComponent implements OnInit {
       const { status, message } = userRes.header.userroles;
       if (status === '0') {
         const userRoles = userRes.data.userroles;
-        let allRes = await this.accessService.getAllRoles();
-        if (allRes.header.status == '1') {
-          this.layoutService.handleResponseError();
-        }
-        this.toastr.clear();
-        const { status, message } = allRes.header.allroles;
-        if (status === '0') {
+        const allRoles2 = this.layoutService.getLocalStorage('allRoles') || [];
+        if (allRoles2.length === 0) {
+          let allRes = await this.accessService.getAllRoles();
+          if (allRes.header.status == '1') {
+            this.layoutService.handleResponseError();
+          }
+          const { status, message } = allRes.header.allroles;
+          if (status === '0') {
+            this.userResType = 'alert-success';
+            this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
+            const allRoles = allRes.data.allroles;
+
+            // remove common roles from allroles
+
+            // this.allRoles = allRoles.filter(function (el) {
+            //   return !userRoles.includes(el);
+            // });
+            const filteredRoles = allRoles.filter(function (el) {
+              return !userRoles.includes(el);
+            });
+            filteredRoles.forEach((el) => {
+              let tmp = {};
+              tmp['name'] = el;
+              tmp['selected'] = false;
+              this.allRoles.push(tmp);
+            });
+
+            // readonly roles not in allroles
+            userRoles.forEach((el) => {
+              let tmp = [];
+              tmp['name'] = el;
+              tmp['selected'] = false;
+              tmp['disabled'] = allRoles.includes(el) ? false : true;
+              this.userRoles.push(tmp);
+            });
+            this.layoutService.setLocalStorage('allRoles', this.allRoles);
+            this.loadContent = true;
+            this.loading = false;
+          } else {
+            //if (status === '1') {
+            this.userResType = 'alert-danger';
+            this.userResMsg = message;
+            //}
+          }
+        } else {
+          this.allRoles = allRoles2;
           this.userResType = 'alert-success';
           this.userResMsg = `Below are the results for Enterprise ID: <b>${this.opuid}</b>`;
-          const allRoles = allRes.data.allroles;
-
-          // remove common roles from allroles
-
-          // this.allRoles = allRoles.filter(function (el) {
-          //   return !userRoles.includes(el);
-          // });
-          const filteredRoles = allRoles.filter(function (el) {
-            return !userRoles.includes(el);
-          });
-          filteredRoles.forEach((el) => {
-            let tmp = [];
-            tmp['name'] = el;
-            tmp['selected'] = false;
-            this.allRoles.push(tmp);
-          });
 
           // readonly roles not in allroles
           userRoles.forEach((el) => {
             let tmp = [];
             tmp['name'] = el;
             tmp['selected'] = false;
-            tmp['disabled'] = allRoles.includes(el) ? false : true;
+            tmp['disabled'] = allRoles2.includes(el) ? false : true;
             this.userRoles.push(tmp);
           });
           this.loadContent = true;
           this.loading = false;
-        } else {
-          //if (status === '1') {
-          this.userResType = 'alert-danger';
-          this.userResMsg = message;
-          //}
         }
+        this.toastr.clear();
       } else {
         this.toastr.clear();
         this.loading = false;
@@ -133,11 +153,16 @@ export class RoleEditorComponent implements OnInit {
         }
       });
     }
-    this.roleSelected = true;
     if (role.length === 0 || this.opuid === null || this.opuid === '') {
       Swal.fire({
         icon: 'warning',
         title: role.length === 0 ? 'No role selected!' : 'Empty Enterprise ID!',
+      });
+      this.userRoles.forEach((item) => {
+        item.selected = false;
+      });
+      this.allRoles.forEach((item) => {
+        item.selected = false;
       });
       return;
     }
@@ -169,9 +194,8 @@ export class RoleEditorComponent implements OnInit {
             }
           });
           this.userRoles = this.userRoles.filter((i) => !i.selected);
-          this.allRoles.forEach((item) => {
-            item.selected = false;
-          });
+          this.addBtnDisabled = false;
+          this.delBtnDisabled = true;
         } else {
           this.allRoles.forEach((item) => {
             if (item.selected) {
@@ -180,9 +204,8 @@ export class RoleEditorComponent implements OnInit {
             }
           });
           this.allRoles = this.allRoles.filter((i) => !i.selected);
-          this.userRoles.forEach((item) => {
-            item.selected = false;
-          });
+          this.addBtnDisabled = true;
+          this.delBtnDisabled = false;
         }
       } else {
         this.modifyResType = 'alert-danger';
@@ -195,9 +218,21 @@ export class RoleEditorComponent implements OnInit {
     } catch (error) { }
   }
 
-  toggleSelection(item) {
+  toggleSelection(item, action: string) {
     if (item.disabled) return;
-    this.roleSelected = false;
+    this.userRoles.forEach((el) => {
+      el.selected = false;
+    });
+    this.allRoles.forEach((el) => {
+      el.selected = false;
+    });
+    if (action === 'a') {
+      this.addBtnDisabled = false;
+      this.delBtnDisabled = true;
+    } else {
+      this.addBtnDisabled = true;
+      this.delBtnDisabled = false;
+    }
     item.selected = !item.selected;
   }
 
@@ -205,9 +240,11 @@ export class RoleEditorComponent implements OnInit {
     this.toastr.clear();
     this.allRoles = [];
     this.userRoles = [];
+    this.addBtnDisabled = this.delBtnDisabled = true;
     this.loadContent = false;
     this.showUserResMsg = false;
     this.userResMsg = '';
     this.userResType = '';
+    this.searchAllRoles = '';
   }
 }
