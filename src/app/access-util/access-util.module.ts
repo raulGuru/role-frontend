@@ -15,6 +15,7 @@ import { GroupEditorComponent } from './group-editor/group-editor.component';
 import { GroupViewComponent } from './group-view/group-view.component';
 import { GroupSearchComponent } from './group-search/group-search.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SharedModule } from '../shared/shared.module';
     LayoutModule,
     PipesModule,
     ReactiveFormsModule,
+    NgSelectModule,
     SharedModule
   ]
 })

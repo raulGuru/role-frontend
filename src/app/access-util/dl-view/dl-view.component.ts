@@ -12,10 +12,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./dl-view.component.scss'],
 })
 export class DlViewComponent implements OnInit {
-  searchText: string = '';
-  dlSearchData: any = [];
+  searchText: string;
   loadContent: boolean = false;
   dldef: any;
+  dls: [];
 
   constructor(
     private accessService: AccessService,
@@ -25,9 +25,8 @@ export class DlViewComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async findDls(dlsearchstr: string) {
-    this.dlSearchData = [];
-    if (dlsearchstr.length < 3) {
+  async findDls(event: any) {
+    if (event.term.length < 3) {
       return false;
     }
     this.toastr.clear();
@@ -35,7 +34,7 @@ export class DlViewComponent implements OnInit {
       disableTimeOut: true,
     });
     this.loadContent = false;
-    const searchPost = { dlsearchstr };
+    const searchPost = { dlsearchstr: event.term };
     try {
       let searchRes = await this.accessService.dlsearch(searchPost);
       if (searchRes.header.status == '1') {
@@ -44,14 +43,7 @@ export class DlViewComponent implements OnInit {
       this.toastr.clear();
       const { status, message } = searchRes.header.dlsearch;
       if (status === '0') {
-        const resData = searchRes.data.dlsearch;
-        if (resData.length > 0) {
-          this.dlSearchData = resData;
-        } else {
-          this.toastr.error('No result(s)!', 'DL Search', {
-            timeOut: 2000,
-          });
-        }
+        this.dls = searchRes.data.dlsearch;
       } else {
         Swal.fire({
           icon: 'error',
@@ -64,10 +56,10 @@ export class DlViewComponent implements OnInit {
     }
   }
 
-  async getDlDef(dlstr: string) {
+  async getDlDef() {
+    if (this.searchText.length < 3) return;
     this.toastr.clear();
-    this.searchText = dlstr;
-    this.dlSearchData = [];
+    const dlstr = this.searchText;
     this.loadContent = false;
     this.toastr.info('Requesting...', 'DL Search', {
       disableTimeOut: true,

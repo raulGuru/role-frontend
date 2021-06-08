@@ -12,8 +12,7 @@ import { AccessService } from '../access.service';
   styleUrls: ['./dl-search.component.scss'],
 })
 export class DlSearchComponent implements OnInit {
-  searchText: string = '';
-  dlSearchData: any = [];
+  searchText: string;
   loadContent: boolean = false;
   forceServerSearch: boolean = false;
   pageid: number = 1;
@@ -23,6 +22,7 @@ export class DlSearchComponent implements OnInit {
   searchBtnDisabled: boolean = true;
   searchColmn: string = '';
   txtSearchTbl: string = '';
+  dls: [];
 
   constructor(
     private accessService: AccessService,
@@ -32,9 +32,8 @@ export class DlSearchComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async findDls(dlsearchstr: string) {
-    this.dlSearchData = [];
-    if (dlsearchstr.length < 3) {
+  async findDls(event: any) {
+    if (event.term.length < 3) {
       return false;
     }
     this.toastr.clear();
@@ -42,7 +41,7 @@ export class DlSearchComponent implements OnInit {
     this.toastr.info('Searching...', 'DL Search', {
       disableTimeOut: true,
     });
-    const searchPost = { dlsearchstr };
+    const searchPost = { dlsearchstr: event.term };
     try {
       let searchRes = await this.accessService.dlsearch(searchPost);
       if (searchRes.header.status == '1') {
@@ -51,14 +50,7 @@ export class DlSearchComponent implements OnInit {
       this.toastr.clear();
       const { status, message } = searchRes.header.dlsearch;
       if (status === '0') {
-        const resData = searchRes.data.dlsearch;
-        if (resData.length > 0) {
-          this.dlSearchData = resData;
-        } else {
-          this.toastr.error('No result(s)!', 'DL Search', {
-            timeOut: 2000,
-          });
-        }
+        this.dls = searchRes.data.dlsearch;
       } else {
         Swal.fire({
           icon: 'error',
@@ -72,7 +64,6 @@ export class DlSearchComponent implements OnInit {
   }
 
   resetDlUsers() {
-    this.dlSearchData = [];
     this.loadContent = false;
     this.forceServerSearch = false;
     this.pageid = 1;
@@ -80,9 +71,11 @@ export class DlSearchComponent implements OnInit {
     this.ogDlUsers = [];
   }
 
-  async getDlUsers(dlstr: string) {
+  async getDlUsers() {
+    if (this.searchText.length < 3) return;
     this.toastr.clear();
     this.resetDlUsers();
+    const dlstr = this.searchText;
     this.searchText = dlstr;
     this.toastr.info('Requesting...', 'DL Search', {
       disableTimeOut: true,

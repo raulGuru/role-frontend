@@ -11,10 +11,10 @@ import { AccessService } from '../access.service';
   styleUrls: ['./group-view.component.scss']
 })
 export class GroupViewComponent implements OnInit {
-  searchText: string = '';
-  groupSearchData: any = [];
+  searchText: string;
   loadContent: boolean = false;
   groupdef: any;
+  groups: [];
 
   constructor(
     private accessService: AccessService,
@@ -25,9 +25,8 @@ export class GroupViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async findGroups(groupsearchstr: string) {
-    this.groupSearchData = [];
-    if (groupsearchstr.length < 3) {
+  async findGroups(event: any) {
+    if (event.term.length < 3) {
       return false;
     }
     this.toastr.clear();
@@ -35,7 +34,7 @@ export class GroupViewComponent implements OnInit {
       disableTimeOut: true,
     });
     this.loadContent = false;
-    const searchPost = { groupsearchstr };
+    const searchPost = { groupsearchstr: event.term };
     try {
       let searchRes = await this.accessService.groupsearch(searchPost);
       if (searchRes.header.status == '1') {
@@ -44,14 +43,7 @@ export class GroupViewComponent implements OnInit {
       this.toastr.clear();
       const { status, message } = searchRes.header.groupsearch;
       if (status === '0') {
-        const resData = searchRes.data.groupsearch;
-        if (resData.length > 0) {
-          this.groupSearchData = resData;
-        } else {
-          this.toastr.error('No result(s)!', 'Group Search', {
-            timeOut: 2000,
-          });
-        }
+        this.groups = searchRes.data.groupsearch;
       } else {
         Swal.fire({
           icon: 'error',
@@ -64,10 +56,10 @@ export class GroupViewComponent implements OnInit {
     }
   }
 
-  async getGroupDef(groupstr: string) {
+  async getGroupDef() {
+    if (this.searchText.length < 3) return;
     this.toastr.clear();
-    this.searchText = groupstr;
-    this.groupSearchData = [];
+    const groupstr = this.searchText;
     this.loadContent = false;
     this.toastr.info('Requesting...', 'Group Search', {
       disableTimeOut: true,
@@ -90,7 +82,8 @@ export class GroupViewComponent implements OnInit {
   }
 
   getNestingGroup(group: string) {
-    this.getGroupDef(group);
+    this.searchText = group;
+    this.getGroupDef();
   }
 
 }

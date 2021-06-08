@@ -12,8 +12,7 @@ import { LayoutService } from 'src/app/layout/layout.service';
   styleUrls: ['./role-search.component.scss'],
 })
 export class RoleSearchComponent implements OnInit {
-  searchText: string = '';
-  roleSearchData: any = [];
+  searchText: string;
   loadContent: boolean = false;
   roleUsers: any = [];
   ogRoleUsers: any = [];
@@ -23,18 +22,18 @@ export class RoleSearchComponent implements OnInit {
   txtSearchTbl: string = '';
   forceServerSearch: boolean = false;
   pageid: number = 1;
+  roles: [];
 
   constructor(
     private accessService: AccessService,
     private layoutService: LayoutService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  async findRoles(rolesearchstr: string) {
-    this.roleSearchData = [];
-    if (rolesearchstr.length < 3) {
+  async findRoles(event: any) {
+    if (event.term.length < 3) {
       return false;
     }
     this.toastr.clear();
@@ -42,7 +41,7 @@ export class RoleSearchComponent implements OnInit {
     this.toastr.info('Searching...', 'Role Search', {
       disableTimeOut: true,
     });
-    const searchPost = { rolesearchstr };
+    const searchPost = { rolesearchstr: event.term };
     try {
       let searchRes = await this.accessService.rolesearch(searchPost);
       if (searchRes.header.status == '1') {
@@ -51,14 +50,7 @@ export class RoleSearchComponent implements OnInit {
       this.toastr.clear();
       const { status, message } = searchRes.header.rolesearch;
       if (status === '0') {
-        const resData = searchRes.data.rolesearch;
-        if (resData.length > 0) {
-          this.roleSearchData = resData;
-        } else {
-          this.toastr.error('No result(s)!', 'Role Search', {
-            timeOut: 2000,
-          });
-        }
+        this.roles = searchRes.data.rolesearch;
       } else {
         Swal.fire({
           icon: 'error',
@@ -72,7 +64,6 @@ export class RoleSearchComponent implements OnInit {
   }
 
   resetRoleUsers() {
-    this.roleSearchData = [];
     this.loadContent = false;
     this.forceServerSearch = false;
     this.pageid = 1;
@@ -80,10 +71,11 @@ export class RoleSearchComponent implements OnInit {
     this.ogRoleUsers = [];
   }
 
-  async getRoleUsers(rolestr: string) {
+  async getRoleUsers() {
+    if (this.searchText.length < 3) return;
     this.toastr.clear();
-    this.searchText = rolestr;
-    this.resetRoleUsers()
+    this.resetRoleUsers();
+    const rolestr = this.searchText;
     this.toastr.info('Requesting...', 'Role Search', {
       disableTimeOut: true,
     });
