@@ -99,6 +99,9 @@ export class LookupComponent implements OnInit {
           this.pageid = pageid;
           this.users = userRes.data.lookupusers;
           this.ogUsers = userRes.data.lookupusers;
+          setTimeout(() => {
+            document.getElementById('loopuptable').scrollIntoView();
+          }, 300);
         } else {
           Swal.fire({
             icon: 'error',

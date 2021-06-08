@@ -109,6 +109,9 @@ export class LookupresComponent implements OnInit {
         this.forceServerSearch = forceServerSearch;
         this.pageid = pageid;
         this.users = lookupres.data.lookupres;
+        setTimeout(() => {
+          document.getElementById('loopuptable').scrollIntoView();
+        }, 300);
       } else {
         Swal.fire({
           icon: 'error',

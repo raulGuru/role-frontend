@@ -112,6 +112,9 @@ export class LookupPasswordComponent implements OnInit {
                 // });
               }
             });
+            setTimeout(() => {
+              document.getElementById('loopuptable').scrollIntoView();
+            }, 500);
         } else {
           Swal.fire({
             icon: 'error',
