@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class ChangePasswordComponent implements OnInit {
   isLoggedIn: any;
   changeForm: FormGroup
+  passwordIsValid: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -23,7 +24,7 @@ export class ChangePasswordComponent implements OnInit {
       currpassword: new FormControl('', Validators.required),
       newpassword: new FormControl('', Validators.required),
       confirmpassword: new FormControl('', Validators.required),
-    });
+    }, { validators: this.passwordMatch });
   }
 
   ngOnInit(): void {
@@ -31,6 +32,15 @@ export class ChangePasswordComponent implements OnInit {
     if (this.isLoggedIn) {
       this.changeForm.patchValue({ opuid: this.isLoggedIn.uid })
     }
+  }
+
+  passwordValid(event): void {
+    this.passwordIsValid = event;
+  }
+
+  passwordMatch(g: FormGroup) {
+    return g.get('newpassword').value === g.get('confirmpassword').value
+       ? null : {'mismatch': true};
   }
 
   async onSubmit() {

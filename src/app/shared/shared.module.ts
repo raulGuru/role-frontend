@@ -4,10 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { SearchEnterpriseIdComponent } from './search-enterprise-id/search-enterprise-id.component';
+import { PasswordStrengthComponent } from './password-strength/password-strength.component';
 
 @NgModule({
     declarations: [
-        SearchEnterpriseIdComponent
+        SearchEnterpriseIdComponent,
+        PasswordStrengthComponent
     ],
     imports: [
         CommonModule,
@@ -15,7 +17,8 @@ import { SearchEnterpriseIdComponent } from './search-enterprise-id/search-enter
         NgSelectModule
     ],
     exports: [
-        SearchEnterpriseIdComponent
+        SearchEnterpriseIdComponent,
+        PasswordStrengthComponent
     ]
 })
 export class SharedModule { }

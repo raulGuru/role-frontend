@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthHeaderComponent } from './auth-header/auth-header.component';
 import { SettingComponent } from './setting/setting.component';
 import { LayoutModule } from '../layout/layout.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent, ResetPasswordComponent, ChangePasswordComponent, IdLookupComponent, RegisterComponent, AuthHeaderComponent, SettingComponent],
@@ -21,7 +22,8 @@ import { LayoutModule } from '../layout/layout.module';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    LayoutModule
+    LayoutModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

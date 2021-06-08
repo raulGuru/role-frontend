@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class ResetPasswordComponent implements OnInit {
   isLoggedIn: any;
   resetForm: FormGroup
+  passwordIsValid: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -23,7 +24,7 @@ export class ResetPasswordComponent implements OnInit {
       altpass: new FormControl('', Validators.required),
       newpassword: new FormControl('', Validators.required),
       confirmpassword: new FormControl('', Validators.required),
-    });
+    }, { validators: this.passwordMatch });
   }
 
   ngOnInit(): void {
@@ -31,6 +32,15 @@ export class ResetPasswordComponent implements OnInit {
     if (this.isLoggedIn) {
       this.resetForm.patchValue({ opuid: this.isLoggedIn.uid })
     }
+  }
+
+  passwordValid(event): void {
+    this.passwordIsValid = event;
+  }
+
+  passwordMatch(g: FormGroup) {
+    return g.get('newpassword').value === g.get('confirmpassword').value
+       ? null : {'mismatch': true};
   }
 
   async onSubmit() {
