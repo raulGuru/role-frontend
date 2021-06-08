@@ -5,7 +5,6 @@ import { ItUserToolsRoutingModule } from './it-user-tools-routing.module';
 import { LayoutModule } from '../layout/layout.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -33,7 +32,6 @@ import { SyncEmailComponent } from './sync-email/sync-email.component';
     LayoutModule,
     PipesModule,
     ReactiveFormsModule,
-    AutocompleteLibModule,
     FormsModule,
     NgbModule,
     NgSelectModule,
