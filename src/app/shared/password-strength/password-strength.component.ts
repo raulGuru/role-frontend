@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange } from '@angular/core';
 
 @Component({
   selector: 'app-password-strength',
   templateUrl: './password-strength.component.html',
   styleUrls: ['./password-strength.component.scss']
 })
-export class PasswordStrengthComponent implements OnInit {
+export class PasswordStrengthComponent implements OnInit, OnChanges {
   @Input() public password: string;
   @Input() public uid: string;
   @Output() passwordStrength = new EventEmitter<boolean>();
