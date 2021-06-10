@@ -98,6 +98,9 @@ export class RoleSearchComponent implements OnInit {
         this.pageid = pageid;
         this.roleUsers = res.data.roleusers;
         this.ogRoleUsers = res.data.roleusers;
+        setTimeout(() => {
+          document.getElementById('loadContent').scrollIntoView();
+        }, 300);
       } else {
         Swal.fire({
           icon: 'error',
@@ -193,7 +196,9 @@ export class RoleSearchComponent implements OnInit {
       if (status === '0') {
         this.pageid = pageid;
         this.roleUsers = res.data.roleusers;
-        document.getElementById("loadContent").scrollIntoView();
+        setTimeout(() => {
+          document.getElementById('loadContent').scrollIntoView();
+        }, 300);
       } else {
         Swal.fire({
           icon: 'error',

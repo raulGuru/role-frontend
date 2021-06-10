@@ -67,9 +67,10 @@
                                   </tbody>
                                   </table>
                               </div>
-                              <div class="col-sm-12" *ngIf="netgroupdetails.length === 0">
-                                  No data to show!!
-                              </div>
+                              <div class="col-sm-12 nodata_pre" *ngIf="netgroupdetails.length === 0">
+                                <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
+                                <span>No Data Found</span>
+                            </div>
                           </div>
                       </div>
                   </div>

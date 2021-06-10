@@ -40,7 +40,7 @@
                             <div class="row p-4" *ngIf="loadContent">
                                 <div class="col-sm-12" *ngIf="groupdetails.length > 0">
                                     <table
-                                    class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline">
+                                    class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline" id="loadContent">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -67,8 +67,9 @@
                                     </tbody>
                                     </table>
                                 </div>
-                                <div class="col-sm-12" *ngIf="groupdetails.length === 0">
-                                    No data to show!!
+                                <div class="col-sm-12 nodata_pre" *ngIf="groupdetails.length === 0">
+                                    <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
+                                    <span>No Data Found</span>
                                 </div>
                             </div>
                         </div>

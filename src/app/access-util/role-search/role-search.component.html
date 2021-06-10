@@ -16,7 +16,8 @@
               <div class="col-md-6">
                 <div class="position-relative form-group">
                   <label for="searchText" class="">Role Name<em class="text-danger">*</em></label>
-                  <ng-select class="custom-select2" [items]="roles" placeholder="Type atleast 3 chars to search" [(ngModel)]="searchText" (search)="findRoles($event)" (close)="getRoleUsers()">
+                  <ng-select class="custom-select2" [items]="roles" placeholder="Type atleast 3 chars to search"
+                    [(ngModel)]="searchText" (search)="findRoles($event)" (close)="getRoleUsers()">
                   </ng-select>
                 </div>
               </div>
@@ -45,8 +46,9 @@
                         <option value="shclocnumber">SHC Location</option>
                       </select></label><input type="text" class="form-control form-control-sm" placeholder="Type here"
                       name="txtSearchTbl" #txtSearchTbl [disabled]="searchTxtDisabled"
-                      (keyup)="searchTxtkey($event.target.value)" autocomplete="off" /><button class="btn btn-primary btn-lg"
-                      [disabled]="searchBtnDisabled" (click)="searchTblBtn(txtSearchTbl.value)">
+                      (keyup)="searchTxtkey($event.target.value)" autocomplete="off" /><button
+                      class="btn btn-primary btn-lg" [disabled]="searchBtnDisabled"
+                      (click)="searchTblBtn(txtSearchTbl.value)">
                       Search
                     </button>
                   </div>
@@ -94,8 +96,9 @@
                   </table>
                 </div>
               </ng-container>
-              <div class="col-sm-12" *ngIf="roleUsers.length === 0">
-                No data to show!!
+              <div class="col-sm-12 nodata_pre" *ngIf="roleUsers.length === 0">
+                <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
+                <span>No Data Found</span>
               </div>
             </div>
             <div class="row p-4" *ngIf="roleUsers.length > 0 && forceServerSearch">

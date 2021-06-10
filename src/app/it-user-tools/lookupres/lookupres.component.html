@@ -41,7 +41,7 @@
                             </form>
                         </div>
                         <ng-container *ngIf="loadContent">
-                            <div class="card-header-tab card-header">
+                            <div class="card-header-tab card-header" id="loadContent">
                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
                                         class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"></i>Search
                                     Results: </div>
@@ -51,7 +51,7 @@
                                     <div class="row" *ngIf="users.length > 0">
                                         <div class="col-sm-12">
                                             <table style="width: 100%;"
-                                                class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline" id="loopuptable">
+                                                class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline" id="">
                                                 <thead>
                                                     <tr role="row">
                                                         <th>Enterprise ID</th>
@@ -79,8 +79,9 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="row" *ngIf="users.length === 0">
-                                        No data to show!!
+                                    <div class="row nodata_pre" *ngIf="users.length === 0">
+                                        <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
+                                        <span>No Data Found</span>
                                     </div>
                                     <div class="row" *ngIf="users.length > 0 && forceServerSearch">
                                         <div class="col-sm-12 col-md-5">

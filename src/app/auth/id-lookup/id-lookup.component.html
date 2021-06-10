@@ -80,8 +80,9 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="row" *ngIf="users.length === 0">
-                                        No data to show!!
+                                    <div class="row nodata_pre" *ngIf="users.length === 0">
+                                        <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
+                                        <span>No Data Found</span>
                                     </div>
                                     <div class="row" *ngIf="users.length > 0 && forceServerSearch">
                                         <div class="col-sm-12 col-md-5">

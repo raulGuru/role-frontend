@@ -76,13 +76,13 @@
                             </form>
                         </div>
                         <ng-container *ngIf="loadContent">
-                            <div class="card-header-tab card-header">
+                            <div class="card-header-tab card-header" id="loopuptable">
                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
                                         class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"></i>Search
                                     Results: </div>
                             </div>
                             <div class="card-body">
-                                <div id="loopuptable" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
                                          
                                         <div class="dataTables_filter col-12 text-left">
@@ -182,8 +182,8 @@
                                     </div>
                                     <div class="row nodata_pre" *ngIf="users.length === 0">
                                         <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
-                                    <span>No Data Found</span>
-                                </div>
+                                        <span>No Data Found</span>
+                                    </div>
 
                                     <div class="row" *ngIf="users.length > 0 && forceServerSearch">
                                         <div class="col-sm-12 col-md-5">

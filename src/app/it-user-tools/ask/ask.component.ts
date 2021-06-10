@@ -85,6 +85,9 @@ export class AskComponent implements OnInit, OnDestroy {
         this.sears1user = res.data.getsears1user;
         this.sears2user = res.data.getsears2user;
       }
+      setTimeout(() => {
+        document.getElementById('loadContent').scrollIntoView();
+      }, 300);
     } catch (error) {
       this.toastr.clear();
       console.log(error);

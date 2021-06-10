@@ -77,6 +77,9 @@ export class LookupresComponent implements OnInit {
       extsearch['tablesearch'] = tablesearch;
       const postData = { extsearch };
       this.getLookupRes(postData);
+      setTimeout(() => {
+        document.getElementById('loadContent').scrollIntoView();
+      }, 300);
     } else {
       Swal.fire({
         icon: 'info',
@@ -110,7 +113,7 @@ export class LookupresComponent implements OnInit {
         this.pageid = pageid;
         this.users = lookupres.data.lookupres;
         setTimeout(() => {
-          document.getElementById('loopuptable').scrollIntoView();
+          document.getElementById('loadContent').scrollIntoView();
         }, 300);
       } else {
         Swal.fire({

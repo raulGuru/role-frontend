@@ -98,6 +98,9 @@ export class GroupSearchComponent implements OnInit {
         this.pageid = pageid;
         this.groupUsers = res.data.groupusers;
         this.ogGroupUsers = res.data.groupusers;
+        setTimeout(() => {
+          document.getElementById('loadContent').scrollIntoView();
+        }, 300);
       } else {
         Swal.fire({
           icon: 'error',

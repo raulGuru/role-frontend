@@ -25,11 +25,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           // server-side error
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
+        console.log(errorMessage);
+        errorMessage = `Something went wrong from server. \nPlease try again later`;
         // window.alert(errorMessage);
         Swal.fire({
           icon: 'error',
           title: errorMessage,
-          width: 900
+          width: 700
         })
         return throwError(errorMessage);
       })

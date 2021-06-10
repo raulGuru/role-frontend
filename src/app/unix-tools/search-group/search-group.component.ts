@@ -158,6 +158,9 @@ export class SearchGroupComponent implements OnInit {
         if (status === '0') {
           this.groupdetails = searchRes.data.groupdetails;
           this.loadContent = true;
+          setTimeout(() => {
+            document.getElementById('loadContent').scrollIntoView();
+          }, 300);
         } else {
           Swal.fire({
             width: 1000,

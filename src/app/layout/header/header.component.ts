@@ -30,6 +30,12 @@ export class HeaderComponent implements OnInit {
     if (!this.user) {
       this.layoutService.handleResponseError();
     }
+    this.sidebar = JSON.parse(localStorage.getItem('sb'));
+    if (this.sidebar) {
+      $('body .app-container').addClass('closed-sidebar');
+    } else {
+      $('body .app-container').removeClass('closed-sidebar');
+    }
     //this.passwordExpiryCheck();
   }
 
@@ -39,6 +45,7 @@ export class HeaderComponent implements OnInit {
 
   toggleSidebar() {
     this.sidebar = !this.sidebar;
+    localStorage.setItem('sb', JSON.stringify(this.sidebar));
     if (this.sidebar) {
       $('body .app-container').addClass('closed-sidebar');
     } else {

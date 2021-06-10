@@ -94,6 +94,9 @@ export class DlSearchComponent implements OnInit {
         this.pageid = pageid;
         this.dlUsers = res.data.dlusers;
         this.ogDlUsers = res.data.dlusers;
+        setTimeout(() => {
+          document.getElementById('loadContent').scrollIntoView();
+        }, 300);
       } else {
         Swal.fire({
           icon: 'error',

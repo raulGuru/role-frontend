@@ -97,8 +97,9 @@
                                     </table>
                                 </div>
                             </ng-container>
-                            <div class="col-sm-12" *ngIf="dlUsers.length === 0">
-                                No data to show!!
+                            <div class="col-sm-12 nodata_pre" *ngIf="dlUsers.length === 0">
+                                <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
+                                <span>No Data Found</span>
                             </div>
                         </div>
                         <div class="row p-4" *ngIf="dlUsers.length > 0 && forceServerSearch">
