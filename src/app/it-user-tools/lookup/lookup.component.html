@@ -82,10 +82,10 @@
                                     Results: </div>
                             </div>
                             <div class="card-body">
-                                <div class="dataTables_wrapper dt-bootstrap4 no-footer" id="loopuptable">
+                                <div id="loopuptable" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
                                          
-                                        <div class="dataTables_filter col-12 text-right">
+                                        <div class="dataTables_filter col-12 text-left">
                                            <div class="d-inline-block"> <label><div>Search:</div><select class="form-control form-control-sm custom-select"
                                                     (change)="searchSelect($event.target.value)">
                                                     <option value="">Select Column</option>
@@ -116,7 +116,7 @@
                                         </div>
                                     </div>
                                     <div class="row" *ngIf="users.length > 0">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12 table-responsive">
                                             <table style="width: 100%;"
                                                 class="table table-hover table-striped table-bordered dataTable no-footer dtr-inline">
                                                 <thead>
@@ -143,22 +143,24 @@
                                                         <td>{{ user.uid }}</td>
                                                         <td>{{ user.cn }}</td>
                                                         <td *ngIf="user.type === 'Contractor'">
-                                                            <a [routerLink]="['/ituser/addcontractor', user.uid]"
+                                                           <span class="custom_badge utype1"> <a [routerLink]="['/ituser/addcontractor', user.uid]"
                                                                 placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
                                                                 user.type }}<i class="lnr-pencil"></i></a>
+                                                            </span>
                                                         </td>
                                                         <td *ngIf="user.type === 'Vendor'">
-                                                            <a [routerLink]="['/ituser/addvendor', user.uid]"
+                                                            <span class="custom_badge utype2">  <a [routerLink]="['/ituser/addvendor', user.uid]"
                                                                 placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
-                                                                user.type }}<i class="lnr-pencil"></i></a>
+                                                                user.type }}<i class="lnr-pencil"></i></a></span>
                                                         </td>
                                                         <td *ngIf="user.type === 'Sara'">
-                                                            <a [routerLink]="['/ituser/addvendorsara', user.uid]"
+                                                            <span class="custom_badge utype3">  <a [routerLink]="['/ituser/addvendorsara', user.uid]"
                                                                 placement="right" ngbTooltip="Click to Edit" class="nav-link">{{
                                                                 user.type }}<i class="lnr-pencil"></i></a>
+                                                                </span>
                                                         </td>
-                                                        <td *ngIf="user.type === 'Associate'">{{ user.type }}</td>
-                                                        <td *ngIf="user.type === 'Other'">{{ user.type }}</td>
+                                                        <td *ngIf="user.type === 'Associate'"><span class="custom_badge utype4">{{ user.type }}</span></td>
+                                                        <td *ngIf="user.type === 'Other'"><span class="custom_badge utype5">{{ user.type }}</span></td>
                                                         <td><span class="badge ml-2"
                                                                 [ngClass]="{'badge-danger': user.status === 'Disable', 'badge-success': user.status ==='Active' }">{{
                                                                 user.status }}</span></td>
@@ -178,9 +180,11 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="row" *ngIf="users.length === 0">
-                                        No data to show!!
-                                    </div>
+                                    <div class="row nodata_pre" *ngIf="users.length === 0">
+                                        <em><img src="assets/images/nodata-pre.png" alt="nodata preview"></em>
+                                    <span>No Data Found</span>
+                                </div>
+
                                     <div class="row" *ngIf="users.length > 0 && forceServerSearch">
                                         <div class="col-sm-12 col-md-5">
                                         </div>

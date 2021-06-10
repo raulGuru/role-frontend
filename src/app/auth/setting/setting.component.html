@@ -8,46 +8,34 @@
                 <div class="app-page-title" *ngIf="!loader && (profile | json) != '{}'">
                     <div class="card mb-3 mt-4">
                         <div class="card p-4">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label>Name : &nbsp;</label>
-                                    <label> {{ profile.cn }}</label>
+                            <div class="row mt-2">
+                                <div class="col-md-3">
+                                    <h5>Name : &nbsp;</h5>
+                                    <h6> {{ profile.cn }}</h6>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label>Title : &nbsp;</label>
-                                    <label> {{ profile.title }} / {{ profile.o }}</label>
+                                <div class="col-md-3">
+                                    <h5>Title : &nbsp;</h5>
+                                    <h6> {{ profile.title }} / {{ profile.o }}</h6>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label>Enterprise ID : &nbsp;</label>
-                                    <label> {{ profile.uid }}</label>
+                                <div class="col-md-3">
+                                    <h5>Enterprise ID : &nbsp;</h5>
+                                    <h6> {{ profile.uid }}</h6>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label>SHC Email : &nbsp;</label>
-                                    <label> {{ profile.mail }}</label>
+                                <div class="col-md-3">
+                                    <h5>SHC Email : &nbsp;</h5>
+                                    <h6> {{ profile.mail }}</h6>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label>Department : &nbsp;</label>
-                                    <label> {{ profile.departmentnumber }}</label>
+                                <div class="col-md-3 mt-4">
+                                    <h5>Department : &nbsp;</h5>
+                                    <h6> {{ profile.departmentnumber }}</h6>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label>Manager : &nbsp;</label>
-                                    <label> {{ profile.manager }}</label>
+                                <div class="col-md-3 mt-4">
+                                    <h5>Manager : &nbsp;</h5>
+                                    <h6> {{ profile.manager }}</h6>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label>Unit : &nbsp;</label>
-                                    <label> {{ profile.unit }}</label>
+                                <div class="col-md-3 mt-4">
+                                    <h5>Unit : &nbsp;</h5>
+                                    <h6> {{ profile.unit }}</h6>
                                 </div>
                             </div>
                         </div>

@@ -14,4 +14,22 @@ ng-select.ng-invalid.ng-touched .ng-select-container {
 .card_height{min-height:70vh;}
 ul.list_drop{margin:0;padding:5px 16px;list-style:none;background:#ededed;border-bottom-left-radius:5px;border-bottom-right-radius:5px;height:250px;overflow-x:auto;}
 ul.list_drop li{margin:0;padding:5px;list-style:none;cursor:pointer;}
-.table-responsive{max-width:1180px;}
+.table-responsive{max-width:100%;}
+.app-main__outer{width:100%;}
+
+.nodata_pre{background:#f7f7f7;text-align:center;padding:30px 0;display:block;}
+.nodata_pre>span{font-size:34px;font-weight:400;color:#000;display:inline-block;width:100%;}
+.nodata_pre>em{display:inline-block;width:100%;max-width:600px;}
+.nodata_pre>em>img{width:100%;}
+.bold_uni{font-weight:bold;}
+
+.custom_badge{display:inline-block;border-radius:4px;font-size:11px;text-transform:uppercase;padding:2px 5px;text-align:center;min-width:100px;color:#000 !important;}
+.custom_badge>a>i{margin-left:3px;}
+.custom_badge>a{color:#000 !important;padding:0;font-weight:normal;display:inline-block;}
+
+.custom_badge.utype1{background:#efded4;}
+.custom_badge.utype2{background:#eceed6;}
+.custom_badge.utype3{background:#d6eee2;}
+.custom_badge.utype4{background:#dcd6ee;}
+.custom_badge.utype5{background:#eed6e9;}
+
